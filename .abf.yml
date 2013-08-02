@@ -1,2 +1,4 @@
+removed_sources:
+  freecad-0.10.3247.tar.gz: c4f37b76256562452bde096ab8498e5758861fe9
 sources:
-  "freecad-0.10.3247.tar.gz": c4f37b76256562452bde096ab8498e5758861fe9
+  freecad-0.13.1830.tar.gz: 82d58b91a28a4cd5d138666d2ed0f36bf18c0255
