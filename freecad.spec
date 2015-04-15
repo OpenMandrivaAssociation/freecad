@@ -1,11 +1,11 @@
-Name: 	freecad
-Summary: FreeCAD is a general purpose 3D CAD modeler
-Version: 0.13.1830
-Release: 1
-License: GPL and LGPL
+Name:		freecad
+Summary:	FreeCAD is a general purpose 3D CAD modeler
+Version:	0.15.4671
+Release:	1
+License:	GPL and LGPL
 Group: 		Graphics
 Url:		http://free-cad.sourceforge.net/
-Source0:	http://dfn.dl.sourceforge.net/sourceforge/free-cad/freecad-%{version}.tar.gz
+Source0:	http://dfn.dl.sourceforge.net/sourceforge/free-cad/freecad_%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
@@ -17,6 +17,9 @@ BuildRequires: 	python-devel
 BuildRequires: 	libode-devel
 BuildRequires: 	python-matplotlib
 BuildRequires: 	eigen3
+BuildRequires: 	spnav-devel
+BuildRequires: 	pkgconfig(shiboken)
+BuildRequires: 	pkgconfig(pyside)
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
 BuildRequires: 	opencascade-devel
@@ -51,6 +54,7 @@ neither are animation and organic shapes
 
 %prep
 %setup -q 
+rm -rf src/3rdParty/{boost,Pivy*}
 
 %build
 %define Werror_cflags %nil
