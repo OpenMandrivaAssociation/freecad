@@ -68,7 +68,7 @@ rm -rf src/3rdParty/{boost,Pivy*}
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
-	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name} \
+	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
             -DRESOURCEDIR=%{_libdir}/freecad
 %make
 
