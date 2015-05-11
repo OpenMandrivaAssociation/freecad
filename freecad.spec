@@ -11,6 +11,7 @@ Source0:	http://dfn.dl.sourceforge.net/sourceforge/free-cad/freecad_%{version}.t
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
+Patch1:		freecad-0.14-Xlib_h.patch
 BuildRequires: 	gstreamer0.10-devel
 BuildRequires: 	qt4-devel
 BuildRequires: 	libxerces-c-devel
@@ -59,6 +60,7 @@ neither are animation and organic shapes
 %prep
 %setup -q 
 rm -rf src/3rdParty/{boost,Pivy*}
+%apply_patches
 
 %build
 %define Werror_cflags %nil
