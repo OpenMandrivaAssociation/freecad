@@ -20,6 +20,7 @@ BuildRequires: 	eigen3
 BuildRequires: 	spnav-devel
 BuildRequires: 	pkgconfig(shiboken)
 BuildRequires: 	pkgconfig(pyside)
+BuildRequires:  pyside-tools
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
 BuildRequires: 	opencascade-devel
