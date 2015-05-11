@@ -15,6 +15,7 @@ Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
 Patch1:		freecad-0.14-Xlib_h.patch
+BuildRequires:	doxygen
 BuildRequires: 	gstreamer0.10-devel
 BuildRequires: 	qt4-devel
 BuildRequires: 	libxerces-c-devel
