@@ -1,4 +1,7 @@
 %define _disable_ld_no_undefined 1
+%define __noautoprovfiles '%{_libdir}/%{name}/lib/(.*)\\.so$'
+%define __noautoreqfiles '%{_libdir}/%{name}/lib/(.*)\\.so(.*)$'
+%define __noautoreq libFreeCAD.*so
 
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler

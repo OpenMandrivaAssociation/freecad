@@ -1,1 +1,2 @@
 addFilter("E: invalid-soname.*")
+addFilter("E: incoherent-version-in-name.*")
