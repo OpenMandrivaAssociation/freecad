@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Version:	0.15.4671
