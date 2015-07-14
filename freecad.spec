@@ -1,12 +1,12 @@
 %define _disable_ld_no_undefined 1
-%define __noautoprovfiles '%{_libdir}/%{name}/lib/(.*)\\.so$'
-%define __noautoreqfiles '%{_libdir}/%{name}/lib/(.*)\\.so(.*)$'
-%define __noautoreq libFreeCAD.*so
+%global plugins Complete Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Spreadsheet SpreadsheetGui
+
+%define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Version:	0.15.4671
-Release:	1
+Release:	2
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		http://free-cad.sourceforge.net/
@@ -35,6 +35,7 @@ BuildRequires: 	opencascade-devel
 BuildRequires: 	coin-devel
 BuildRequires: 	soqt-devel
 BuildRequires: 	boost-devel >= 1.34.0
+Requires:	python-pivy
 
 %description
 FreeCAD will be a general purpose 3D CAD modeler.
