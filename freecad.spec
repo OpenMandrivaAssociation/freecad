@@ -5,19 +5,23 @@
 
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.15.4671
-Release:	2
+Version:	0.16
+Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		http://free-cad.sourceforge.net/
-Source0:	http://dfn.dl.sourceforge.net/sourceforge/free-cad/freecad_%{version}.tar.gz
+Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
-Patch1:		freecad-0.14-Xlib_h.patch
+Patch0:		disable_memory_check.patch
+Patch1:		do_not_install_binary_examples.patch
+Patch2:		fix_armel_FTBFS.patch
+Patch3:		remove_doc-files.patch
+Patch4:		use_share.patch
 BuildRequires:	doxygen
-BuildRequires: 	gstreamer0.10-devel
 BuildRequires: 	qt4-devel
+BuildRequires: 	cmake(Shiboken)
 BuildRequires: 	libxerces-c-devel
 BuildRequires: 	opencv-devel
 BuildRequires: 	python-devel
@@ -63,12 +67,15 @@ neither are animation and organic shapes
 (e.g. Maya, 3D StudioMAX and Cinema 4D).
 
 %prep
-%setup -q 
+%setup -qn FreeCAD-%{version}
 rm -rf src/3rdParty/{boost,Pivy*}
 %apply_patches
+sed -i 's!-python2.7!!g' CMakeLists.txt
 
 %build
 %define Werror_cflags %nil
+export CC=gcc
+export CXX=g++
 %cmake_qt4 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
@@ -108,7 +115,7 @@ ln -sf %{name}.1.gz FreeCADCmd.1.gz
 popd
 
 %files
-%doc ChangeLog.txt copying.lib data/License.txt build/doc/*
+%doc ChangeLog.txt copying.lib data/License.txt
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
