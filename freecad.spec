@@ -2,11 +2,11 @@
 %global plugins Complete Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Spreadsheet SpreadsheetGui
 
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
-
+%define _disable_lto 1
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Version:	0.16
-Release:	3
+Release:	4
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		http://free-cad.sourceforge.net/
@@ -18,7 +18,8 @@ Patch0:		disable_memory_check.patch
 Patch1:		do_not_install_binary_examples.patch
 Patch2:		fix_armel_FTBFS.patch
 Patch3:		remove_doc-files.patch
-Patch4:		use_share.patch
+# cb - breaks the gui
+#Patch4:		use_share.patch
 BuildRequires:	doxygen
 BuildRequires: 	qt4-devel
 BuildRequires: 	cmake(Shiboken)
@@ -29,7 +30,7 @@ BuildRequires: 	libode-devel
 # disabled for armv7 in 3.0 till
 # https://issues.openmandriva.org/show_bug.cgi?id=1825
 %ifnarch %arm
-BuildRequires: 	python-matplotlib
+BuildRequires: 	python2-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires: 	spnav-devel
@@ -44,6 +45,7 @@ BuildRequires: 	coin-devel
 BuildRequires: 	soqt-devel
 BuildRequires: 	boost-devel >= 1.34.0
 Requires:	python-pivy
+Requires:	python2-pyside
 
 %description
 FreeCAD will be a general purpose 3D CAD modeler.
@@ -85,7 +87,8 @@ export CXX=g++
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
-            -DRESOURCEDIR=%{_libdir}/freecad
+	    -DPYTHON_SUFFIX="-python2.7" \
+            -DRESOURCEDIR=%{_datadir}/freecad
 %make
 
 %install
