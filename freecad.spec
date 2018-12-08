@@ -5,8 +5,8 @@
 %define _disable_lto 1
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.16
-Release:	5
+Version:	0.17
+Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		http://free-cad.sourceforge.net/
@@ -14,15 +14,16 @@ Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
-Patch0:		disable_memory_check.patch
-Patch1:		do_not_install_binary_examples.patch
-Patch2:		fix_armel_FTBFS.patch
-Patch3:		remove_doc-files.patch
+#Patch0:		disable_memory_check.patch
+#Patch1:		do_not_install_binary_examples.patch
+#Patch2:		fix_armel_FTBFS.patch
+#Patch3:		remove_doc-files.patch
 # cb - breaks the gui
 #Patch4:		use_share.patch
+Patch0:		freecad-smesh_header.patch
+#Patch1:		freecad-0.17-external_smesh.patch
 BuildRequires:	doxygen
-BuildRequires: 	qt4-devel
-BuildRequires: 	cmake(Shiboken)
+BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
 BuildRequires: 	opencv-devel
 BuildRequires: 	python-devel
@@ -34,18 +35,19 @@ BuildRequires: 	python2-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires: 	spnav-devel
-BuildRequires: 	pkgconfig(shiboken)
-BuildRequires: 	pkgconfig(pyside)
-BuildRequires:	pkgconfig(QtWebKit)
-BuildRequires:  pyside-tools
+BuildRequires: 	pkgconfig(shiboken2)
+BuildRequires: 	pkgconfig(pyside2)
+BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:  pyside2-tools
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
 BuildRequires: 	opencascade-devel
 BuildRequires: 	coin-devel
-BuildRequires: 	soqt-devel
 BuildRequires: 	boost-devel >= 1.34.0
+BuildRequires:	vtk-devel
+
 Requires:	python-pivy
-Requires:	python2-pyside
+Requires:	python2-pyside2
 
 %description
 FreeCAD will be a general purpose 3D CAD modeler.
@@ -82,7 +84,8 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 %define Werror_cflags %nil
 export CC=gcc
 export CXX=g++
-%cmake_qt4 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
+%cmake_qt5 -DBUILD_QT5=ON -DBUILD_FEM=OFF \
+	 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
@@ -129,6 +132,7 @@ popd
 %{_libdir}/%{name}/bin/
 %{_libdir}/%{name}/lib/
 %{_libdir}/%{name}/Mod/
+%{_libdir}/%{name}/Ext/
 %{_datadir}/%{name}/
 %{_mandir}/man1/*.1*
 
