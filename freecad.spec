@@ -45,6 +45,7 @@ BuildRequires: 	opencascade-devel
 BuildRequires: 	coin-devel
 BuildRequires: 	boost-devel >= 1.34.0
 BuildRequires:	vtk-devel
+BuildRequires:	med-devel
 
 Requires:	python-pivy
 Requires:	python2-pyside2
@@ -84,7 +85,7 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 %define Werror_cflags %nil
 export CC=gcc
 export CXX=g++
-%cmake_qt5 -DBUILD_QT5=ON -DBUILD_FEM=OFF \
+%cmake_qt5 -DBUILD_QT5=ON -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
 	 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
@@ -125,7 +126,7 @@ ln -sf %{name}.1.gz FreeCADCmd.1.gz
 popd
 
 %files
-%doc ChangeLog.txt copying.lib data/License.txt
+%doc ChangeLog.txt data/License.txt
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
