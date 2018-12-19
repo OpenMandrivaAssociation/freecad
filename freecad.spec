@@ -53,6 +53,7 @@ BuildRequires:	tcl-vtk
 BuildRequires:	tcl-vtk-qt
 BuildRequires:	vtk-devel
 BuildRequires:	med-devel
+BuildRequires:	%{_lib}medlibC1
 BuildRequires:	swig
 
 Requires:	python-pivy
