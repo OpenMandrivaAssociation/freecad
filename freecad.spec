@@ -38,6 +38,8 @@ BuildRequires: 	spnav-devel
 BuildRequires: 	pkgconfig(shiboken2)
 BuildRequires: 	pkgconfig(pyside2)
 BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:	pkgconfig(Qt5WebKitWidgets)
+BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5UiTools)
 BuildRequires:  pyside2-tools
 BuildRequires: 	cmake
@@ -51,6 +53,7 @@ BuildRequires:	tcl-vtk
 BuildRequires:	tcl-vtk-qt
 BuildRequires:	vtk-devel
 BuildRequires:	med-devel
+BuildRequires:	swig
 
 Requires:	python-pivy
 Requires:	python2-pyside2
