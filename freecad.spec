@@ -38,6 +38,7 @@ BuildRequires: 	spnav-devel
 BuildRequires: 	pkgconfig(shiboken2)
 BuildRequires: 	pkgconfig(pyside2)
 BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:	pkgconfig(Qt5UiTools)
 BuildRequires:  pyside2-tools
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
