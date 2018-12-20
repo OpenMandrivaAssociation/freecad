@@ -103,7 +103,7 @@ export CXX=g++
 	    -DPYTHON_SUFFIX="-python2.7" \
             -DPYTHON_CONFIG_SUFFIX="-python2.7" \
             -DRESOURCEDIR=%{_datadir}/freecad
-make
+%make
 
 %install
 %makeinstall_std -C build
