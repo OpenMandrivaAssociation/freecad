@@ -30,6 +30,10 @@ BuildRequires: 	python2-matplotlib
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
 BuildRequires: 	spnav-devel
+BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires: 	pkgconfig(shiboken2)
 BuildRequires: 	pkgconfig(pyside2)
 BuildRequires:	pkgconfig(Qt5WebKit)
