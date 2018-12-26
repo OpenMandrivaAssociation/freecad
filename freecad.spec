@@ -28,6 +28,7 @@ BuildRequires: 	libode-devel
 BuildRequires: 	python2-matplotlib
 %endif
 BuildRequires: 	eigen3
+BuildRequires:	hdf5-devel
 BuildRequires: 	spnav-devel
 BuildRequires: 	pkgconfig(shiboken2)
 BuildRequires: 	pkgconfig(pyside2)
