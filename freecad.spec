@@ -14,14 +14,8 @@ Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
-#Patch0:		disable_memory_check.patch
-#Patch1:		do_not_install_binary_examples.patch
-#Patch2:		fix_armel_FTBFS.patch
-#Patch3:		remove_doc-files.patch
-# cb - breaks the gui
-#Patch4:		use_share.patch
 Patch0:		freecad-smesh_header.patch
-#Patch1:		freecad-0.17-external_smesh.patch
+Patch1:		freecad-0.17-signals2.patch
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
