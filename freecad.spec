@@ -16,6 +16,7 @@ Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
 Patch0:		freecad-smesh_header.patch
 Patch1:		freecad-0.17-signals2.patch
+Patch2:		freecad-0.17-updates.patch
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
@@ -102,8 +103,7 @@ export CXX=g++
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
 	    -DPYTHON_SUFFIX="-python2.7" \
             -DPYTHON_CONFIG_SUFFIX="-python2.7" \
-            -DRESOURCEDIR=%{_datadir}/freecad \
-	    -DUSE_BOOST_PYTHON=OFF
+            -DRESOURCEDIR=%{_datadir}/freecad
 %make
 
 %install
