@@ -32,6 +32,7 @@ BuildRequires:	hdf5-devel
 BuildRequires: 	spnav-devel
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires: 	pkgconfig(shiboken2)
