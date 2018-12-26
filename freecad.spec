@@ -35,6 +35,7 @@ BuildRequires:	pkgconfig(Qt5WebKit)
 BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5UiTools)
+BuildRequires:	pkgconfig(zlib)
 BuildRequires:  pyside2-tools
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
