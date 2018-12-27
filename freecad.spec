@@ -21,12 +21,12 @@ BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
 BuildRequires: 	opencv-devel
-BuildRequires: 	python2-devel
+BuildRequires: 	python3-devel
 BuildRequires: 	libode-devel
 # disabled for armv7 in 3.0 till
 # https://issues.openmandriva.org/show_bug.cgi?id=1825
 %ifnarch %arm
-BuildRequires: 	python2-matplotlib
+BuildRequires: 	python-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
@@ -58,7 +58,7 @@ BuildRequires:	med-devel
 BuildRequires:	swig
 
 Requires:	python-pivy
-Requires:	python2-pyside2
+Requires:	python-pyside2
 
 %description
 FreeCAD will be a general purpose 3D CAD modeler.
@@ -101,8 +101,6 @@ export CXX=g++
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
-	    -DPYTHON_SUFFIX="-python2.7" \
-            -DPYTHON_CONFIG_SUFFIX="-python2.7" \
             -DRESOURCEDIR=%{_datadir}/freecad
 %make
 
