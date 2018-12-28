@@ -102,7 +102,8 @@ export CXX=g++
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
 	    -DPYTHON_SUFFIX="-python2.7" \
             -DPYTHON_CONFIG_SUFFIX="-python2.7" \
-            -DRESOURCEDIR=%{_datadir}/freecad
+            -DRESOURCEDIR=%{_datadir}/freecad \
+            -DUSE_BOOST_PYTHON=OFF    
 %make
 
 %install
