@@ -26,8 +26,7 @@ BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
 BuildRequires: 	opencv-devel
-BuildRequires: 	python-devel
-BuildRequires: 	libode-devel
+BuildRequires: 	python2-devel
 # disabled for armv7 in 3.0 till
 # https://issues.openmandriva.org/show_bug.cgi?id=1825
 %ifnarch %arm
