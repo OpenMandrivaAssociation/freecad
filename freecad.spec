@@ -9,7 +9,7 @@ Version:	0.17
 Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
-Url:		http://free-cad.sourceforge.net/
+Url:		https://freecadweb.org
 Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
