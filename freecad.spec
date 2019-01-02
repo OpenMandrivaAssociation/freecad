@@ -58,6 +58,7 @@ BuildRequires:	tcl-vtk-qt
 BuildRequires:	vtk-devel
 BuildRequires:	med-devel
 BuildRequires:	swig
+BuildRequires:	pybind11-devel
 
 Requires:	python-pivy
 Requires:	python2-pyside2
