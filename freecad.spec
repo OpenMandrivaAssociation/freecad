@@ -31,6 +31,7 @@ BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
 BuildRequires: 	spnav-devel
 BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(egl)
