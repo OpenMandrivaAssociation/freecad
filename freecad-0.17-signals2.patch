@@ -2180,3 +2180,86 @@ index 10896f348bb..2f1d14f89b5 100644
      Connection connectGuiRepaint;
  
      void unsetEdit(int ModNum);
+diff -ur FreeCAD-0.17/src/Mod/Sketcher/App/SketchObject.h f/src/Mod/Sketcher/App/SketchObject.h
+--- FreeCAD-0.17/src/Mod/Sketcher/App/SketchObject.h	2019-01-11 23:17:15.861473748 +0000
++++ f/src/Mod/Sketcher/App/SketchObject.h	2019-01-11 23:54:51.341269655 +0000
+@@ -23,7 +23,7 @@
+ #ifndef SKETCHER_SKETCHOBJECT_H
+ #define SKETCHER_SKETCHOBJECT_H
+ 
+-#include <boost/signals/connection.hpp>
++#include <boost/signals2/connection.hpp>
+ #include <App/PropertyStandard.h>
+ #include <App/PropertyFile.h>
+ #include <App/FeaturePython.h>
+diff -ur FreeCAD-0.17/src/Mod/Spreadsheet/Gui/SheetModel.h f/src/Mod/Spreadsheet/Gui/SheetModel.h
+--- FreeCAD-0.17/src/Mod/Spreadsheet/Gui/SheetModel.h	2019-01-11 23:17:15.861473748 +0000
++++ f/src/Mod/Spreadsheet/Gui/SheetModel.h	2019-01-11 23:54:34.483832441 +0000
+@@ -24,7 +24,7 @@
+ #define SHEETMODEL_H
+ 
+ #include <QAbstractTableModel>
+-#include <boost/signals/connection.hpp>
++#include <boost/signals2/connection.hpp>
+ #include <Mod/Spreadsheet/App/Utils.h>
+ #include <App/Range.h>
+ 
+diff -ur FreeCAD-0.17/src/Mod/Spreadsheet/Gui/SheetTableView.h f/src/Mod/Spreadsheet/Gui/SheetTableView.h
+--- FreeCAD-0.17/src/Mod/Spreadsheet/Gui/SheetTableView.h	2019-01-11 23:17:15.861473748 +0000
++++ f/src/Mod/Spreadsheet/Gui/SheetTableView.h	2019-01-11 23:54:22.867220616 +0000
+@@ -26,7 +26,7 @@
+ #include <QTableView>
+ #include <QHeaderView>
+ #include <QKeyEvent>
+-#include <boost/signals/connection.hpp>
++#include <boost/signals2/connection.hpp>
+ #include <Mod/Spreadsheet/App/Sheet.h>
+ #include <Mod/Spreadsheet/App/Utils.h>
+ 
+--- FreeCAD-0.17/src/App/DocumentObject.cpp	2018-04-06 09:48:37.000000000 +0100
++++ f/src/App/DocumentObject.cpp	2019-01-12 00:10:46.746943085 +0000
+@@ -38,7 +38,7 @@
+ #include "DocumentObjectExtension.h"
+ #include "GeoFeatureGroupExtension.h"
+ #include <App/DocumentObjectPy.h>
+-#include <boost/signals/connection.hpp>
++#include <boost/signals2/connection.hpp>
+ #include <boost/bind.hpp>
+ 
+ using namespace App;
+diff -ur FreeCAD-0.17/src/Mod/Part/Gui/DlgFilletEdges.cpp f/src/Mod/Part/Gui/DlgFilletEdges.cpp
+--- FreeCAD-0.17/src/Mod/Part/Gui/DlgFilletEdges.cpp	2019-01-12 00:11:25.799065773 +0000
++++ f/src/Mod/Part/Gui/DlgFilletEdges.cpp	2019-01-12 09:34:07.072749197 +0000
+@@ -43,7 +43,7 @@
+ # include <QItemSelection>
+ # include <QItemSelectionModel>
+ # include <QTimer>
+-# include <boost/signal.hpp>
++# include <boost/signals2.hpp>
+ # include <boost/bind.hpp>
+ # include <Inventor/actions/SoSearchAction.h>
+ # include <Inventor/details/SoLineDetail.h>
+diff -ur FreeCAD-0.17/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp f/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp
+--- FreeCAD-0.17/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp	2018-04-06 09:48:37.000000000 +0100
++++ f/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp	2019-01-12 09:34:44.997607601 +0000
+@@ -25,7 +25,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
+-#include <boost/signal.hpp>
++#include <boost/signals2.hpp>
+ #include <boost/bind.hpp>
+ 
+ #endif
+diff -ur FreeCAD-0.17/src/Mod/TechDraw/Gui/ViewProviderPage.cpp f/src/Mod/TechDraw/Gui/ViewProviderPage.cpp
+--- FreeCAD-0.17/src/Mod/TechDraw/Gui/ViewProviderPage.cpp	2018-04-06 09:48:37.000000000 +0100
++++ f/src/Mod/TechDraw/Gui/ViewProviderPage.cpp	2019-01-12 09:34:23.007429238 +0000
+@@ -29,7 +29,7 @@
+ # include <QMenu>
+ # include <QTimer>
+ #include <QPointer>
+-#include <boost/signal.hpp>
++#include <boost/signals2.hpp>
+ #include <boost/bind.hpp>
+ 
+ #endif

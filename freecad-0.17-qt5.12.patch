@@ -1,0 +1,257 @@
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp	2019-01-12 11:03:49.173217045 +0000
+@@ -39,6 +39,8 @@
+ # include <gp_Lin.hxx>
+ #endif
+ 
++#include <QAction>
++
+ #include "ui_TaskFemConstraintBearing.h"
+ #include "TaskFemConstraintBearing.h"
+ #include <App/Application.h>
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp	2019-01-12 11:28:59.776537030 +0000
+@@ -40,6 +40,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintContact.h"
+ #include "TaskFemConstraintContact.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp	2019-01-12 11:23:59.763222767 +0000
+@@ -40,6 +40,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintDisplacement.h"
+ #include "TaskFemConstraintDisplacement.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintFixed.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintFixed.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintFixed.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintFixed.cpp	2019-01-12 11:14:07.343331125 +0000
+@@ -37,6 +37,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintFixed.h"
+ #include "TaskFemConstraintFixed.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp	2019-01-12 11:20:29.970350310 +0000
+@@ -41,6 +41,7 @@
+ # include <Geom_Line.hxx>
+ # include <gp_Lin.hxx>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskFemConstraintFluidBoundary.h"
+ #include "TaskFemConstraintFluidBoundary.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp	2019-01-12 11:18:31.526317816 +0000
+@@ -38,6 +38,7 @@
+ # include <Geom_Line.hxx>
+ # include <gp_Lin.hxx>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskFemConstraintForce.h"
+ #include "TaskFemConstraintForce.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp	2019-01-12 11:29:14.969008148 +0000
+@@ -40,6 +40,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintHeatflux.h"
+ #include "TaskFemConstraintHeatflux.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintPlaneRotation.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintPlaneRotation.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintPlaneRotation.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintPlaneRotation.cpp	2019-01-12 11:28:48.089944522 +0000
+@@ -40,6 +40,7 @@
+ # include <Geom_Line.hxx>
+ # include <gp_Lin.hxx>
+ #endif
++#include <QAction>
+ 
+ #include "TaskFemConstraintPlaneRotation.h"
+ #include "ui_TaskFemConstraintPlaneRotation.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp	2019-01-12 11:22:42.565947084 +0000
+@@ -38,6 +38,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintPressure.h"
+ #include "TaskFemConstraintPressure.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp	2019-01-12 11:23:40.508928083 +0000
+@@ -40,6 +40,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintTemperature.h"
+ #include "TaskFemConstraintTemperature.h"
+diff -ur f/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp
+--- f/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp	2019-01-12 11:29:56.030583338 +0000
+@@ -41,6 +41,7 @@
+ # include <gp_Pln.hxx>
+ # include <sstream>
+ #endif
++#include <QAction>
+ 
+ #include "Mod/Fem/App/FemConstraintTransform.h"
+ #include "TaskFemConstraintTransform.h"
+diff -ur f/src/Mod/MeshPart/Gui/Tessellation.cpp FreeCAD-0.17/src/Mod/MeshPart/Gui/Tessellation.cpp
+--- f/src/Mod/MeshPart/Gui/Tessellation.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/MeshPart/Gui/Tessellation.cpp	2019-01-12 11:10:44.981460599 +0000
+@@ -26,6 +26,7 @@
+ # include <TopExp_Explorer.hxx>
+ # include <QMessageBox>
+ #endif
++#include <QButtonGroup>
+ 
+ #include "Tessellation.h"
+ #include "ui_Tessellation.h"
+diff -ur f/src/Mod/Part/Gui/DlgSettingsGeneral.cpp FreeCAD-0.17/src/Mod/Part/Gui/DlgSettingsGeneral.cpp
+--- f/src/Mod/Part/Gui/DlgSettingsGeneral.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/Part/Gui/DlgSettingsGeneral.cpp	2019-01-12 10:56:10.434186853 +0000
+@@ -25,6 +25,8 @@
+ 
+ #include <Interface_Static.hxx>
+ 
++#include <QButtonGroup>
++
+ #include <Base/Parameter.h>
+ #include <App/Application.h>
+ 
+diff -ur f/src/Mod/PartDesign/Gui/TaskBooleanParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskBooleanParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskBooleanParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskBooleanParameters.cpp	2019-01-12 11:23:24.620512286 +0000
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ # include <QMessageBox>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskBooleanParameters.h"
+ #include "TaskBooleanParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskChamferParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskChamferParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskChamferParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskChamferParameters.cpp	2019-01-12 11:13:39.079312879 +0000
+@@ -25,6 +25,7 @@
+ 
+ #ifndef _PreComp_
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskChamferParameters.h"
+ #include "TaskChamferParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskDraftParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskDraftParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskDraftParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskDraftParameters.cpp	2019-01-12 11:13:09.160356620 +0000
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ # include <QMessageBox>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskDraftParameters.h"
+ #include "TaskDraftParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskFilletParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskFilletParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskFilletParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskFilletParameters.cpp	2019-01-12 11:13:22.240899711 +0000
+@@ -25,6 +25,7 @@
+ 
+ #ifndef _PreComp_
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskFilletParameters.h"
+ #include "TaskFilletParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskLinearPatternParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskLinearPatternParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskLinearPatternParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskLinearPatternParameters.cpp	2019-01-12 11:19:34.835192642 +0000
+@@ -27,6 +27,7 @@
+ # include <QMessageBox>
+ # include <QTimer>
+ #endif
++#include <QAction>
+ 
+ #include <Base/Console.h>
+ #include <Base/UnitsApi.h>
+diff -ur f/src/Mod/PartDesign/Gui/TaskMirroredParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskMirroredParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskMirroredParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskMirroredParameters.cpp	2019-01-12 11:19:20.076687090 +0000
+@@ -26,7 +26,7 @@
+ #ifndef _PreComp_
+ # include <QMessageBox>
+ #endif
+-
++#include <QAction>
+ #include <Base/Console.h>
+ #include <App/Application.h>
+ #include <App/Document.h>
+diff -ur f/src/Mod/PartDesign/Gui/TaskMultiTransformParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskMultiTransformParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskMultiTransformParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskMultiTransformParameters.cpp	2019-01-12 11:21:17.040783052 +0000
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ # include <QMessageBox>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskMultiTransformParameters.h"
+ #include "TaskMultiTransformParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskPolarPatternParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskPolarPatternParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskPolarPatternParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskPolarPatternParameters.cpp	2019-01-12 11:20:15.506832894 +0000
+@@ -27,6 +27,7 @@
+ # include <QMessageBox>
+ # include <QTimer>
+ #endif
++#include <QAction>
+ 
+ #include <Base/UnitsApi.h>
+ #include <App/Application.h>
+diff -ur f/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp	2019-01-12 11:22:21.726636814 +0000
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ # include <QMessageBox>
+ #endif
++#include <QAction>
+ 
+ #include "ui_TaskScaledParameters.h"
+ #include "TaskScaledParameters.h"
+diff -ur f/src/Mod/PartDesign/Gui/TaskThicknessParameters.cpp FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskThicknessParameters.cpp
+--- f/src/Mod/PartDesign/Gui/TaskThicknessParameters.cpp	2018-04-06 09:48:37.000000000 +0100
++++ FreeCAD-0.17/src/Mod/PartDesign/Gui/TaskThicknessParameters.cpp	2019-01-12 11:18:53.941564109 +0000
+@@ -25,7 +25,7 @@
+ 
+ #ifndef _PreComp_
+ #endif
+-
++#include <QAction>
+ #include "ui_TaskThicknessParameters.h"
+ #include "TaskThicknessParameters.h"
+ #include <Base/UnitsApi.h>

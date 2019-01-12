@@ -17,6 +17,7 @@ Source3:	%{name}.rpmlintrc
 Patch0:		freecad-smesh_header.patch
 Patch1:		freecad-0.17-signals2.patch
 Patch2:		freecad-0.17-updates.patch
+Patch3:		freecad-0.17-qt5.12.patch
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
@@ -96,8 +97,8 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 
 %build
 %define Werror_cflags %nil
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 %cmake_qt5 -DBUILD_QT5=ON -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
 	 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
@@ -108,7 +109,7 @@ export CXX=g++
             -DPYTHON_CONFIG_SUFFIX="-python2.7" \
             -DRESOURCEDIR=%{_datadir}/freecad \
             -DUSE_BOOST_PYTHON=OFF    
-make VERBOSE=1
+%make VERBOSE=1
 
 %install
 %makeinstall_std -C build
