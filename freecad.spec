@@ -74,21 +74,6 @@ although 2D (e.g. AutoCAD LT) is not the focus,
 neither are animation and organic shapes
 (e.g. Maya, 3D StudioMAX and Cinema 4D).
 
-%package devel
-Group: Development/C++
-Summary: Devel package for %{name}
-Requires: %{name} = %{version}
-
-%description devel
-FreeCAD will be a general purpose 3D CAD modeler.
-The development will be completely Open Source.
-As with many modern 3D CAD modelers it will
-have a 2D component in order to extract design detail
-from the 3D model to create 2D production drawings,
-although 2D (e.g. AutoCAD LT) is not the focus,
-neither are animation and organic shapes
-(e.g. Maya, 3D StudioMAX and Cinema 4D).
-
 %prep
 %setup -qn FreeCAD-%{version}
 rm -rf src/3rdParty/{boost,Pivy*}
@@ -143,6 +128,8 @@ popd
 
 %files
 %doc ChangeLog.txt data/License.txt
+%{_docdir}/%{name}/freecad.q*
+%{_docdir}/%{name}/ThirdPartyLibraries.html
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
@@ -152,6 +139,3 @@ popd
 %{_libdir}/%{name}/Ext/
 %{_datadir}/%{name}/
 %{_mandir}/man1/*.1*
-
-%files devel
-#{_libdir}/%{name}/include/*
