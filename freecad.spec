@@ -5,7 +5,7 @@
 %define _disable_lto 1
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.17
+Version:	0.18.2
 Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
@@ -14,10 +14,6 @@ Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
-Patch0:		freecad-smesh_header.patch
-Patch1:		freecad-0.17-signals2.patch
-Patch2:		freecad-0.17-updates.patch
-Patch3:		freecad-0.17-qt5.12.patch
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
@@ -31,6 +27,8 @@ BuildRequires: 	python2-matplotlib
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
 BuildRequires: 	spnav-devel
+BuildRequires:	boost-static-devel
+BuildRequires: 	cmake(Qt5X11Extras)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gl)
@@ -134,6 +132,7 @@ popd
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_libdir}/%{name}/bin/
+%{_libdir}/%{name}/share
 %{_libdir}/%{name}/lib/
 %{_libdir}/%{name}/Mod/
 %{_libdir}/%{name}/Ext/
