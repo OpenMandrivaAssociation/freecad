@@ -30,6 +30,7 @@ BuildRequires: 	spnav-devel
 BuildRequires:	boost-static-devel
 BuildRequires: 	cmake(Qt5X11Extras)
 BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
