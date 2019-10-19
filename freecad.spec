@@ -1,11 +1,14 @@
 %define _disable_ld_no_undefined 1
 %global plugins Complete Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Spreadsheet SpreadsheetGui
 
+# Setup python target for shiboken so the right cmake file is imported.
+%global py_suffix %(%{__python3} -c "import sysconfig; print(sysconfig.get_config_var('SOABI'))")
+
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 %define _disable_lto 1
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.18.2
+Version:	0.18.3
 Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
@@ -14,6 +17,11 @@ Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
 Source1:      	freecad.desktop
 Source2:      	freecad.1
 Source3:	%{name}.rpmlintrc
+
+Patch0:         freecad-0.15-zipios.patch
+Patch1:         freecad-0.14-Version_h.patch
+Patch2:         freecad-0.18-py38.patch
+
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
@@ -45,7 +53,8 @@ BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5UiTools)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:  pyside2-tools
+BuildRequires:	pkgconfig(python)
+BuildRequires: 	python-matplotlib
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
 BuildRequires: 	opencascade-devel
@@ -83,17 +92,22 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 %define Werror_cflags %nil
 #export CC=gcc
 #export CXX=g++
+
+
 %cmake_qt5 -DBUILD_QT5=ON -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
 	 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
+            -DPYTHON_EXECUTABLE=%{__python3} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
-	    -DPYTHON_SUFFIX="-python2.7" \
-            -DPYTHON_CONFIG_SUFFIX="-python2.7" \
             -DRESOURCEDIR=%{_datadir}/freecad \
+            -DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2 \
+            -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
+            -DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
+            -DOpenGL_GL_PREFERENCE=GLVND \
             -DUSE_BOOST_PYTHON=OFF    
-%make VERBOSE=1
+%make_build VERBOSE=1
 
 %install
 %makeinstall_std -C build

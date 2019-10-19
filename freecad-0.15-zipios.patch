@@ -1,0 +1,16 @@
+--- a/src/Base/CMakeLists.txt
++++ b/src/Base/CMakeLists.txt
+@@ -351,9 +351,11 @@ ENDIF(MSVC)
+ # Use external zipios++ if specified.
+ if(FREECAD_USE_EXTERNAL_ZIPIOS)
+     find_library(ZIPIOS_LIBRARY zipios)
+-    find_path(ZIPIOS_INCLUDES zipios++/zipios-config.h)
++    find_path(ZIPIOS_INCLUDES NAMES
++        zipios++/zipios-config.h
++        zipios++/zipios-config.hpp)
+     if(ZIPIOS_LIBRARY)
+-        message(STATUS "Found zipios++: ${ZIPIOS}")
++        message(STATUS "Found zipios++: ${ZIPIOS_LIBRARY}")
+     endif()
+     if(ZIPIOS_INCLUDES)
+         message(STATUS "Found zipios++ headers.")
