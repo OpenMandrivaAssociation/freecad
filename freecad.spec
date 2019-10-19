@@ -34,11 +34,13 @@ BuildRequires: 	python2-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
+BuildRequires:	smesh-devel
 BuildRequires: 	spnav-devel
 BuildRequires:	boost-static-devel
 BuildRequires: 	cmake(Qt5X11Extras)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(xt)
+BuildRequires: 	pkgconfig(xext)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
@@ -105,6 +107,8 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
             -DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2 \
             -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
             -DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
+            -DFREECAD_USE_EXTERNAL_SMESH=TRUE \
+            -DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
             -DOpenGL_GL_PREFERENCE=GLVND \
             -DUSE_BOOST_PYTHON=OFF    
 %make_build VERBOSE=1
