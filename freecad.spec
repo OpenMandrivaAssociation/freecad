@@ -6,6 +6,8 @@
 
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 %define _disable_lto 1
+%bcond_with	shiboken
+
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Version:	0.18.3
@@ -96,20 +98,24 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 #export CXX=g++
 
 
-%cmake_qt5 -DBUILD_QT5=ON -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
-	 -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
-            -DPYTHON_EXECUTABLE=%{__python3} \
+%cmake_qt5 -DBUILD_QT5=ON \
+            -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
+	    -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
             -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
             -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
 	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
             -DRESOURCEDIR=%{_datadir}/freecad \
+            -DPYTHON_EXECUTABLE=%{__python3} \
+%if %{with shiboken}
             -DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2 \
             -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
             -DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
-            -DFREECAD_USE_EXTERNAL_SMESH=TRUE \
+%endif
+            -DFREECAD_USE_EXTERNAL_SMESH=FALSE \
             -DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
             -DOpenGL_GL_PREFERENCE=GLVND \
+            -DBUILD_QT5=ON \
             -DUSE_BOOST_PYTHON=OFF    
 %make_build VERBOSE=1
 
