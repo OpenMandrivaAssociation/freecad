@@ -62,7 +62,7 @@ BuildRequires: 	python-matplotlib
 BuildRequires: 	cmake
 BuildRequires: 	gcc-gfortran
 BuildRequires: 	opencascade-devel
-BuildRequires: 	coin-devel
+BuildRequires: 	pkgconfig(Coin4)
 BuildRequires: 	boost-devel >= 1.34.0
 BuildRequires:	python-vtk
 BuildRequires:	python-vtk-qt
@@ -74,7 +74,9 @@ BuildRequires:	swig
 BuildRequires:	pybind11-devel
 
 Requires:	python-pivy
-Requires:	python2-pyside2
+%if %{with shiboken}
+Requires:	pyside2-core
+%endif
 
 %description
 FreeCAD will be a general purpose 3D CAD modeler.
