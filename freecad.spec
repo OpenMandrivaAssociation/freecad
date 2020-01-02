@@ -10,7 +10,7 @@
 
 Name:		freecad
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.18.3
+Version:	0.18.4
 Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
@@ -28,11 +28,10 @@ BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
 BuildRequires: 	libxerces-c-devel
 BuildRequires: 	opencv-devel
-BuildRequires: 	python2-devel
 # disabled for armv7 in 3.0 till
 # https://issues.openmandriva.org/show_bug.cgi?id=1825
 %ifnarch %arm
-BuildRequires: 	python2-matplotlib
+BuildRequires: 	python-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
@@ -91,7 +90,7 @@ neither are animation and organic shapes
 %prep
 %setup -qn FreeCAD-%{version}
 rm -rf src/3rdParty/{boost,Pivy*}
-%apply_patches
+%autopatch -p1
 sed -i 's!-python2.7!!g' CMakeLists.txt
 
 %build
