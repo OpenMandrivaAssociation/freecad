@@ -65,8 +65,6 @@ BuildRequires: 	pkgconfig(Coin4)
 BuildRequires: 	boost-devel >= 1.34.0
 BuildRequires:	python-vtk
 BuildRequires:	python-vtk-qt
-BuildRequires:	tcl-vtk
-BuildRequires:	tcl-vtk-qt
 BuildRequires:	vtk-devel
 BuildRequires:	med-devel
 BuildRequires:	swig
