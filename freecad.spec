@@ -23,6 +23,12 @@ Source3:	%{name}.rpmlintrc
 Patch0:         freecad-0.15-zipios.patch
 Patch1:         freecad-0.14-Version_h.patch
 Patch2:         freecad-0.18-py38.patch
+Patch3:		fix_gcc8_ftbfs.patch
+Patch4:		fix_armel_FTBFS.patch
+Patch5:		fix-fem-tests.patch
+Patch6:		exclude_ply.patch
+Patch7:		disable_memory_check.patch
+Patch8:		0001-Update-FindPySide2Tools-for-PySide2-5.14.patch
 
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
