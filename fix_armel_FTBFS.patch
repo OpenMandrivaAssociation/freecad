@@ -1,200 +1,543 @@
+Description: fix compilation on Armel due to coincident variables in 
+ sys/ucontext.h (R2, R3, R4). Thanks to Paul Brook <paul@codesourcery.com>
+ http://lists.alioth.debian.org/pipermail/debian-science-maintainers/2011-October/009876.html
+Author: Anton Gladky <gladky.anton@gmail.com>
+Last-Update: 2011-10-27
 
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<!-- ViewVC :: http://www.viewvc.org/ -->
-<head>
-<title>[packages] Log of /cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch</title>
-<meta name="generator" content="ViewVC 1.1.26" />
-<link rel="shortcut icon" href="/viewvc/images/favicon.ico" />
-<link rel="stylesheet" href="/viewvc/styles.css" type="text/css" />
-
-</head>
-<body>
-<div class="vc_navheader">
-<table><tr>
-<td><strong><a href="/"><span class="pathdiv">/</span></a><a href="/packages/">[packages]</a><span class="pathdiv">/</span><a href="/packages/cauldron/">cauldron</a><span class="pathdiv">/</span><a href="/packages/cauldron/freecad/">freecad</a><span class="pathdiv">/</span><a href="/packages/cauldron/freecad/current/">current</a><span class="pathdiv">/</span><a href="/packages/cauldron/freecad/current/SOURCES/">SOURCES</a><span class="pathdiv">/</span>fix_armel_FTBFS.patch</strong></td>
-<td style="text-align: right;"></td>
-</tr></table>
-</div>
-<div style="float: right; padding: 5px;"><a href="http://www.viewvc.org/" title="ViewVC Home"><img src="/viewvc/images/viewvc-logo.png" alt="ViewVC logotype" width="240" height="70" /></a></div>
-<h1>Log of /cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch</h1>
-
-<p style="margin:0;">
-
-<a href="/packages/cauldron/freecad/current/SOURCES/"><img src="/viewvc/images/back_small.png" class="vc_icon" alt="Parent Directory" /> Parent Directory</a>
-
-| <a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?view=log"><img src="/viewvc/images/log.png" class="vc_icon" alt="Revision Log" /> Revision Log</a>
-
-
-
-
-</p>
-
-<hr />
-<table class="auto">
-
-
-
-<tr>
-<td>Links to HEAD:</td>
-<td>
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?view=markup">view</a>)
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?view=co">download</a>)
-
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?view=annotate">annotate</a>)
-</td>
-</tr>
-
-
-
-<tr>
-<td>Sticky Revision:</td>
-<td><form method="get" action="/packages" style="display: inline">
-<div style="display: inline">
-<input type="hidden" name="orig_pathtype" value="FILE"/><input type="hidden" name="orig_view" value="log"/><input type="hidden" name="orig_path" value="cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch"/><input type="hidden" name="view" value="redirect_pathrev"/>
-
-<input type="text" name="pathrev" value="" size="6"/>
-
-<input type="submit" value="Set" />
-</div>
-</form>
-
-</td>
-</tr>
-</table>
+--- a/src/3rdParty/salomesmesh/inc/Rn.h
++++ b/src/3rdParty/salomesmesh/inc/Rn.h
+@@ -31,7 +31,7 @@
+ #include <gp_Dir.hxx>      //Dans OpenCascade
  
-
-
-
-
-
-
-
-
-
-<div>
-<hr />
-
-<a name="rev1424539"></a>
-
-
-Revision <a href="/packages?view=revision&amp;revision=1424539"><strong>1424539</strong></a> -
-
-
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?revision=1424539&amp;view=markup">view</a>)
-
-
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?revision=1424539&amp;view=co">download</a>)
-
-(<a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?annotate=1424539">annotate</a>)
-
-
-
-- <a href="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch?view=log&amp;r1=1424539&amp;log_pagestart=0">[select for diffs]</a>
-
-
-
-
-<br />
-
-Added
-
-<em>Sat Jul 27 09:08:12 2019 UTC</em>
-(6 months, 2 weeks ago)
-by <em>kekepower</em>
-
-
-
-
-
-
-
-<br />File length: 24297 byte(s)
-
-
-
-
-
-
-
-
-
-
-
-<pre class="vc_log">- Add patches from Debian
-SILENT: Fix files list
-
-</pre>
-</div>
-
+ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-// BUT:   Definir les espaces affines R R2 R3 R4 soit Rn pour n=1,2,3,4
++// BUT:   Definir les espaces affines R R_2 R_3 R_4 soit Rn pour n=1,2,3,4
+ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ // AUTEUR : Frederic HECHT      ANALYSE NUMERIQUE UPMC  PARIS   OCTOBRE   2000
+ // MODIFS : Alain    PERRONNET  ANALYSE NUMERIQUE UPMC  PARIS   NOVEMBRE  2000
+@@ -82,155 +82,155 @@
+ //==============
+ //typedef struct { short int x,y } XPoint;  //en fait ce type est defini dans X11-Window
+                                             // #include <X11/Xlib.h>
+-//la classe R2
++//la classe R_2
+ //============
+-class R2 
++class R_2
+ {
+-  friend std::ostream& operator << (std::ostream& f, const R2 & P)
++  friend std::ostream& operator << (std::ostream& f, const R_2 & P)
+   { f << P.x << ' ' << P.y ; return f; }
+-  friend std::istream& operator >> (std::istream& f, R2 & P)
++  friend std::istream& operator >> (std::istream& f, R_2 & P)
+   { f >> P.x >> P.y ; return f; }
  
-
-
-
-
- <hr />
-<p><a name="diff"></a>
-This form allows you to request diffs between any two revisions of this file.
-For each of the two "sides" of the diff,
-
-enter a numeric revision.
-
-</p>
-<form method="get" action="/packages/cauldron/freecad/current/SOURCES/fix_armel_FTBFS.patch" id="diff_select">
-<table cellpadding="2" cellspacing="0" class="auto">
-<tr>
-<td>&nbsp;</td>
-<td>
-<input type="hidden" name="view" value="diff"/>
-Diffs between
-
-<input type="text" size="12" name="r1"
-value="1424539" />
-
-and
-
-<input type="text" size="12" name="r2" value="1424539" />
-
-</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>
-Type of Diff should be a
-<select name="diff_format" onchange="submit()">
-<option value="h" selected="selected">Colored Diff</option>
-<option value="l" >Long Colored Diff</option>
-<option value="f" >Full Colored Diff</option>
-<option value="u" >Unidiff</option>
-<option value="c" >Context Diff</option>
-<option value="s" >Side by Side</option>
-</select>
-<input type="submit" value=" Get Diffs " />
-</td>
-</tr>
-</table>
-</form>
-
-
-
-
-
-<hr />
-<table>
-<tr>
-<td>&nbsp;</td>
-<td style="text-align: right;"><strong><a href="/viewvc/help_log.html">ViewVC Help</a></strong></td>
-</tr>
-<tr>
-<td>Powered by <a href="http://viewvc.tigris.org/">ViewVC 1.1.26</a></td>
-<td style="text-align: right;">&nbsp;</td>
-</tr>
-</table>
-</body>
-</html>
-
-
+-  friend std::ostream& operator << (std::ostream& f, const R2 * P)
++  friend std::ostream& operator << (std::ostream& f, const R_2 * P)
+   { f << P->x << ' ' << P->y ; return f; }
+-  friend std::istream& operator >> (std::istream& f, R2 * P)
++  friend std::istream& operator >> (std::istream& f, R_2 * P)
+   { f >> P->x >> P->y ; return f; }
+ 
+ public:
+   R x,y;  //les donnees
+ 
+-  R2 () :x(0),y(0) {}              //les constructeurs
+-  R2 (R a,R b)   :x(a),y(b)  {}
+-  R2 (R2 A,R2 B) :x(B.x-A.x),y(B.y-A.y)  {} //vecteur defini par 2 points
+-
+-  R2  operator+(R2 P) const {return R2(x+P.x,y+P.y);}     // Q+P possible
+-  R2  operator+=(R2 P)  {x += P.x;y += P.y; return *this;}// Q+=P;
+-  R2  operator-(R2 P) const {return R2(x-P.x,y-P.y);}     // Q-P
+-  R2  operator-=(R2 P) {x -= P.x;y -= P.y; return *this;} // Q-=P;
+-  R2  operator-()const  {return R2(-x,-y);}               // -Q
+-  R2  operator+()const  {return *this;}                   // +Q
+-  R   operator,(R2 P)const {return x*P.x+y*P.y;} // produit scalaire (Q,P)
+-  R   operator^(R2 P)const {return x*P.y-y*P.x;} // produit vectoriel Q^P
+-  R2  operator*(R c)const {return R2(x*c,y*c);}  // produit a droite  P*c
+-  R2  operator*=(R c)  {x *= c; y *= c; return *this;}
+-  R2  operator/(R c)const {return R2(x/c,y/c);}  // division par un reel
+-  R2  operator/=(R c)  {x /= c; y /= c; return *this;}
++  R_2 () :x(0),y(0) {}              //les constructeurs
++  R_2 (R a,R b)   :x(a),y(b)  {}
++  R_2 (R_2 A,R_2 B) :x(B.x-A.x),y(B.y-A.y)  {} //vecteur defini par 2 points
++
++  R_2  operator+(R_2 P) const {return R_2(x+P.x,y+P.y);}     // Q+P possible
++  R_2  operator+=(R_2 P)  {x += P.x;y += P.y; return *this;}// Q+=P;
++  R_2  operator-(R_2 P) const {return R_2(x-P.x,y-P.y);}     // Q-P
++  R_2  operator-=(R_2 P) {x -= P.x;y -= P.y; return *this;} // Q-=P;
++  R_2  operator-()const  {return R_2(-x,-y);}               // -Q
++  R_2  operator+()const  {return *this;}                   // +Q
++  R   operator,(R_2 P)const {return x*P.x+y*P.y;} // produit scalaire (Q,P)
++  R   operator^(R_2 P)const {return x*P.y-y*P.x;} // produit vectoriel Q^P
++  R_2  operator*(R c)const {return R_2(x*c,y*c);}  // produit a droite  P*c
++  R_2  operator*=(R c)  {x *= c; y *= c; return *this;}
++  R_2  operator/(R c)const {return R_2(x/c,y/c);}  // division par un reel
++  R_2  operator/=(R c)  {x /= c; y /= c; return *this;}
+   R & operator[](int i) {return (&x)[i];}        // la coordonnee i
+-  R2  orthogonal() {return R2(-y,x);}    //le vecteur orthogonal dans R2
+-  friend R2 operator*(R c,R2 P) {return P*c;}    // produit a gauche c*P
++  R_2  orthogonal() {return R_2(-y,x);}    //le vecteur orthogonal dans R_2
++  friend R_2 operator*(R c,R_2 P) {return P*c;}    // produit a gauche c*P
+ };
+ 
+ 
+-//la classe R3
++//la classe R_3
+ //============
+-class R3
++class R_3
+ {
+-  friend std::ostream& operator << (std::ostream& f, const R3 & P)
++  friend std::ostream& operator << (std::ostream& f, const R_3 & P)
+   { f << P.x << ' ' << P.y << ' ' << P.z ; return f; }
+-  friend std::istream& operator >> (std::istream& f, R3 & P)
++  friend std::istream& operator >> (std::istream& f, R_3 & P)
+   { f >> P.x >> P.y >> P.z ; return f; }
+ 
+-  friend std::ostream& operator << (std::ostream& f, const R3 * P)
++  friend std::ostream& operator << (std::ostream& f, const R_3 * P)
+   { f << P->x << ' ' << P->y << ' ' << P->z ; return f; }
+-  friend std::istream& operator >> (std::istream& f, R3 * P)
++  friend std::istream& operator >> (std::istream& f, R_3 * P)
+   { f >> P->x >> P->y >> P->z ; return f; }
+ 
+ public:  
+   R  x,y,z;  //les 3 coordonnees
+  
+-  R3 () :x(0),y(0),z(0) {}  //les constructeurs
+-  R3 (R a,R b,R c):x(a),y(b),z(c)  {}                  //Point ou Vecteur (a,b,c)
+-  R3 (R3 A,R3 B):x(B.x-A.x),y(B.y-A.y),z(B.z-A.z)  {}  //Vecteur AB
+-
+-  R3 (gp_Pnt P) : x(P.X()), y(P.Y()), z(P.Z()) {}      //Point     d'OpenCascade
+-  R3 (gp_Vec V) : x(V.X()), y(V.Y()), z(V.Z()) {}      //Vecteur   d'OpenCascade
+-  R3 (gp_Dir P) : x(P.X()), y(P.Y()), z(P.Z()) {}      //Direction d'OpenCascade
+-
+-  R3   operator+(R3 P)const  {return R3(x+P.x,y+P.y,z+P.z);}
+-  R3   operator+=(R3 P)  {x += P.x; y += P.y; z += P.z; return *this;}
+-  R3   operator-(R3 P)const  {return R3(x-P.x,y-P.y,z-P.z);}
+-  R3   operator-=(R3 P)  {x -= P.x; y -= P.y; z -= P.z; return *this;}
+-  R3   operator-()const  {return R3(-x,-y,-z);}
+-  R3   operator+()const  {return *this;}
+-  R    operator,(R3 P)const {return  x*P.x+y*P.y+z*P.z;} // produit scalaire
+-  R3   operator^(R3 P)const {return R3(y*P.z-z*P.y ,P.x*z-x*P.z, x*P.y-y*P.x);} // produit vectoriel
+-  R3   operator*(R c)const {return R3(x*c,y*c,z*c);}
+-  R3   operator*=(R c)  {x *= c; y *= c; z *= c; return *this;}
+-  R3   operator/(R c)const {return R3(x/c,y/c,z/c);}
+-  R3   operator/=(R c)  {x /= c; y /= c; z /= c; return *this;}
++  R_3 () :x(0),y(0),z(0) {}  //les constructeurs
++  R_3 (R a,R b,R c):x(a),y(b),z(c)  {}                  //Point ou Vecteur (a,b,c)
++  R_3 (R_3 A,R_3 B):x(B.x-A.x),y(B.y-A.y),z(B.z-A.z)  {}  //Vecteur AB
++
++  R_3 (gp_Pnt P) : x(P.X()), y(P.Y()), z(P.Z()) {}      //Point     d'OpenCascade
++  R_3 (gp_Vec V) : x(V.X()), y(V.Y()), z(V.Z()) {}      //Vecteur   d'OpenCascade
++  R_3 (gp_Dir P) : x(P.X()), y(P.Y()), z(P.Z()) {}      //Direction d'OpenCascade
++
++  R_3   operator+(R_3 P)const  {return R_3(x+P.x,y+P.y,z+P.z);}
++  R_3   operator+=(R_3 P)  {x += P.x; y += P.y; z += P.z; return *this;}
++  R_3   operator-(R_3 P)const  {return R_3(x-P.x,y-P.y,z-P.z);}
++  R_3   operator-=(R_3 P)  {x -= P.x; y -= P.y; z -= P.z; return *this;}
++  R_3   operator-()const  {return R_3(-x,-y,-z);}
++  R_3   operator+()const  {return *this;}
++  R    operator,(R_3 P)const {return  x*P.x+y*P.y+z*P.z;} // produit scalaire
++  R_3   operator^(R_3 P)const {return R_3(y*P.z-z*P.y ,P.x*z-x*P.z, x*P.y-y*P.x);} // produit vectoriel
++  R_3   operator*(R c)const {return R_3(x*c,y*c,z*c);}
++  R_3   operator*=(R c)  {x *= c; y *= c; z *= c; return *this;}
++  R_3   operator/(R c)const {return R_3(x/c,y/c,z/c);}
++  R_3   operator/=(R c)  {x /= c; y /= c; z /= c; return *this;}
+   R  & operator[](int i) {return (&x)[i];}
+-  friend R3 operator*(R c,R3 P) {return P*c;}
++  friend R_3 operator*(R c,R_3 P) {return P*c;}
+ 
+-  R3   operator=(gp_Pnt P) {return R3(P.X(),P.Y(),P.Z());}
+-  R3   operator=(gp_Dir P) {return R3(P.X(),P.Y(),P.Z());}
++  R_3   operator=(gp_Pnt P) {return R_3(P.X(),P.Y(),P.Z());}
++  R_3   operator=(gp_Dir P) {return R_3(P.X(),P.Y(),P.Z());}
+ 
+-  friend gp_Pnt gp_pnt(R3 xyz) { return gp_Pnt(xyz.x,xyz.y,xyz.z); }
++  friend gp_Pnt gp_pnt(R_3 xyz) { return gp_Pnt(xyz.x,xyz.y,xyz.z); }
+   //friend gp_Pnt operator=() { return gp_Pnt(x,y,z); }
+-  friend gp_Dir gp_dir(R3 xyz) { return gp_Dir(xyz.x,xyz.y,xyz.z); }
++  friend gp_Dir gp_dir(R_3 xyz) { return gp_Dir(xyz.x,xyz.y,xyz.z); }
+ 
+-  bool  DansPave( R3 & xyzMin, R3 & xyzMax )
++  bool  DansPave( R_3 & xyzMin, R_3 & xyzMax )
+     { return xyzMin.x<=x && x<=xyzMax.x &&
+              xyzMin.y<=y && y<=xyzMax.y &&
+              xyzMin.z<=z && z<=xyzMax.z; }
+ };
+ 
+-//la classe R4
++//la classe R_4
+ //============
+-class R4: public R3
++class R_4: public R_3
+ {
+-  friend std::ostream& operator <<(std::ostream& f, const R4 & P )
++  friend std::ostream& operator <<(std::ostream& f, const R_4 & P )
+   { f << P.x << ' ' << P.y << ' ' << P.z << ' ' << P.omega; return f; }
+-  friend istream& operator >>(istream& f,  R4 & P)
++  friend istream& operator >>(istream& f,  R_4 & P)
+   { f >> P.x >>  P.y >>  P.z >> P.omega ; return f; }
+ 
+-  friend std::ostream& operator <<(std::ostream& f, const R4 * P )
++  friend std::ostream& operator <<(std::ostream& f, const R_4 * P )
+   { f << P->x << ' ' << P->y << ' ' << P->z << ' ' << P->omega; return f; }
+-  friend istream& operator >>(istream& f,  R4 * P)
++  friend istream& operator >>(istream& f,  R_4 * P)
+   { f >> P->x >>  P->y >>  P->z >> P->omega ; return f; }
+ 
+ public:  
+   R  omega;  //la donnee du poids supplementaire
+  
+-  R4 () :omega(1.0) {}  //les constructeurs
+-  R4 (R a,R b,R c,R d):R3(a,b,c),omega(d) {}
+-  R4 (R4 A,R4 B) :R3(B.x-A.x,B.y-A.y,B.z-A.z),omega(B.omega-A.omega) {}
+-
+-  R4   operator+(R4 P)const  {return R4(x+P.x,y+P.y,z+P.z,omega+P.omega);}
+-  R4   operator+=(R4 P)  {x += P.x;y += P.y;z += P.z;omega += P.omega;return *this;}
+-  R4   operator-(R4 P)const  {return R4(x-P.x,y-P.y,z-P.z,omega-P.omega);}
+-  R4   operator-=(R4 P) {x -= P.x;y -= P.y;z -= P.z;omega -= P.omega;return *this;}
+-  R4   operator-()const  {return R4(-x,-y,-z,-omega);}
+-  R4   operator+()const  {return *this;}
+-  R    operator,(R4 P)const {return  x*P.x+y*P.y+z*P.z+omega*P.omega;} // produit scalaire
+-  R4   operator*(R c)const {return R4(x*c,y*c,z*c,omega*c);}
+-  R4   operator*=(R c)  {x *= c; y *= c; z *= c; omega *= c; return *this;}
+-  R4   operator/(R c)const {return R4(x/c,y/c,z/c,omega/c);}
+-  R4   operator/=(R c)  {x /= c; y /= c; z /= c; omega /= c; return *this;}
++  R_4 () :omega(1.0) {}  //les constructeurs
++  R_4 (R a,R b,R c,R d):R_3(a,b,c),omega(d) {}
++  R_4 (R_4 A,R_4 B) :R_3(B.x-A.x,B.y-A.y,B.z-A.z),omega(B.omega-A.omega) {}
++
++  R_4   operator+(R_4 P)const  {return R_4(x+P.x,y+P.y,z+P.z,omega+P.omega);}
++  R_4   operator+=(R_4 P)  {x += P.x;y += P.y;z += P.z;omega += P.omega;return *this;}
++  R_4   operator-(R_4 P)const  {return R_4(x-P.x,y-P.y,z-P.z,omega-P.omega);}
++  R_4   operator-=(R_4 P) {x -= P.x;y -= P.y;z -= P.z;omega -= P.omega;return *this;}
++  R_4   operator-()const  {return R_4(-x,-y,-z,-omega);}
++  R_4   operator+()const  {return *this;}
++  R    operator,(R_4 P)const {return  x*P.x+y*P.y+z*P.z+omega*P.omega;} // produit scalaire
++  R_4   operator*(R c)const {return R_4(x*c,y*c,z*c,omega*c);}
++  R_4   operator*=(R c)  {x *= c; y *= c; z *= c; omega *= c; return *this;}
++  R_4   operator/(R c)const {return R_4(x/c,y/c,z/c,omega/c);}
++  R_4   operator/=(R c)  {x /= c; y /= c; z /= c; omega /= c; return *this;}
+   R  & operator[](int i) {return (&x)[i];}
+-  friend R4 operator*(R c,R4 P) {return P*c;}
++  friend R_4 operator*(R c,R_4 P) {return P*c;}
+ };
+ 
+ //quelques fonctions supplementaires sur ces classes
+ //==================================================
+-inline R Aire2d(const R2 A,const R2 B,const R2 C){return (B-A)^(C-A);} 
+-inline R Angle2d(R2 P){ return atan2(P.y,P.x);}
++inline R Aire2d(const R_2 A,const R_2 B,const R_2 C){return (B-A)^(C-A);}
++inline R Angle2d(R_2 P){ return atan2(P.y,P.x);}
+ 
+-inline R Norme2_2(const R2 & A){ return (A,A);}
+-inline R Norme2(const R2 & A){ return sqrt((A,A));}
+-inline R NormeInfinie(const R2 & A){return Max(Abs(A.x),Abs(A.y));}
+-
+-inline R Norme2_2(const R3 & A){ return (A,A);}
+-inline R Norme2(const R3 & A){ return sqrt((A,A));}
+-inline R NormeInfinie(const R3 & A){return Max(Abs(A.x),Abs(A.y),Abs(A.z));}
+-
+-inline R Norme2_2(const R4 & A){ return (A,A);}
+-inline R Norme2(const R4 & A){ return sqrt((A,A));}
+-inline R NormeInfinie(const R4 & A){return Max(Abs(A.x),Abs(A.y),Abs(A.z),Abs(A.omega));}
+-
+-inline R2 XY(R3 P) {return R2(P.x, P.y);}  //restriction a R2 d'un R3 par perte de z
+-inline R3 Min(R3 P, R3 Q) 
+-{return R3(P.x<Q.x ? P.x : Q.x, P.y<Q.y ? P.y : Q.y, P.z<Q.z ? P.z : Q.z);} //Pt de xyz Min
+-inline R3 Max(R3 P, R3 Q) 
+-{return R3(P.x>Q.x ? P.x : Q.x, P.y>Q.y ? P.y : Q.y, P.z>Q.z ? P.z : Q.z);} //Pt de xyz Max
++inline R Norme2_2(const R_2 & A){ return (A,A);}
++inline R Norme2(const R_2 & A){ return sqrt((A,A));}
++inline R NormeInfinie(const R_2 & A){return Max(Abs(A.x),Abs(A.y));}
++
++inline R Norme2_2(const R_3 & A){ return (A,A);}
++inline R Norme2(const R_3 & A){ return sqrt((A,A));}
++inline R NormeInfinie(const R_3 & A){return Max(Abs(A.x),Abs(A.y),Abs(A.z));}
++
++inline R Norme2_2(const R_4 & A){ return (A,A);}
++inline R Norme2(const R_4 & A){ return sqrt((A,A));}
++inline R NormeInfinie(const R_4 & A){return Max(Abs(A.x),Abs(A.y),Abs(A.z),Abs(A.omega));}
++
++inline R_2 XY(R_3 P) {return R_2(P.x, P.y);}  //restriction a R_2 d'un R_3 par perte de z
++inline R_3 Min(R_3 P, R_3 Q)
++{return R_3(P.x<Q.x ? P.x : Q.x, P.y<Q.y ? P.y : Q.y, P.z<Q.z ? P.z : Q.z);} //Pt de xyz Min
++inline R_3 Max(R_3 P, R_3 Q)
++{return R_3(P.x>Q.x ? P.x : Q.x, P.y>Q.y ? P.y : Q.y, P.z>Q.z ? P.z : Q.z);} //Pt de xyz Max
+ 
+ #endif
+--- a/src/3rdParty/salomesmesh/inc/StdMeshers_MEFISTO_2D.hxx
++++ b/src/3rdParty/salomesmesh/inc/StdMeshers_MEFISTO_2D.hxx
+@@ -64,7 +64,7 @@
+   typedef std::vector< StdMeshers_FaceSidePtr > TWireVector;
+ 
+   bool LoadPoints(TWireVector &                       wires,
+-                  R2*                                 uvslf, 
++                  R_2*                                 uvslf,
+                   std::vector< const SMDS_MeshNode*>& mefistoToDS,
+                   double scalex, double               scaley);
+ 
+@@ -73,7 +73,7 @@
+                           double& scalex,
+                           double& scaley);
+ 
+-  void StoreResult (Z nbst, R2* uvst, Z nbt, Z* nust, 
++  void StoreResult (Z nbst, R_2* uvst, Z nbt, Z* nust,
+                     std::vector< const SMDS_MeshNode*>& mefistoToDS,
+                     double scalex, double scaley);
+                                           
+--- a/src/3rdParty/salomesmesh/inc/aptrte.h
++++ b/src/3rdParty/salomesmesh/inc/aptrte.h
+@@ -60,9 +60,9 @@
+ 
+ MEFISTO2D_EXPORT
+   void  aptrte( Z nutysu, R aretmx,
+-              Z nblf,   Z *nudslf, R2 *uvslf,
+-              Z nbpti,  R2 *uvpti,
+-              Z & nbst, R2 * & uvst, Z & nbt, Z * & nust,
++              Z nblf,   Z *nudslf, R_2 *uvslf,
++              Z nbpti,  R_2 *uvpti,
++              Z & nbst, R_2 * & uvst, Z & nbt, Z * & nust,
+               Z & ierr );
+ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ // but : appel de la triangulation par un arbre-4 recouvrant
+@@ -123,7 +123,7 @@
+   #define tesuex   TESUEX
+   #define teamqt   TEAMQT
+   #define nusotr   NUSOTR
+-  #define qutr2d   QUTR2D
++  #define qutr2d   QUTR_2D
+   #define surtd2   SURTD2
+   #define qualitetrte   QUALITETRTE
+   
+@@ -160,7 +160,7 @@
+               __stdcall
+ #endif
+ #endif
+-   qualitetrte( R3 *mnpxyd,
++   qualitetrte( R_3 *mnpxyd,
+                    Z & mosoar, Z & mxsoar, Z *mnsoar,
+                    Z & moartr, Z & mxartr, Z *mnartr,
+                    Z & nbtria, R & quamoy, R & quamin ); }
+@@ -301,7 +301,7 @@
+               __stdcall
+ #endif
+ #endif
+-  teajte( Z & mxsomm, Z &  nbsomm, R3 * mnpxyd,  R3 * comxmi,
++  teajte( Z & mxsomm, Z &  nbsomm, R_3 * mnpxyd,  R_3 * comxmi,
+                             R & aretmx,  Z & mxtree, Z * letree,
+                             Z & ierr );
+ }
+@@ -313,8 +313,8 @@
+               __stdcall
+ #endif
+ #endif
+-  tehote( Z & nutysu, Z & nbarpi, Z &  mxsomm, Z &  nbsomm, R3 * mnpxyd,
+-                            R3 * comxmi, R & aretmx,
++  tehote( Z & nutysu, Z & nbarpi, Z &  mxsomm, Z &  nbsomm, R_3 * mnpxyd,
++                            R_3 * comxmi, R & aretmx,
+                             Z * letree, Z & mxqueu, Z * mnqueu,
+                             Z & ierr );
+ }
+@@ -328,7 +328,7 @@
+               __stdcall
+ #endif
+ #endif
+-  tetrte( R3 * comxmi, R & aretmx, Z & nbarpi, Z & mxsomm, R3 * mnpxyd,
++  tetrte( R_3 * comxmi, R & aretmx, Z & nbarpi, Z & mxsomm, R_3 * mnpxyd,
+                             Z & mxqueu,  Z * mnqueu,  Z * mntree,
+                             Z & mosoar,  Z & mxsoar,  Z & n1soar, Z * mnsoar,
+                             Z & moartr, Z &  mxartr,  Z & n1artr,  Z * mnartr,  Z * mnarst,
+@@ -355,7 +355,7 @@
+               __stdcall
+ #endif
+ #endif
+-  tedela( R3 * mnpxyd, Z * mnarst,
++  tedela( R_3 * mnpxyd, Z * mnarst,
+                             Z & mosoar, Z & mxsoar, Z & n1soar, Z * mnsoar, Z & na,
+                             Z & moartr, Z & mxartr, Z & n1artr, Z * mnartr, Z & n );
+ }
+@@ -369,7 +369,7 @@
+               __stdcall
+ #endif
+ #endif
+-  terefr( Z & nbarpi, R3 * mnpxyd,
++  terefr( Z & nbarpi, R_3 * mnpxyd,
+                             Z & mosoar, Z & mxsoar, Z & n1soar, Z * mnsoar,
+                             Z & moartr, Z & mxartr, Z & n1artr, Z * mnartr, Z * mnarst,
+                             Z & mxarcf, Z * mnarc1, Z * mnarc2,
+@@ -387,7 +387,7 @@
+ #endif
+ #endif
+   tesuex( Z & nblf, Z * nulftr,
+-                            Z & ndtri0, Z & nbsomm, R3 * mnpxyd, Z * mnslig,
++                            Z & ndtri0, Z & nbsomm, R_3 * mnpxyd, Z * mnslig,
+                             Z & mosoar, Z & mxsoar, Z * mnsoar,
+                             Z & moartr, Z & mxartr, Z & n1artr, Z * mnartr, Z * mnarst,
+                             Z & nbtria, Z * mntrsu, Z & ierr );
+@@ -407,7 +407,7 @@
+                             Z & mxarcf, Z * mntrcf, Z * mnstbo,
+                             Z * n1arcf, Z * mnarcf, Z * mnarc1,
+                             Z & nbarpi, Z & nbsomm, Z & mxsomm,
+-                            R3 * mnpxyd, Z * mnslig,
++                            R_3 * mnpxyd, Z * mnslig,
+                             Z & ierr );
+ }
+ // amelioration de la qualite de la triangulation par
+@@ -434,7 +434,7 @@
+               __stdcall
+ #endif
+ #endif
+-  qutr2d( R3 & p1, R3 & p2, R3 & p3, R & qualite );
++  qutr2d( R_3 & p1, R_3 & p2, R_3 & p3, R & qualite );
+ }
+ //calculer la qualite d'un triangle de R2 de sommets p1, p2, p3
+ 
+@@ -445,7 +445,7 @@
+               __stdcall
+ #endif
+ #endif
+-  surtd2( R3 & p1, R3 & p2, R3 & p3 );
++  surtd2( R_3 & p1, R_3 & p2, R_3 & p3 );
+ }
+ //calcul de la surface d'un triangle defini par 3 points de r**2
+ 
+--- a/src/3rdParty/salomesmesh/src/MEFISTO2/aptrte.cpp
++++ b/src/3rdParty/salomesmesh/src/MEFISTO2/aptrte.cpp
+@@ -88,9 +88,9 @@
+ 
+ 
+ void  aptrte( Z   nutysu, R      aretmx,
+-              Z   nblf,   Z  *   nudslf,  R2 * uvslf,
+-              Z   nbpti,  R2 *   uvpti,
+-              Z & nbst,   R2 * & uvst,
++              Z   nblf,   Z  *   nudslf,  R_2 * uvslf,
++              Z   nbpti,  R_2 *   uvpti,
++              Z & nbst,   R_2 * & uvst,
+               Z & nbt,    Z  * & nust,
+               Z & ierr )
+ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ -142,11 +142,11 @@
+                  //no st1, st2, st3, 0 (non quadrangle)
+ 
+   R  d, tcpu=0;
+-//  R3 direction=R3(0,0,0);  //direction pour areteideale() inactive ici!
++//  R_3 direction=R_3(0,0,0);  //direction pour areteideale() inactive ici!
+   Z  nbarfr=nudslf[nblf];  //nombre total d'aretes des lignes fermees
+   Z  mxtrou = Max( 1024, nblf );  //nombre maximal de trous dans la surface
+ 
+-  R3 *mnpxyd=NULL;
++  R_3 *mnpxyd=NULL;
+   Z  *mnsoar=NULL, mosoar=7, mxsoar, n1soar; //le hachage des aretes
+   Z  *mnartr=NULL, moartr=3, mxartr, n1artr; //le no des 3 aretes des triangles
+   Z  *mntree=NULL, motree=9, mxtree; //L'arbre 4 de TE et nombre d'entiers par TE
+@@ -161,7 +161,7 @@
+   Z  *mnarst=NULL;
+   Z  *mnlftr=NULL;
+ 
+-  R3 comxmi[2];            //coordonnees UV Min et Maximales
++  R_3 comxmi[2];            //coordonnees UV Min et Maximales
+   R  aremin, aremax;       //longueur minimale et maximale des aretes
+   R  airemx;               //aire maximale souhaitee d'un triangle
+   R  quamoy, quamin;
+@@ -191,7 +191,7 @@
+  NEWDEPART:
+   //mnpxyd( 3, mxsomm ) les coordonnees UV des sommets et la taille d'arete aux sommets
+   if( mnpxyd!=NULL ) delete [] mnpxyd;
+-  mnpxyd = new R3[mxsomm];
++  mnpxyd = new R_3[mxsomm];
+   if( mnpxyd==NULL ) goto ERREUR;
+ 
+   // le tableau mnsoar des aretes des triangles
+@@ -655,7 +655,7 @@
+   // generation du tableau uvst de la surface triangulee
+   // ---------------------------------------------------
+   if( uvst != NULL ) delete [] uvst;
+-  uvst = new R2[nbst];
++  uvst = new R_2[nbst];
+   if( uvst == NULL ) goto ERREUR;
+ 
+   nbst=-1;
+@@ -761,7 +761,7 @@
+               __stdcall
+ #endif
+ #endif
+- qualitetrte( R3 *mnpxyd,
++ qualitetrte( R_3 *mnpxyd,
+                    Z & mosoar, Z & mxsoar, Z *mnsoar,
+                    Z & moartr, Z & mxartr, Z *mnartr,
+                    Z & nbtria, R & quamoy, R & quamin )
+--- a/src/3rdParty/salomesmesh/src/StdMeshers/StdMeshers_MEFISTO_2D.cpp
++++ b/src/3rdParty/salomesmesh/src/StdMeshers/StdMeshers_MEFISTO_2D.cpp
+@@ -234,12 +234,12 @@
+ 
+   Z nblf;                 //nombre de lignes fermees (enveloppe en tete)
+   Z *nudslf = NULL;       //numero du dernier sommet de chaque ligne fermee
+-  R2 *uvslf = NULL;       
++  R_2 *uvslf = NULL;
+   Z nbpti = 0;            //nombre points internes futurs sommets de la triangulation
+-  R2 *uvpti = NULL;
++  R_2 *uvpti = NULL;
+   
+   Z nbst;
+-  R2 *uvst = NULL;
++  R_2 *uvst = NULL;
+   Z nbt;
+   Z *nust = NULL;
+   Z ierr = 0;
+@@ -264,7 +264,7 @@
+     nudslf[iw++] = nbpnt;
+   }
+ 
+-  uvslf = new R2[nudslf[nblf]];
++  uvslf = new R_2[nudslf[nblf]];
+ 
+   double scalex, scaley;
+   ComputeScaleOnFace(aMesh, F, scalex, scaley);
+@@ -390,7 +390,7 @@
+ //purpose  : prevent failure due to overlapped adjacent links
+ //=======================================================================
+ 
+-static bool fixOverlappedLinkUV( R2& uv0, const R2& uv1, const R2& uv2 )
++static bool fixOverlappedLinkUV( R_2& uv0, const R_2& uv1, const R_2& uv2 )
+ {
+   gp_XY v1( uv0.x - uv1.x, uv0.y - uv1.y );
+   gp_XY v2( uv2.x - uv1.x, uv2.y - uv1.y );
+@@ -441,7 +441,7 @@
+ //purpose  : 
+ //=======================================================================
+ 
+-static bool fixCommonVertexUV (R2 &                 theUV,
++static bool fixCommonVertexUV (R_2 &                 theUV,
+                                const TopoDS_Vertex& theV,
+                                const TopoDS_Face&   theF,
+                                const TopTools_IndexedDataMapOfShapeListOfShape & theVWMap,
+@@ -540,7 +540,7 @@
+       nextUV  = uv;
+     }
+   }
+-  R2 uv0, uv1, uv2;
++  R_2 uv0, uv1, uv2;
+   uv0.x = thisUV.X();   uv0.y = thisUV.Y();
+   uv1.x = nextUV.X();   uv1.y = nextUV.Y(); 
+   uv2.x = thisUV.X();   uv2.y = thisUV.Y();
+@@ -574,7 +574,7 @@
+ //=============================================================================
+ 
+ bool StdMeshers_MEFISTO_2D::LoadPoints(TWireVector &                 wires,
+-                                       R2 *                          uvslf,
++                                       R_2 *                          uvslf,
+                                        vector<const SMDS_MeshNode*>& mefistoToDS,
+                                        double                        scalex,
+                                        double                        scaley)
+@@ -782,7 +782,7 @@
+  */
+ //=============================================================================
+ 
+-void StdMeshers_MEFISTO_2D::StoreResult(Z nbst, R2 * uvst, Z nbt, Z * nust,
++void StdMeshers_MEFISTO_2D::StoreResult(Z nbst, R_2 * uvst, Z nbt, Z * nust,
+                                         vector< const SMDS_MeshNode*>&mefistoToDS,
+                                         double scalex, double scaley)
+ {
