@@ -23,6 +23,7 @@ Source3:	%{name}.rpmlintrc
 Patch0:         freecad-0.15-zipios.patch
 Patch1:         freecad-0.14-Version_h.patch
 Patch2:         freecad-0.18-py38.patch
+Patch3:         freecad-iostream_scope.patch
 
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
@@ -113,7 +114,7 @@ sed -i 's!-python2.7!!g' CMakeLists.txt
 %endif
             -DFREECAD_USE_EXTERNAL_SMESH=FALSE \
             -DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
-            -DOpenGL_GL_PREFERENCE=GLVND \
+            -DOpenGL_GL_PREFERENCE=LEGACY \
             -DBUILD_QT5=ON \
             -DUSE_BOOST_PYTHON=OFF    
 %make_build VERBOSE=1
