@@ -39,6 +39,7 @@ BuildRequires:	hdf5-devel
 BuildRequires:	smesh-devel
 BuildRequires: 	spnav-devel
 BuildRequires: 	double-conversion-devel
+BuildRequires: 	pkgconfig(liblzma)
 BuildRequires:	boost-static-devel
 BuildRequires: 	cmake(Qt5X11Extras)
 BuildRequires:	pkgconfig(egl)
