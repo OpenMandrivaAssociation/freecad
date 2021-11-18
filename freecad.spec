@@ -75,6 +75,7 @@ BuildRequires:	freeimage-devel
 BuildRequires:	gl2ps-devel
 BuildRequires:	glibc-devel
 BuildRequires:	hdf5-devel
+BuildRequires:	java-devel
 BuildRequires:	libharu-devel
 BuildRequires:	opencascade-devel
 #BuildRequires:	opencv-devel
