@@ -36,6 +36,7 @@ BuildRequires: 	python-matplotlib
 %endif
 BuildRequires: 	eigen3
 BuildRequires:	hdf5-devel
+BuildRequires:	java-devel
 BuildRequires:	smesh-devel
 BuildRequires: 	spnav-devel
 BuildRequires: 	double-conversion-devel
