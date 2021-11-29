@@ -44,19 +44,20 @@
  template<class FeaturePyT>
 --- a/src/Base/PyObjectBase.cpp
 +++ b/src/Base/PyObjectBase.cpp
-@@ -79,6 +79,11 @@
+@@ -79,7 +79,11 @@
      0,                                                      /*tp_itemsize*/
      /* --- methods ---------------------------------------------- */
      PyDestructor,                                           /*tp_dealloc*/
+-    0,                                                      /*tp_print*/
 +#if PY_VERSION_HEX >= 0x03080000
 +    0,                                                      /*tp_vectorcall_offset*/
 +#else
 +    nullptr,                                                /*tp_print*/
 +#endif
-     0,                                                      /*tp_print*/
      0,                                                      /*tp_getattr*/
      0,                                                      /*tp_setattr*/
-@@ -130,6 +135,13 @@
+     0,                                                      /*tp_compare*/
+@@ -130,6 +134,13 @@
  #if PY_MAJOR_VERSION >= 3
      ,0                                                      /*tp_finalize */
  #endif
@@ -66,7 +67,7 @@
 +    ,0                                                      /*tp_vectorcall */
 +    /* bpo-37250: kept for backwards compatibility in CPython 3.8 only */
 +    ,0                                                      /*tp_print */
-+#endif-
++#endif
  };
  
  /*------------------------------
