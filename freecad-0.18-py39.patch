@@ -1,0 +1,125 @@
+--- a/src/App/FeaturePythonPyImp.h
++++ b/src/App/FeaturePythonPyImp.h
+@@ -37,7 +37,28 @@
+         virtual ~_class_(); \
+     };
+ 
+-#if PY_MAJOR_VERSION >= 3
++#if PY_VERSION_HEX >= 0x03080000
++#define PYTHON_TYPE_IMP(_class_, _subclass_) \
++    PyTypeObject _class_::Type = { \
++        PyVarObject_HEAD_INIT(&PyType_Type, 0) \
++        ""#_class_"",  \
++        sizeof(_class_),  \
++        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \
++        Py_TPFLAGS_BASETYPE|Py_TPFLAGS_DEFAULT, \
++        ""#_class_"", \
++        0, 0, 0, 0, 0, 0, 0, 0, 0, \
++        &_subclass_::Type, \
++        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 \
++    }; \
++    _class_::_class_(Base::BaseClass *pcObject, PyTypeObject *T) \
++        : _subclass_(reinterpret_cast<_subclass_::PointerType>(pcObject), T) \
++    { \
++    } \
++    _class_::~_class_() \
++    { \
++    }
++
++#elif PY_MAJOR_VERSION >= 3
+ #define PYTHON_TYPE_IMP(_class_, _subclass_) \
+     PyTypeObject _class_::Type = { \
+         PyVarObject_HEAD_INIT(&PyType_Type, 0) \
+--- a/src/App/FeaturePythonPyImp.inl
++++ b/src/App/FeaturePythonPyImp.inl
+@@ -84,6 +84,9 @@
+ #if PY_MAJOR_VERSION >= 3
+     ,0                                                /*tp_finalize */
+ #endif
++#if PY_VERSION_HEX >= 0x03080000
++    ,0                                                /*tp_vectorcall */
++#endif
+ };
+ 
+ template<class FeaturePyT>
+--- a/src/Base/PyObjectBase.cpp
++++ b/src/Base/PyObjectBase.cpp
+@@ -79,6 +79,11 @@
+     0,                                                      /*tp_itemsize*/
+     /* --- methods ---------------------------------------------- */
+     PyDestructor,                                           /*tp_dealloc*/
++#if PY_VERSION_HEX >= 0x03080000
++    0,                                                      /*tp_vectorcall_offset*/
++#else
++    nullptr,                                                /*tp_print*/
++#endif
+     0,                                                      /*tp_print*/
+     0,                                                      /*tp_getattr*/
+     0,                                                      /*tp_setattr*/
+@@ -130,6 +135,13 @@
+ #if PY_MAJOR_VERSION >= 3
+     ,0                                                      /*tp_finalize */
+ #endif
++#if PY_VERSION_HEX >= 0x03090000
++    ,0                                                      /*tp_vectorcall */
++#elif PY_VERSION_HEX >= 0x03080000
++    ,0                                                      /*tp_vectorcall */
++    /* bpo-37250: kept for backwards compatibility in CPython 3.8 only */
++    ,0                                                      /*tp_print */
++#endif-
+ };
+ 
+ /*------------------------------
+--- a/src/CXX/Python3/cxx_extensions.cxx
++++ b/src/CXX/Python3/cxx_extensions.cxx
+@@ -381,7 +381,11 @@
+ 
+     // Methods to implement standard operations
+     table->tp_dealloc = (destructor)standard_dealloc;
++#if PY_VERSION_HEX < 0x03080000
+     table->tp_print = 0;
++#else
++    table->tp_vectorcall_offset = 0;
++#endif
+     table->tp_getattr = 0;
+     table->tp_setattr = 0;
+     table->tp_repr = 0;
+@@ -524,7 +528,9 @@
+ #ifdef PYCXX_PYTHON_2TO3
+ PythonType &PythonType::supportPrint()
+ {
++#if PY_VERSION_HEX < 0x03080000
+     table->tp_print = print_handler;
++#endif
+     return *this;
+ }
+ #endif
+--- a/src/Tools/generateTemplates/templateClassPyExport.py
++++ b/src/Tools/generateTemplates/templateClassPyExport.py
+@@ -273,7 +273,11 @@
+     0,                                                /*tp_itemsize*/
+     /* methods */
+     PyDestructor,                                     /*tp_dealloc*/
+-    0,                                                /*tp_print*/
++#if PY_VERSION_HEX >= 0x03080000
++    0,                                                /*tp_vectorcall_offset*/
++#else
++    nullptr,                                          /*tp_print*/
++#endif
+     0,                                                /*tp_getattr*/
+     0,                                                /*tp_setattr*/
+     0,                                                /*tp_compare*/
+@@ -345,6 +349,13 @@
+ #if PY_MAJOR_VERSION >= 3
+     ,0                                                /*tp_finalize */
+ #endif
++#if PY_VERSION_HEX >= 0x03090000
++    ,nullptr                                          /*tp_vectorcall */
++#elif PY_VERSION_HEX >= 0x03080000
++    ,nullptr                                          /*tp_vectorcall */
++    /* bpo-37250: kept for backwards compatibility in CPython 3.8 only */
++    ,nullptr                                          /*tp_print */
++#endif
+ };
+ 
+ /// Methods structure of @self.export.Name@

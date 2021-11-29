@@ -24,6 +24,7 @@ Patch0:         freecad-0.15-zipios.patch
 Patch1:         freecad-0.14-Version_h.patch
 Patch2:         freecad-0.18-py38.patch
 Patch3:         freecad-iostream_scope.patch
+Patch4:         freecad-0.18-py39.patch
 
 BuildRequires:	doxygen
 BuildRequires: 	qt5-devel
