@@ -13,11 +13,10 @@
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 
 %bcond_without	shiboken
-# (daviddavid) re-enable system PyCXX
-# https://forum.freecadweb.org/viewtopic.php?f=4&t=35109
-%bcond_with pycxx
-# (daviddavid) use bundled Zipios for now (upstream still use an old zipios copy)
-%bcond_with zipios
+%bcond_without	pycxx
+%bcond_without	zipios
+# (mandian) use bundled SMESH (upstream use an newer version)
+%bcond_with	smesh
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
@@ -31,10 +30,15 @@ Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
 
-Patch0:		freecad-0.15-zipios.patch
+Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
 #Patch2:	freecad-0.18-py38.patch
 #Patch3:	freecad-iostream_scope.patch
+# (fedora)
+Patch4:		freecad-vtk9.patch
+Patch5:		freecad-unbundled-pycxx.patch
+# (upstream)
+Patch6:		freecad-0.19.2-smesh.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
@@ -46,13 +50,13 @@ BuildRequires:	swig
 
 BuildRequires:	boost-devel
 #BuildRequires:	boost-static-devel
+BuildRequires:	coin4-doc
 BuildRequires:	cmake(coin4)
 BuildRequires:	cmake(double-conversion)
 #BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freeglut)
 BuildRequires:	cmake(jsoncpp)
 BuildRequires:	cmake(MEDFile) 
-#>= 4.0.0
 BuildRequires:	cmake(ogg)
 BuildRequires:	cmake(pegtl)
 BuildRequires:	cmake(pybind11)
@@ -115,7 +119,9 @@ BuildRequires:	python3dist(cxx)
 BuildRequires:	python-cxx-devel
 %endif
 BuildRequires:	python3dist(matplotlib)
+%if %{with smesh}
 BuildRequires:	smesh-devel
+%endif
 BuildRequires: 	spnav-devel
 BuildRequires:	vtk-devel
 %if %{with zipios}
@@ -188,8 +194,10 @@ rm -rf src/CXX
 	-DBUILD_QT5:BOOL=ON \
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
-	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=ON \
-	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
+%if %{with pycxx}
+	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=%{?with_smesh:ON}%{!?with_smesh:OFF} \
+	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh/SMESH \
+%endif
 	-DOpenGL_GL_PREFERENCE=GLVND \
 	-DPYTHON_EXECUTABLE=%{__python3} \
 %if %{with pycxx}
