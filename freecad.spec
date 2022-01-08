@@ -1,81 +1,132 @@
 %define _disable_ld_no_undefined 1
+%define _disable_lto 1
+
+%define sname FreeCAD
+%define name %(echo %sname | tr [:upper:] [:lower:])
+
 %global plugins Complete Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part Points QtUnit Raytracing ReverseEngineering Robot Sketcher Start Web PartDesignGui _PartDesign Spreadsheet SpreadsheetGui
+#global plugins Complete DraftUtils Drawing Fem FreeCAD Image Import Inspection Mesh MeshPart Part PartDesign Path Points QtUnit Raytracing ReverseEngineering Robot Sketcher Spreadsheet Start Web PartDesignGui _PartDesign Spreadsheet SpreadsheetGui area
 
 # Setup python target for shiboken so the right cmake file is imported.
 %global py_suffix %(%{__python3} -c "import sysconfig; print(sysconfig.get_config_var('SOABI'))")
 
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
-%define _disable_lto 1
-%bcond_with	shiboken
 
-Name:		freecad
+%bcond_without	shiboken
+%bcond_without	pycxx
+%bcond_without	zipios
+# (daviddavid) use bundled SMESH (upstream still use an old smesh version)
+%bcond_with	smesh
+
 Summary:	FreeCAD is a general purpose 3D CAD modeler
-Version:	0.18.4
-Release:	2
+Name:		%{name}
+Version:	0.19.2
+Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{version}.tar.gz
-Source1:      	freecad.desktop
-Source2:      	freecad.1
+Source0:	https://github.com/%{sname}/%{sname}/archive/%{version}/%{sname}-%{version}.tar.gz
+Source1:	freecad.desktop
+Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
-
-Patch0:         freecad-0.15-zipios.patch
-Patch1:         freecad-0.14-Version_h.patch
-Patch2:         freecad-0.18-py38.patch
-Patch3:         freecad-iostream_scope.patch
+Patch0:		freecad-0.19.2-zipios++.patch
+Patch1:		freecad-0.14-Version_h.patch
+#Patch2:	freecad-0.18-py38.patch
+#Patch3:	freecad-iostream_scope.patch
+# (fedora)
+Patch4:		freecad-vtk9.patch
+Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
-Patch4:         freecad-0.18-py39.patch
+Patch6:		freecad-0.19.2-smesh.patch
 
+BuildRequires: 	cmake
+BuildRequires: 	ninja
+#BuildRequires:	dos2unix
 BuildRequires:	doxygen
-BuildRequires: 	qt5-devel
-BuildRequires: 	libxerces-c-devel
-BuildRequires: 	opencv-devel
-# disabled for armv7 in 3.0 till
-# https://issues.openmandriva.org/show_bug.cgi?id=1825
-%ifnarch %arm
-BuildRequires: 	python-matplotlib
-%endif
-BuildRequires: 	eigen3
+#BuildRequires: gcc-gfortran
+#BuildRequires:	graphviz
+BuildRequires:	swig
+
+BuildRequires:	boost-devel
+#BuildRequires:	boost-static-devel
+BuildRequires:	coin4-doc
+BuildRequires:	cmake(coin4)
+BuildRequires:	cmake(double-conversion)
+#BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(freeglut)
+BuildRequires:	cmake(jsoncpp)
+BuildRequires:	cmake(MEDFile) 
+#>= 4.0.0
+BuildRequires:	cmake(ogg)
+BuildRequires:	cmake(pegtl)
+BuildRequires:	cmake(pybind11)
+BuildRequires:	cmake(Qt5Concurrent)
+BuildRequires:	cmake(Qt5Core)
+BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5Help)
+BuildRequires:	cmake(Qt5Network)
+BuildRequires:	cmake(Qt5OpenGL)
+BuildRequires:	cmake(Qt5PrintSupport)
+BuildRequires:	cmake(Qt5Svg)
+BuildRequires:	cmake(Qt5UiTools)
+BuildRequires:	cmake(Qt5WebKitWidgets)
+BuildRequires:	cmake(Qt5Widgets)
+BuildRequires:	cmake(Qt5Xml)
+BuildRequires:	cmake(Qt5XmlPatterns)
+BuildRequires:	cmake(Qt5X11Extras)
+BuildRequires:	cmake(utf8cpp)
+BuildRequires:	freeimage-devel
+BuildRequires:	gl2ps-devel
+BuildRequires:	glibc-devel
 BuildRequires:	hdf5-devel
 BuildRequires:	java-devel
-BuildRequires:	smesh-devel
-BuildRequires: 	spnav-devel
-BuildRequires: 	double-conversion-devel
-BuildRequires: 	pkgconfig(liblzma)
-BuildRequires:	boost-static-devel
-BuildRequires: 	cmake(Qt5X11Extras)
-BuildRequires:	pkgconfig(egl)
-BuildRequires:	pkgconfig(xt)
-BuildRequires:	pkgconfig(glew)
-BuildRequires: 	pkgconfig(xext)
-BuildRequires:	pkgconfig(expat)
-BuildRequires:	pkgconfig(gl)
-BuildRequires:	pkgconfig(glu)
-BuildRequires:	pkgconfig(egl)
-BuildRequires:	pkgconfig(freetype2)
-BuildRequires:	pkgconfig(liblz4)
-BuildRequires: 	pkgconfig(shiboken2)
-BuildRequires:	pkgconfig(sm)
-BuildRequires: 	pkgconfig(pyside2)
-BuildRequires:	pkgconfig(Qt5WebKit)
-BuildRequires:	pkgconfig(Qt5WebKitWidgets)
-BuildRequires:	pkgconfig(Qt5Svg)
-BuildRequires:	pkgconfig(Qt5UiTools)
-BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(python)
-BuildRequires: 	python-matplotlib
-BuildRequires: 	cmake
-BuildRequires: 	gcc-gfortran
-BuildRequires: 	opencascade-devel
-BuildRequires: 	pkgconfig(Coin4)
-BuildRequires: 	boost-devel >= 1.34.0
+BuildRequires:	libharu-devel
+BuildRequires:	opencascade-devel
+#BuildRequires:	opencv-devel
 BuildRequires:	python-vtk
 BuildRequires:	python-vtk-qt
+#BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(eigen3)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(glew)
+BuildRequires: 	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(ompi-cxx)
+BuildRequires:	pkgconfig(netcdf)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(liblz4)
+BuildRequires: 	pkgconfig(liblzma)
+BuildRequires: 	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(proj)
+BuildRequires:	pkgconfig(python3)
+%if %{with shiboken}
+BuildRequires:	pkgconfig(pyside2)
+%endif
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	pkgconfig(shiboken2)
+BuildRequires:	pkgconfig(theora)
+BuildRequires:	pkgconfig(xerces-c)
+BuildRequires: 	pkgconfig(xext)
+BuildRequires:	pkgconfig(xmu)
+BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(zlib)
+%if %{with pycxx}
+BuildRequires:	python3dist(cxx)
+BuildRequires:	python-cxx-devel
+%endif
+BuildRequires:	python3dist(matplotlib)
+%if %{with smesh}
+BuildRequires:	smesh-devel
+%endif
+BuildRequires: 	spnav-devel
 BuildRequires:	vtk-devel
-BuildRequires:	med-devel
-BuildRequires:	swig
-BuildRequires:	pybind11-devel
+%if %{with zipios}
+BuildRequires:	zipios++-devel
+%endif
 
 Requires:	python-pivy
 %if %{with shiboken}
@@ -83,77 +134,18 @@ Requires:	pyside2-core
 %endif
 
 %description
-FreeCAD will be a general purpose 3D CAD modeler.
-The development will be completely Open Source.
-As with many modern 3D CAD modelers it will
-have a 2D component in order to extract design detail
-from the 3D model to create 2D production drawings,
-although 2D (e.g. AutoCAD LT) is not the focus,
-neither are animation and organic shapes
-(e.g. Maya, 3D StudioMAX and Cinema 4D).
+FreeCAD is a general purpose feature-based, parametric 3D modeler for
+CAD, MCAD, CAx, CAE and PLM, aimed directly at mechanical engineering
+and product design but also fits a wider range of uses in engineering,
+such as architecture or other engineering specialties. It is 100% Open
+Source (LGPL2+ license) and extremely modular, allowing for very
+advanced extension and customization.
 
-%prep
-%setup -qn FreeCAD-%{version}
-rm -rf src/3rdParty/{boost,Pivy*}
-%autopatch -p1
-sed -i 's!-python2.7!!g' CMakeLists.txt
-
-%build
-%define Werror_cflags %nil
-#export CC=gcc
-#export CXX=g++
-
-
-%cmake_qt5 -DBUILD_QT5=ON \
-            -DMEDFILE_INCLUDE_DIRS=%{_includedir}/med \
-	    -DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
-	    -DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
-            -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
-            -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
-	    -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
-            -DRESOURCEDIR=%{_datadir}/freecad \
-            -DPYTHON_EXECUTABLE=%{__python3} \
-%if %{with shiboken}
-            -DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2 \
-            -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
-            -DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
-%endif
-            -DFREECAD_USE_EXTERNAL_SMESH=FALSE \
-            -DSMESH_INCLUDE_DIR=%{_includedir}/smesh \
-            -DOpenGL_GL_PREFERENCE=LEGACY \
-            -DBUILD_QT5=ON \
-            -DUSE_BOOST_PYTHON=OFF    
-%make_build VERBOSE=1
-
-%install
-%makeinstall_std -C build
-
-# Symlink binaries to /usr/bin
-mkdir -p %{buildroot}%{_bindir}
-pushd %{buildroot}%{_bindir}
-ln -s ../%{_lib}/freecad/bin/FreeCAD .
-ln -s ../%{_lib}/freecad/bin/FreeCADCmd .
-popd
-
-# Install desktop file
-desktop-file-install \
-    --dir=%{buildroot}%{_datadir}/applications  %{SOURCE1}
-
-sed -i 's,@lib@,%{_lib},g' %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-# Install desktop icon
-install -pD -m 0644 src/Gui/Icons/%{name}.svg \
-    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-
-# Install man page
-install -pD -m 0644 %{SOURCE2} \
-    %{buildroot}%{_mandir}/man1/%{name}.1
-
-# Symlink manpage to other binary names
-pushd %{buildroot}%{_mandir}/man1
-ln -sf %{name}.1.gz FreeCAD.1.gz.
-ln -sf %{name}.1.gz FreeCADCmd.1.gz
-popd
+FreeCAD is based on OpenCASCADE, a powerful geometry kernel, features an
+Open Inventor-compliant 3D scene representation model provided by the
+Coin 3D library, and a broad Python API. The interface is built with Qt.
+FreeCAD runs exactly the same way on Windows, Mac OSX, BSD and Linux
+platforms.
 
 %files
 %doc ChangeLog.txt data/License.txt
@@ -169,3 +161,86 @@ popd
 %{_libdir}/%{name}/Ext/
 %{_datadir}/%{name}/
 %{_mandir}/man1/*.1*
+
+#---------------------------------------------------------------------------
+
+%prep
+%autosetup -p1 -n %{sname}-%{version}
+
+#rm -rf src/3rdParty
+%if %{with zipios}
+rm -rf src/zipios++
+%endif
+%if %{with pycxx}
+rm -rf src/CXX
+%endif
+
+
+#rm -rf src/3rdParty/{boost,Pivy*}
+#sed -i 's!-python2.7!!g' CMakeLists.txt
+
+%build
+#define Werror_cflags %nil
+#export CC=gcc
+#export CXX=g++
+
+%cmake_qt5 \
+	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
+	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
+	-DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
+	-DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
+	-DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
+	-DBUILD_ENABLE_CXX_STD="C++17" \
+	-DBUILD_QT5:BOOL=ON \
+	-DRESOURCEDIR=%{_datadir}/freecad \
+	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
+%if %{with pycxx}
+	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=%{?with_smesh:ON}%{!?with_smesh:OFF} \
+	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh/SMESH \
+%endif
+	-DOpenGL_GL_PREFERENCE=GLVND \
+	-DPYTHON_EXECUTABLE=%{__python3} \
+%if %{with pycxx}
+	-DPYCXX_INCLUDE_DIR:PATH=%{_includedir}/python%{python3_version} \
+	-DPYCXX_SOURCE_DIR:PATH=%{_datadir}/python%{python3_version}/CXX \
+%endif
+%if %{with shiboken}
+	-DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2 \
+	-DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
+	-DSHIBOKEN_LIBRARY=%{_libdir}/libshiboken2.cpython-%{python3_version_nodots}-%{_arch}-linux-gnu.so \
+	-DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide2/ \
+	-DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
+%endif
+	-DUSE_BOOST_PYTHON:BOOL=ON \
+	-G Ninja
+
+%ninja_build
+
+%install
+%ninja_install -C build
+
+# Symlink binaries to /usr/bin
+mkdir -p %{buildroot}%{_bindir}
+pushd %{buildroot}%{_bindir}
+ln -s ../%{_lib}/freecad/bin/FreeCAD .
+ln -s ../%{_lib}/freecad/bin/FreeCADCmd .
+popd
+
+# Install desktop file
+desktop-file-install \
+	--dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+
+sed -i 's,@lib@,%{_lib},g' %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+# Install desktop icon
+install -pD -m 0644 src/Gui/Icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+
+# Install man page
+install -pD -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
+
+# Symlink manpage to other binary names
+pushd %{buildroot}%{_mandir}/man1
+ln -sf %{name}.1.gz FreeCAD.1.gz.
+ln -sf %{name}.1.gz FreeCADCmd.1.gz
+popd
+
