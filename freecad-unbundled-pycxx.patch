@@ -1,0 +1,11 @@
+diff -up FreeCAD-0.18.4/cMake/FindPyCXX.cmake.unbundled-pycxx FreeCAD-0.18.4/cMake/FindPyCXX.cmake
+--- FreeCAD-0.18.4/cMake/FindPyCXX.cmake.unbundled-pycxx	2019-10-22 12:53:35.000000000 -0400
++++ FreeCAD-0.18.4/cMake/FindPyCXX.cmake	2020-06-03 11:38:52.881038874 -0400
+@@ -121,6 +121,7 @@ if(PYCXX_FOUND)
+             ${PYCXX_SOURCE_DIR}/cxx_exceptions.cxx)
+         add_definitions(-DPYCXX_6_2_COMPATIBILITY)
+     endif()
++    add_definitions(-DPYCXX_PYTHON_2TO3)
+ else(PYCXX_FOUND)
+     MESSAGE(STATUS "PyCXX not found")
+ endif(PYCXX_FOUND)
