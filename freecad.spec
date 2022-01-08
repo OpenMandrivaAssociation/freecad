@@ -13,7 +13,7 @@
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 
 %bcond_without	shiboken
-%bcond_without	pycxx
+%bcond_with	pycxx
 %bcond_without	zipios
 # (mandian) use bundled SMESH (upstream use an newer version)
 %bcond_with	smesh
