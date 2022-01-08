@@ -184,8 +184,9 @@ rm -rf src/CXX
 
 %build
 #define Werror_cflags %nil
-#export CC=gcc
-#export CXX=g++
+# FIXME as of 0.19.2, clang 13.0.0, fails to build with clang
+export CC=gcc
+export CXX=g++
 
 %cmake_qt5 \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
