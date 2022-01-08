@@ -14,7 +14,7 @@
 
 %bcond_without	shiboken
 %bcond_with	pycxx
-%bcond_without	zipios
+%bcond_with	zipios
 # (mandian) use bundled SMESH (upstream use an newer version)
 %bcond_with	smesh
 
