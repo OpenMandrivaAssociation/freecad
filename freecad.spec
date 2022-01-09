@@ -13,15 +13,15 @@
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 
 %bcond_without	shiboken
-%bcond_without	pycxx
-%bcond_without	zipios
-# (daviddavid) use bundled SMESH (upstream still use an old smesh version)
+%bcond_with	pycxx
+%bcond_with	zipios
+# (mandian) use bundled SMESH (upstream use an newer version)
 %bcond_with	smesh
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.2
-Release:	2
+Release:	3
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -32,6 +32,7 @@ Source3:	%{name}.rpmlintrc
 
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
+Patch2:		FreeCAD-0.19.2-GL-linkage.patch
 #Patch2:	freecad-0.18-py38.patch
 #Patch3:	freecad-iostream_scope.patch
 # (fedora)
@@ -90,6 +91,7 @@ BuildRequires:	python-vtk-qt
 BuildRequires:	pkgconfig(eigen3)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glew)
@@ -110,9 +112,11 @@ BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(shiboken2)
 BuildRequires:	pkgconfig(theora)
+BuildRequires:  pkgconfig(tbb)
 BuildRequires:	pkgconfig(xerces-c)
 BuildRequires: 	pkgconfig(xext)
 BuildRequires:	pkgconfig(xmu)
+BuildRequires:  pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
 %if %{with pycxx}
@@ -181,10 +185,6 @@ rm -rf src/CXX
 #sed -i 's!-python2.7!!g' CMakeLists.txt
 
 %build
-#define Werror_cflags %nil
-#export CC=gcc
-#export CXX=g++
-
 %cmake_qt5 \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
