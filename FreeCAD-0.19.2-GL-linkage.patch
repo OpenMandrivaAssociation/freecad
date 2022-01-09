@@ -1,0 +1,11 @@
+diff -up FreeCAD-0.19.2/src/Gui/CMakeLists.txt.omv~ FreeCAD-0.19.2/src/Gui/CMakeLists.txt
+--- FreeCAD-0.19.2/src/Gui/CMakeLists.txt.omv~	2022-01-09 06:04:05.200807897 +0100
++++ FreeCAD-0.19.2/src/Gui/CMakeLists.txt	2022-01-09 06:04:20.660841213 +0100
+@@ -99,6 +99,7 @@ if (BUILD_QT5)
+         ${Qt5Svg_LIBRARIES}
+         ${Qt5Network_LIBRARIES}
+         ${Qt5UiTools_LIBRARIES}
++	GL
+     )
+     if(${Qt5WinExtras_FOUND})
+       include_directories(

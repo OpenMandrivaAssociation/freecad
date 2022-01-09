@@ -21,7 +21,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.2
-Release:	2
+Release:	3
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -32,6 +32,7 @@ Source3:	%{name}.rpmlintrc
 
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
+Patch2:		FreeCAD-0.19.2-GL-linkage.patch
 #Patch2:	freecad-0.18-py38.patch
 #Patch3:	freecad-iostream_scope.patch
 # (fedora)
@@ -183,11 +184,6 @@ rm -rf src/CXX
 #sed -i 's!-python2.7!!g' CMakeLists.txt
 
 %build
-#define Werror_cflags %nil
-# FIXME as of 0.19.2, clang 13.0.0, fails to build with clang
-export CC=gcc
-export CXX=g++
-
 %cmake_qt5 \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
