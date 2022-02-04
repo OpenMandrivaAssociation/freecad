@@ -1,0 +1,10 @@
+--- FreeCAD-0.19.2/cMake/FindCoin3DDoc.cmake.orig	2021-04-15 11:17:08.000000000 +0200
++++ FreeCAD-0.19.2/cMake/FindCoin3DDoc.cmake	2022-02-02 23:00:31.641698303 +0100
+@@ -24,6 +24,7 @@
+                 /usr/share/doc/libcoin80-doc/html
+                 /usr/share/doc/coin/html
+                 /usr/share/doc/Coin/html
++		/usr/share/doc/Coin4/html
+       )
+       IF( EXISTS ${COIN3D_DOC_PATH})
+         message(STATUS "Coin3D doc is installed")

@@ -21,7 +21,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.2
-Release:	3
+Release:	4
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -33,6 +33,7 @@ Source3:	%{name}.rpmlintrc
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
 Patch2:		FreeCAD-0.19.2-GL-linkage.patch
+Patch3:		freecad-0.19.2-coin4_doc.patch
 #Patch2:	freecad-0.18-py38.patch
 #Patch3:	freecad-iostream_scope.patch
 # (fedora)
