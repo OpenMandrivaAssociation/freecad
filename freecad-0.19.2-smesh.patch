@@ -1,4 +1,4 @@
-From 196813abe2a349fb2b87133aa5c71febb971810e Mon Sep 17 00:00:00 2001
+From 3473537ec693c36faa4ed2b26b27cbc0d89d6724 Mon Sep 17 00:00:00 2001
 From: Bernd Waibel <waebbl-gentoo@posteo.net>
 Date: Sun, 11 Jul 2021 15:29:03 +0200
 Subject: [PATCH] improve search for VTK-9
@@ -20,7 +20,7 @@ Signed-off-by: Bernd Waibel <waebbl-gentoo@posteo.net>
  1 file changed, 18 insertions(+), 7 deletions(-)
 
 diff --git a/cMake/FreeCAD_Helpers/SetupSalomeSMESH.cmake b/cMake/FreeCAD_Helpers/SetupSalomeSMESH.cmake
-index c83f83265400..5cf36329dfa3 100644
+index c83f8326540..5cf36329dfa 100644
 --- a/cMake/FreeCAD_Helpers/SetupSalomeSMESH.cmake
 +++ b/cMake/FreeCAD_Helpers/SetupSalomeSMESH.cmake
 @@ -27,13 +27,24 @@ macro(SetupSalomeSMESH)

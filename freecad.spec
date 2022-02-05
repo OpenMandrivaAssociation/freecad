@@ -15,7 +15,7 @@
 %bcond_without	shiboken
 %bcond_with	pycxx
 %bcond_with	zipios
-# (mandian) use bundled SMESH (upstream use an newer version)
+# (mandian) use bundled SMESH (upstream use an old version)
 %bcond_with	smesh
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
@@ -40,7 +40,19 @@ Patch3:		freecad-0.19.2-coin4_doc.patch
 Patch4:		freecad-vtk9.patch
 Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
-Patch6:		freecad-0.19.2-smesh.patch
+#	https://github.com/FreeCAD/FreeCAD/commit/74639da997d5f2e53f001d9f256be86ceee901f5
+Patch6:		freecad-0.19.3-port_to_OCCT76.patch
+#	https://github.com/FreeCAD/FreeCAD/commit/9b4db7e06472bf5550d0b7627b28b425bfcc8470
+#	https://github.com/FreeCAD/FreeCAD/commit/c9d17ebde2400f83d1e1e799bdb0a7f85a0da96d
+#	https://github.com/FreeCAD/FreeCAD/commit/8e6dab209ee59be61d83a0ff249283a8809fa917.patch
+Patch7:		freecad-0.19.3-fix_build.patch
+#	https://github.com/FreeCAD/FreeCAD/commit/3473537ec693c36faa4ed2b26b27cbc0d89d6724
+Patch8:		freecad-0.19.2-smesh.patch
+#	https://github.com/FreeCAD/FreeCAD/commit/6f3b00d67ec0bd0072b7b493e2a38d2a2e3af27d
+Patch9:		freecad-0.19.3-smesh_port_to_OCCT76.patch
+#	https://github.com/FreeCAD/FreeCAD/commit/77b198048a63f1e9ca15eef64c8042d599a14cf3
+Patch10:	freecad-0.19.3-smesh_fix_for_OCCT76.patch
+
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
