@@ -1,0 +1,22 @@
+From 77b198048a63f1e9ca15eef64c8042d599a14cf3 Mon Sep 17 00:00:00 2001
+From: wmayer <wmayer@users.sourceforge.net>
+Date: Thu, 7 Oct 2021 11:10:12 +0200
+Subject: [PATCH] SMESH: [skip ci] do not undefine the guard of a header file
+
+---
+ src/3rdParty/salomesmesh/src/SMESH/SMESH_Mesh.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/3rdParty/salomesmesh/src/SMESH/SMESH_Mesh.cpp b/src/3rdParty/salomesmesh/src/SMESH/SMESH_Mesh.cpp
+index 24dc2d00a67..8e78712f4a4 100644
+--- a/src/3rdParty/salomesmesh/src/SMESH/SMESH_Mesh.cpp
++++ b/src/3rdParty/salomesmesh/src/SMESH/SMESH_Mesh.cpp
+@@ -64,7 +64,7 @@
+ 
+ #include <GEOMUtils.hxx>
+ 
+-#undef _Precision_HeaderFile
++//#undef _Precision_HeaderFile
+ #include <BRepBndLib.hxx>
+ #include <BRepPrimAPI_MakeBox.hxx>
+ #include <Bnd_Box.hxx>

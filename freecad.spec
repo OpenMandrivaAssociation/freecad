@@ -15,7 +15,7 @@
 %bcond_without	shiboken
 %bcond_with	pycxx
 %bcond_with	zipios
-# (mandian) use bundled SMESH (upstream use an newer version)
+# (mandian) use bundled SMESH (upstream use an old version)
 %bcond_with	smesh
 
 %define snapshot 20220205
