@@ -18,14 +18,16 @@
 # (mandian) use bundled SMESH (upstream use an newer version)
 %bcond_with	smesh
 
+%define snapshot 20220205
+
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	0.19.3
-Release:	1
+Version:	0.19.4
+Release:	%{?snapshot:0.%{snapshot}.}1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:	https://github.com/%{sname}/%{sname}/archive/%{version}/%{sname}-%{version}.tar.gz
+Source0:	https://github.com/%{sname}/%{sname}/archive/%{?snapshot:master}%{!?snapshot:%{version}}/%{sname}-%{?snapshot:master}%{!?snapshot:%{version}}.tar.gz
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
@@ -34,13 +36,9 @@ Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
 Patch2:		FreeCAD-0.19.2-GL-linkage.patch
 Patch3:		freecad-0.19.2-coin4_doc.patch
-#Patch2:	freecad-0.18-py38.patch
-#Patch3:	freecad-iostream_scope.patch
 # (fedora)
-Patch4:		freecad-vtk9.patch
 Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
-Patch6:		freecad-0.19.2-smesh.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
@@ -153,7 +151,9 @@ FreeCAD runs exactly the same way on Windows, Mac OSX, BSD and Linux
 platforms.
 
 %files
-%doc ChangeLog.txt data/License.txt
+%doc ChangeLog.txt
+%{_docdir}/%{name}/CONTRIBUTORS
+%{_docdir}/%{name}/LICENSE.html
 %{_docdir}/%{name}/freecad.q*
 %{_docdir}/%{name}/ThirdPartyLibraries.html
 %{_bindir}/*
@@ -161,6 +161,7 @@ platforms.
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_libdir}/%{name}/bin/
 %{_libdir}/%{name}/share
+%{_libdir}/%{name}/include
 %{_libdir}/%{name}/lib/
 %{_libdir}/%{name}/Mod/
 %{_libdir}/%{name}/Ext/
@@ -170,7 +171,7 @@ platforms.
 #---------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{sname}-%{version}
+%autosetup -p1 -n %{sname}-%{?snapshot:master}%{!?snapshot:%{version}}
 
 #rm -rf src/3rdParty
 %if %{with zipios}
@@ -238,10 +239,3 @@ install -pD -m 0644 src/Gui/Icons/%{name}.svg %{buildroot}%{_datadir}/icons/hico
 
 # Install man page
 install -pD -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
-
-# Symlink manpage to other binary names
-pushd %{buildroot}%{_mandir}/man1
-ln -sf %{name}.1.gz FreeCAD.1.gz.
-ln -sf %{name}.1.gz FreeCADCmd.1.gz
-popd
-
