@@ -117,6 +117,7 @@ BuildRequires:	pkgconfig(xmu)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	python3dist(pivy)
 %if %{with pycxx}
 BuildRequires:	python3dist(cxx)
 BuildRequires:	python-cxx-devel
