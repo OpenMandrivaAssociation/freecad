@@ -1,4 +1,3 @@
-%define _disable_ld_no_undefined 1
 %define _disable_lto 1
 
 %define sname FreeCAD
@@ -23,7 +22,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.4
-Release:	%{?snapshot:0.%{snapshot}.}2
+Release:	%{?snapshot:0.%{snapshot}.}3
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
