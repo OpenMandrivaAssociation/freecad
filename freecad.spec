@@ -22,7 +22,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.4
-Release:	%{?snapshot:0.%{snapshot}.}3
+Release:	%{?snapshot:0.%{snapshot}.}4
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -104,10 +104,10 @@ BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python3)
 %if %{with shiboken}
 BuildRequires:	pkgconfig(pyside2)
+BuildRequires:	pkgconfig(shiboken2)
 %endif
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(sqlite3)
-BuildRequires:	pkgconfig(shiboken2)
 BuildRequires:	pkgconfig(theora)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:	pkgconfig(xerces-c)
@@ -134,6 +134,7 @@ BuildRequires:	zipios++-devel
 Requires:	python-pivy
 %if %{with shiboken}
 Requires:	pyside2-core
+Requires:	python3dist(shiboken2)
 %endif
 
 %description
