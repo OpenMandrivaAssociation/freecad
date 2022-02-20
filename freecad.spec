@@ -22,7 +22,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	0.19.4
-Release:	%{?snapshot:0.%{snapshot}.}4
+Release:	%{?snapshot:0.%{snapshot}.}6
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -131,11 +131,27 @@ BuildRequires:	vtk-devel
 BuildRequires:	zipios++-devel
 %endif
 
-Requires:	python-pivy
+Requires:       python3dist(pivy)
+Requires:       python3dist(matplotlib)
+#Requires:       python3dist(pycollada)
 %if %{with shiboken}
 Requires:	pyside2-core
+Requires:	pyside2-gui
+Requires:	pyside2-network
+Requires:	pyside2-svg
+Requires:	pyside2-uitools
+Requires:	pyside2-widgets
+Requires:	pyside2-webengine
+Requires:	pyside2-webchannel
+Requires:	pyside2-xml
 Requires:	python3dist(shiboken2)
+
+Requires:	python-matplotlib-qt5
 %endif
+#Requires:       openscad
+Requires:	qt5-assistant
+
+
 
 %description
 FreeCAD is a general purpose feature-based, parametric 3D modeler for
