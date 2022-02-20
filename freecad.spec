@@ -109,11 +109,11 @@ BuildRequires:	pkgconfig(shiboken2)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(theora)
-BuildRequires:  pkgconfig(tbb)
+BuildRequires:	pkgconfig(tbb)
 BuildRequires:	pkgconfig(xerces-c)
 BuildRequires: 	pkgconfig(xext)
 BuildRequires:	pkgconfig(xmu)
-BuildRequires:  pkgconfig(xi)
+BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python-pivy
@@ -131,27 +131,16 @@ BuildRequires:	vtk-devel
 BuildRequires:	zipios++-devel
 %endif
 
-Requires:       python3dist(pivy)
-Requires:       python3dist(matplotlib)
-#Requires:       python3dist(pycollada)
-%if %{with shiboken}
-Requires:	pyside2-core
-Requires:	pyside2-gui
-Requires:	pyside2-network
-Requires:	pyside2-svg
-Requires:	pyside2-uitools
-Requires:	pyside2-widgets
-Requires:	pyside2-webengine
-Requires:	pyside2-webchannel
-Requires:	pyside2-xml
-Requires:	python3dist(shiboken2)
-
+Requires:	python-pivy
 Requires:	python-matplotlib-qt5
+Requires:	python3dist(matplotlib)
+#Requires:	python3dist(pycollada)
+%if %{with shiboken}
+Requires:	pyside2
+Requires:	python3dist(shiboken2)
 %endif
-#Requires:       openscad
+#Requires:	openscad
 Requires:	qt5-assistant
-
-
 
 %description
 FreeCAD is a general purpose feature-based, parametric 3D modeler for
