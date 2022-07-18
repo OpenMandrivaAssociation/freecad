@@ -17,11 +17,11 @@
 # (mandian) use bundled SMESH (upstream use an old version)
 %bcond_with	smesh
 
-%define snapshot 20220205
+#define snapshot 20220205
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	0.19.4
+Version:	0.20
 Release:	%{?snapshot:0.%{snapshot}.}6
 License:	GPL and LGPL
 Group: 		Graphics
@@ -158,9 +158,7 @@ platforms.
 
 %files
 %doc ChangeLog.txt
-%{_docdir}/%{name}/CONTRIBUTORS
 %{_docdir}/%{name}/LICENSE.html
-%{_docdir}/%{name}/freecad.q*
 %{_docdir}/%{name}/ThirdPartyLibraries.html
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
