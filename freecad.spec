@@ -116,7 +116,7 @@ BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	python-pivy
+BuildRequires:	python3dist(pivy)
 %if %{with pycxx}
 BuildRequires:	python3dist(cxx)
 BuildRequires:	python-cxx-devel
@@ -131,7 +131,7 @@ BuildRequires:	vtk-devel
 BuildRequires:	zipios++-devel
 %endif
 
-Requires:	python-pivy
+Requires:	python3dist(pivy)
 Requires:	python-matplotlib-qt5
 Requires:	python3dist(matplotlib)
 #Requires:	python3dist(pycollada)
