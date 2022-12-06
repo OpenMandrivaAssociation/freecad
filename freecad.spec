@@ -21,7 +21,7 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	0.20.1
+Version:	0.20.2
 Release:	%{?snapshot:0.%{snapshot}.}1
 License:	GPL and LGPL
 Group: 		Graphics
@@ -69,7 +69,8 @@ BuildRequires:	cmake(Qt5OpenGL)
 BuildRequires:	cmake(Qt5PrintSupport)
 BuildRequires:	cmake(Qt5Svg)
 BuildRequires:	cmake(Qt5UiTools)
-BuildRequires:	cmake(Qt5WebKitWidgets)
+#BuildRequires:	cmake(Qt5WebKitWidgets) # not more used?
+BuildRequires:	cmake(Qt5WebEngineWidgets)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5Xml)
 BuildRequires:	cmake(Qt5XmlPatterns)
