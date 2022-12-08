@@ -34,7 +34,7 @@ Source3:	%{name}.rpmlintrc
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
 Patch2:		FreeCAD-0.19.2-GL-linkage.patch
-Patch3:		freecad-0.19.2-coin4_doc.patch
+Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
@@ -50,8 +50,8 @@ BuildRequires:	swig
 
 BuildRequires:	boost-devel
 #BuildRequires:	boost-static-devel
-BuildRequires:	coin4-doc
-BuildRequires:	cmake(coin4)
+BuildRequires:	coin-doc
+BuildRequires:	cmake(coin)
 BuildRequires:	cmake(double-conversion)
 #BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(freeglut)
