@@ -37,9 +37,6 @@ Patch2:		FreeCAD-0.19.2-GL-linkage.patch
 Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch5:		freecad-unbundled-pycxx.patch
-# (upstream)
-# https://github.com/FreeCAD/FreeCAD/commit/1ae55905ba7e89278bf656ebcc57ea1088e8fa44?diff=unified
-Patch6:		freecad-0.20.1-fix_python11.patch 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
 #BuildRequires:	dos2unix
