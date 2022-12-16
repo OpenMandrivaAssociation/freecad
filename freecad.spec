@@ -47,7 +47,7 @@ BuildRequires:	swig
 
 BuildRequires:	boost-devel
 #BuildRequires:	boost-static-devel
-#BuildRequires:	coin-doc
+BuildRequires:	coin-doc
 BuildRequires:	cmake(coin)
 BuildRequires:	cmake(double-conversion)
 #BuildRequires:	pkgconfig(egl)
