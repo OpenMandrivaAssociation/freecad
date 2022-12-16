@@ -83,6 +83,7 @@ BuildRequires:	opencascade-devel
 #BuildRequires:	opencv-devel
 BuildRequires:	python-vtk
 BuildRequires:	python-vtk-qt
+BuildRequires:	cmake(Verdict)
 #BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(eigen3)
 BuildRequires:	pkgconfig(expat)
