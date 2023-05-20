@@ -26,7 +26,7 @@ Release:	%{?snapshot:0.%{snapshot}.}2
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:	https://github.com/%{sname}/%{sname}/archive/%{?snapshot:master}%{!?snapshot:%{version}}/%{sname}-%{?snapshot:master}%{!?snapshot:%{version}}.tar.gz
+Source0:	https://github.com/FreeCAD/FreeCAD/archive/%{?snapshot:master}%{!?snapshot:%{version}}/%{sname}-%{?snapshot:master}%{!?snapshot:%{version}}.tar.gz
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
@@ -37,6 +37,9 @@ Patch2:		FreeCAD-0.19.2-GL-linkage.patch
 Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch5:		freecad-unbundled-pycxx.patch
+# (upstream)
+Patch100:	https://github.com/FreeCAD/FreeCAD/commit/f91ad00ed23e92c81fff2bd0073c662291efad32.patch
+
 BuildRequires: 	cmake
 BuildRequires: 	ninja
 #BuildRequires:	dos2unix
