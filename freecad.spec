@@ -39,6 +39,7 @@ Patch3:		freecad-0.19.2-coin_doc.patch
 Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
 Patch100:	https://github.com/FreeCAD/FreeCAD/commit/f91ad00ed23e92c81fff2bd0073c662291efad32.patch
+Patch101:	https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
