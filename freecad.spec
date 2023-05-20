@@ -42,6 +42,7 @@ Patch5:		freecad-unbundled-pycxx.patch
 Patch100:	freecad-0.19.3-opencascade_7_6_3.patch
 Patch101:	https://github.com/FreeCAD/FreeCAD/commit/f91ad00ed23e92c81fff2bd0073c662291efad32.patch
 Patch102:	https://github.com/FreeCAD/FreeCAD/commit/c0fa37cfa90f2e3d7b08d538c99d9b624d0950b9.patch
+Patch103:	https://github.com/FreeCAD/FreeCAD/commit/988ec4c4fbd8729cb4bc42623eba76a75b31c028.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja

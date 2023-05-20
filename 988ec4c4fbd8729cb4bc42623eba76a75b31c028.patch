@@ -1,0 +1,21 @@
+From 988ec4c4fbd8729cb4bc42623eba76a75b31c028 Mon Sep 17 00:00:00 2001
+From: wmayer <wmayer@users.sourceforge.net>
+Date: Mon, 4 Jul 2022 10:44:41 +0200
+Subject: [PATCH] Drawing: [skip ci] fix build failure
+
+---
+ src/Mod/Drawing/App/AppDrawingPy.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Mod/Drawing/App/AppDrawingPy.cpp b/src/Mod/Drawing/App/AppDrawingPy.cpp
+index d4ed53ebafbb..ecefd3d5a8af 100644
+--- a/src/Mod/Drawing/App/AppDrawingPy.cpp
++++ b/src/Mod/Drawing/App/AppDrawingPy.cpp
+@@ -28,6 +28,7 @@
+ #include <Mod/Part/App/TopoShapePy.h>
+ #include "ProjectionAlgos.h"
+ #include <Base/Console.h>
++#include <Base/Interpreter.h>
+ #include <Base/VectorPy.h>
+ #include <boost/regex.hpp>
+ 
