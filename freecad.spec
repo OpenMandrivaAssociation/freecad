@@ -21,8 +21,8 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	0.20.2
-Release:	%{?snapshot:0.%{snapshot}.}2
+Version:	0.21.0
+Release:	%{?snapshot:0.%{snapshot}.}1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -33,16 +33,16 @@ Source3:	%{name}.rpmlintrc
 
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
-Patch2:		FreeCAD-0.19.2-GL-linkage.patch
+Patch2:		freecad-0.21.0-GL-linkage.patch
 Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch5:		freecad-unbundled-pycxx.patch
 # (upstream)
 # https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.patch
-Patch100:	freecad-0.19.3-opencascade_7_6_3.patch
-Patch101:	https://github.com/FreeCAD/FreeCAD/commit/f91ad00ed23e92c81fff2bd0073c662291efad32.patch
-Patch102:	https://github.com/FreeCAD/FreeCAD/commit/c0fa37cfa90f2e3d7b08d538c99d9b624d0950b9.patch
-Patch103:	https://github.com/FreeCAD/FreeCAD/commit/988ec4c4fbd8729cb4bc42623eba76a75b31c028.patch
+#Patch100:	freecad-0.19.3-opencascade_7_6_3.patch
+#Patch101:	https://github.com/FreeCAD/FreeCAD/commit/f91ad00ed23e92c81fff2bd0073c662291efad32.patch
+#Patch102:	https://github.com/FreeCAD/FreeCAD/commit/c0fa37cfa90f2e3d7b08d538c99d9b624d0950b9.patch
+#Patch103:	https://github.com/FreeCAD/FreeCAD/commit/988ec4c4fbd8729cb4bc42623eba76a75b31c028.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja

@@ -1,0 +1,11 @@
+--- a/src/Gui/CMakeLists.txt
++++ b/src/Gui/CMakeLists.txt
+@@ -99,6 +99,7 @@ if (BUILD_QT5)
+     ${QtSvgWidgets_LIBRARIES}
+     ${QtNetwork_LIBRARIES}
+     ${QtUiTools_LIBRARIES}
++	GL
+ )
+ 
+ if(${Qt5WinExtras_FOUND})
+
