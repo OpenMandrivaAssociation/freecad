@@ -165,7 +165,7 @@ FreeCAD runs exactly the same way on Windows, Mac OSX, BSD and Linux
 platforms.
 
 %files
-%doc ChangeLog.txt
+%doc README.md SECURITY.md
 %{_docdir}/%{name}/LICENSE.html
 %{_docdir}/%{name}/ThirdPartyLibraries.html
 %{_bindir}/*
