@@ -208,12 +208,12 @@ rm -rf src/CXX
 	-DBUILD_QT5:BOOL=ON \
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
-%if %{with pycxx}
+%if %{with smesh}
 	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=%{?with_smesh:ON}%{!?with_smesh:OFF} \
 	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh/SMESH \
 %endif
 	-DOpenGL_GL_PREFERENCE=GLVND \
-	-DPYTHON_EXECUTABLE=%{__python3} \
+	-DPYTHON_EXECUTABLE=%{__python} \
 %if %{with pycxx}
 	-DPYCXX_INCLUDE_DIR:PATH=%{_includedir}/python%{python3_version} \
 	-DPYCXX_SOURCE_DIR:PATH=%{_datadir}/python%{python3_version}/CXX \
@@ -226,6 +226,7 @@ rm -rf src/CXX
 	-DPYSIDE_LIBRARY=%{_libdir}/libpyside2.%{py_suffix}.so \
 %endif
 	-DUSE_BOOST_PYTHON:BOOL=ON \
+	-DENABLE_DEVELOPER_TESTS:BOOL=OFF \
 	-G Ninja
 
 %ninja_build
