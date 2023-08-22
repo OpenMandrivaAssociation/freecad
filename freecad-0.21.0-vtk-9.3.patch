@@ -1,0 +1,13 @@
+diff -up FreeCAD-0.21.0/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp.omv~ FreeCAD-0.21.0/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp
+--- FreeCAD-0.21.0/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp.omv~	2023-08-23 00:11:13.316052315 +0200
++++ FreeCAD-0.21.0/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp	2023-08-23 00:11:46.457326926 +0200
+@@ -1026,7 +1026,8 @@ void SMDS_UnstructuredGrid::BuildLinks()
+   GetLinks()->Allocate(this->GetNumberOfPoints());
+   GetLinks()->Register(this);
+ //FIXME: vtk9
+-  GetLinks()->BuildLinks(this);
++  GetLinks()->SetDataSet(this);
++  GetLinks()->BuildLinks();
+   GetLinks()->Delete();
+ #else
+   this->Links = SMDS_CellLinks::New();
