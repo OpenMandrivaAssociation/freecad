@@ -1,0 +1,24 @@
+diff -up FreeCAD-0.21.2/src/3rdParty/salomesmesh/src/SMESH/DriverGMF.cpp.omv~ FreeCAD-0.21.2/src/3rdParty/salomesmesh/src/SMESH/DriverGMF.cpp
+--- FreeCAD-0.21.2/src/3rdParty/salomesmesh/src/SMESH/DriverGMF.cpp.omv~	2024-04-02 02:46:08.646587402 +0200
++++ FreeCAD-0.21.2/src/3rdParty/salomesmesh/src/SMESH/DriverGMF.cpp	2024-04-02 02:47:25.283312755 +0200
+@@ -55,7 +55,7 @@ namespace DriverGMF
+ 
+   bool isExtensionCorrect( const std::string& fileName )
+   {
+-    std::string ext  = boost::filesystem::extension(fileName);
++    std::string ext  = boost::filesystem::path(fileName).extension().native();
+     switch ( ext.size() ) {
+     case 5: return ( ext == ".mesh" || ext == ".solb" );
+     case 6: return ( ext == ".meshb" );
+diff -up FreeCAD-0.21.2/src/Gui/PreferencePackManager.cpp.omv~ FreeCAD-0.21.2/src/Gui/PreferencePackManager.cpp
+--- FreeCAD-0.21.2/src/Gui/PreferencePackManager.cpp.omv~	2024-04-02 02:52:26.814173776 +0200
++++ FreeCAD-0.21.2/src/Gui/PreferencePackManager.cpp	2024-04-02 02:52:34.914250753 +0200
+@@ -221,7 +221,7 @@ void Gui::PreferencePackManager::importC
+     auto savedPreferencePacksDirectory =
+         fs::path(App::Application::getUserAppDataDir()) / "SavedPreferencePacks";
+     auto cfgFilename = savedPreferencePacksDirectory / packName / (packName + ".cfg");
+-    fs::copy_file(path, cfgFilename, fs::copy_option::overwrite_if_exists);
++    fs::copy_file(path, cfgFilename, fs::copy_options::overwrite_existing);
+     rescan();
+ }
+ 
