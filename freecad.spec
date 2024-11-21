@@ -195,6 +195,7 @@ rm -rf src/zipios++
 rm -rf src/CXX
 %endif
 
+find . -type f -name "*.cpp" -o -name "*.h" |xargs sed -i -e 's,boost::mt19937,std::mt19937,g'
 
 #rm -rf src/3rdParty/{boost,Pivy*}
 #sed -i 's!-python2.7!!g' CMakeLists.txt
