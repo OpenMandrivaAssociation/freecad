@@ -38,7 +38,7 @@ Patch3:		freecad-0.19.2-coin_doc.patch
 #Patch4:		freecad-0.21.0-vtk-9.3.patch
 #Patch5:		freecad-0.21.2-boost-1.85.patch
 # (fedora)
-Patch6:		freecad-unbundled-pycxx.patch
+#Patch6:		freecad-unbundled-pycxx.patch
 # (upstream)
 # https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.patch
 #Patch100:	freecad-0.19.3-opencascade_7_6_3.patch
