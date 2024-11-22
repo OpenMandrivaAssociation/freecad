@@ -125,6 +125,7 @@ BuildRequires: 	pkgconfig(xext)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(yaml-cpp)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python3dist(pivy)
 %if %{with pycxx}
