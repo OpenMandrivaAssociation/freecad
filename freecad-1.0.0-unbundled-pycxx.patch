@@ -1,0 +1,11 @@
+--- a/cMake/FindPyCXX.cmake
++++ b/cMake/FindPyCXX.cmake
+@@ -121,6 +121,7 @@ if(PYCXX_FOUND)
+     list(APPEND PYCXX_SOURCES ${PYCXX_SOURCE_DIR}/cxx_exceptions.cxx)
+     add_definitions(-DPYCXX_6_2_COMPATIBILITY)
+     #end old compatibility
++    add_definitions(-DPYCXX_PYTHON_2TO3)
+ else(PYCXX_FOUND)
+     MESSAGE(STATUS "PyCXX not found")
+ endif(PYCXX_FOUND)
+
