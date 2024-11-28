@@ -178,6 +178,7 @@ platforms.
 %{_libdir}/%{name}/Mod/
 %{_libdir}/%{name}/Ext/
 %{_datadir}/%{name}/
+%{py_puresitedir}/%{name}
 %{_mandir}/man1/*.1*
 
 #---------------------------------------------------------------------------
@@ -262,5 +263,5 @@ install -pD -m 0644 src/Gui/Icons/%{name}.svg %{buildroot}%{_datadir}/icons/hico
 install -pD -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
 
 # remove unwanted stuff
-rm -rf %{buildroot}%{_includedir}/%{name}/OndselSolver
+rm -rf %{buildroot}%{_includedir}/OndselSolver
 
