@@ -11,9 +11,10 @@
 
 %define __noautoreq /^\\\(libFreeCAD.*%(for i in %{plugins}; do echo -n "\\\|$i\\\|$iGui"; done)\\\)\\\(\\\|Gui\\\)\\.so/d
 
+%bcond addonmgr		1
 %bcond e57format	1
 %bcond netgen		0
-%bcond ondselsolver	0
+%bcond ondselsolver	1
 %bcond pybind11		1
 %bcond pycxx		1
 %bcond shiboken		1
@@ -25,7 +26,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	1.0.0
-Release:	%{?snapshot:0.%{snapshot}.}11
+Release:	%{?snapshot:0.%{snapshot}.}7
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -72,8 +73,10 @@ BuildRequires:	cmake(pybind11)
 %endif
 BuildRequires:	cmake(Qt6Concurrent)
 BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Gui)
 BuildRequires:	cmake(Qt6Network)
 BuildRequires:	cmake(Qt6OpenGL)
+BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6PrintSupport)
 BuildRequires:	cmake(Qt6Svg)
 BuildRequires:	cmake(Qt6SvgWidgets)
@@ -126,29 +129,29 @@ BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	python3dist(pivy)
+BuildRequires:	python%{pyver}dist(pivy)
 
 %if %{with pycxx}
-BuildRequires:	python3dist(cxx)
+BuildRequires:	python%{pyver}dist(cxx)
 BuildRequires:	python-cxx-devel
 %endif
-BuildRequires:	python3dist(matplotlib)
+BuildRequires:	python%{pyver}dist(matplotlib)
 %if %{with smesh}
 BuildRequires:	smesh-devel
 %endif
 BuildRequires: 	spnav-devel
 BuildRequires:	vtk-devel
 
-Requires:	python3dist(pivy)
+Requires:	python%{pyver}dist(pivy)
 #Requires:	python-matplotlib-qt6
-Requires:	python3dist(matplotlib)
+Requires:	python%{pyver}dist(matplotlib)
 #Requires:	python3dist(pycollada)
+Requires:	python%{pyver}dist(six)
 %if %{with shiboken}
 Requires:	pyside6
-Requires:	python3dist(shiboken6)
+#Requires:	python%{pyver}dist(shiboken6)
 %endif
 #Requires:	openscad
-#Requires:	qt5-assistant
 Requires:	qt6-qttools-assistant
 
 %description
@@ -172,6 +175,7 @@ platforms.
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/mime/packages/org.freecad.FreeCAD.xml
 %{_libdir}/%{name}/bin/
 %{_libdir}/%{name}/share
 %{_libdir}/%{name}/include
@@ -206,16 +210,17 @@ rm -rf src/zipios++
 %cmake -Wno-dev \
 	-DBUILD_ENABLE_CXX_STD:STRING="C++17" \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
+	-DCMAKE_INSTALL_BINDIR=bin \
 	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
 	-DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
 	-DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
-	-DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name}/lib \
+	-DCMAKE_INSTALL_LIBDIR=lib \
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_QT_VERSION=6 \
 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
 	-DFREECAD_USE_EXTERNAL_ONDSELSOLVER=%{?with_ondselsolver:ON}%{!?with_ondselsolver:OFF} \
 	-DFREECAD_USE_PYBIND11:BOOL=%{?with_pybind11:ON}%{!?with_pybind11:OFF} \
-%if %{with smech}
+%if %{with smesh}
 	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=%{?with_smesh:ON}%{!?with_smesh:OFF} \
 	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh/SMESH \
 %endif
@@ -233,11 +238,8 @@ rm -rf src/zipios++
 	-DUSE_BOOST_PYTHON:BOOL=ON \
 	-DBUILD_FEM_NETGEN:BOOL=%{?with_netgen:ON}%{!?with_netgen:OFF} \
 	-DENABLE_DEVELOPER_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
+	-DBUILD_ADDONMGR:BOOL=%{?with_addonmgr:ON}%{!?with_addonmgr:OFF} \
 	-G Ninja
-#		-DPYBIND11_FINDPYTHON:BOOL=ON \
-#		-DFREECAD_QT_MAJOR_VERSION=6 \
-#		-DQT_DEFAULT_MAJOR_VERSION=6 \
-#		-DBUILD_WITH_QT6=ON \
 
 %ninja_build
 
@@ -245,24 +247,34 @@ rm -rf src/zipios++
 %ninja_install -C build
 
 # symlink binaries to /usr/bin
-mkdir -p %{buildroot}%{_bindir}
+mkdir -pm 0755 %{buildroot}%{_bindir}
 pushd %{buildroot}%{_bindir}
+ln -s ../%{_lib}/freecad/bin/FreeCAD %{name}
 ln -s ../%{_lib}/freecad/bin/FreeCAD .
 ln -s ../%{_lib}/freecad/bin/FreeCADCmd .
 popd
 
 # .desktop
-desktop-file-install \
-	--dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 sed -i 's,@lib@,%{_lib},g' %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # icon
-install -pD -m 0644 src/Gui/Icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -Dpm 0644 src/Gui/Icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
-# mna pages
-install -pD -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
+# appdata
+install -dpm 0755 %{buildroot}%{_appdatadir}
+mv %{buildroot}%{_libdir}/%{name}/share/metainfo/org.freecad.FreeCAD.metainfo.xml %{buildroot}%{_appdatadir}/
+
+# mime
+install -dpm 0755 %{buildroot}%{_datadir}/mime/packages
+mv %{buildroot}%{_libdir}/%{name}/share/mime/packages/org.freecad.FreeCAD.xml %{buildroot}%{_datadir}/mime/packages/
+
+# man pages
+install -Dpm 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
 
 # remove unwanted stuff
-rm -rf %{buildroot}%{_includedir}/OndselSolver
+#rm -r %{buildroot}%{_libdir}/%{name}/include
+#rm -r %{buildroot}%{_libdir}/%{name}/share/pkgconfig
+#rm -r %{buildroot}%{_includedir}/OndselSolver
 
