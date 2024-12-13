@@ -115,6 +115,9 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(liblz4)
 BuildRequires: 	pkgconfig(liblzma)
 BuildRequires: 	pkgconfig(libtiff-4)
+%if %{with ondselsolver}
+BuildRequires:	pkgconfig(ondselsolver)
+%endif
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python3)
 %if %{with shiboken}
