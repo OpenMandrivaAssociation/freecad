@@ -116,7 +116,7 @@ BuildRequires:	pkgconfig(liblz4)
 BuildRequires: 	pkgconfig(liblzma)
 BuildRequires: 	pkgconfig(libtiff-4)
 %if %{with ondselsolver}
-BuildRequires:	pkgconfig(ondselsolver)
+BuildRequires:	pkgconfig(OndselSolver)
 %endif
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python3)
