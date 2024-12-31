@@ -26,7 +26,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	1.0.0
-Release:	%{?snapshot:0.%{snapshot}.}7
+Release:	%{?snapshot:0.%{snapshot}.}8
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -220,6 +220,9 @@ rm -rf src/zipios++
 	-DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
 	-DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
 	-DCMAKE_INSTALL_LIBDIR=lib \
+	-DCMAKE_SKIP_RPATH:BOOL=OFF \
+	-DCMAKE_SKIP_INSTALL_RPATH:BOOL=OFF \
+	-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_QT_VERSION=6 \
 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
