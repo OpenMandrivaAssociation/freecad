@@ -54,7 +54,7 @@ BuildRequires: 	ninja
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	swig
-
+BuildRequires:	gnutar
 BuildRequires:	boost-devel
 BuildRequires:	coin-doc
 BuildRequires:	cmake(coin)
