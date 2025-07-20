@@ -1,0 +1,229 @@
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_Mesh.hxx b/src/3rdParty/salomesmesh/inc/SMDS_Mesh.hxx
+index ecd50c1..07dbd8a 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_Mesh.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_Mesh.hxx
+@@ -51,7 +51,7 @@
+ #include <set>
+ #include <list>
+ #include <vector>
+-#include <vtkSystemIncludes.h>
++#include <vtk/vtkSystemIncludes.h>
+ #include <cassert>
+ 
+ #include "Utils_SALOME_Exception.hxx"
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_MeshElement.hxx b/src/3rdParty/salomesmesh/inc/SMDS_MeshElement.hxx
+index d97a37b..882ee87 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_MeshElement.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_MeshElement.hxx
+@@ -38,9 +38,9 @@
+ #include <vector>
+ #include <iostream>
+ 
+-#include <vtkType.h>
+-#include <vtkCellType.h>
+-#include <vtkCellArray.h>
++#include <vtk/vtkType.h>
++#include <vtk/vtkCellType.h>
++#include <vtk/vtkCellArray.h>
+ 
+ //typedef unsigned short UShortType;
+ typedef short ShortType;
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx b/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx
+index 7746581..1f247e2 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_UnstructuredGrid.hxx
+@@ -26,8 +26,8 @@
+ 
+ #include "SMESH_SMDS.hxx"
+ 
+-#include <vtkUnstructuredGrid.h>
+-#include <vtkCellLinks.h>
++#include <vtk/vtkUnstructuredGrid.h>
++#include <vtk/vtkCellLinks.h>
+ 
+ #include <vector>
+ #include <set>
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_VtkCellIterator.hxx b/src/3rdParty/salomesmesh/inc/SMDS_VtkCellIterator.hxx
+index 0ff0a6d..0879553 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_VtkCellIterator.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_VtkCellIterator.hxx
+@@ -24,8 +24,8 @@
+ #include "SMDS_Mesh.hxx"
+ #include "SMDSAbs_ElementType.hxx"
+ 
+-#include <vtkCell.h>
+-#include <vtkIdList.h>
++#include <vtk/vtkCell.h>
++#include <vtk/vtkIdList.h>
+ 
+ class SMDS_VtkCellIterator: public SMDS_ElemIterator
+ {
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_VtkEdge.hxx b/src/3rdParty/salomesmesh/inc/SMDS_VtkEdge.hxx
+index f6afdec..25ccd96 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_VtkEdge.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_VtkEdge.hxx
+@@ -27,7 +27,7 @@
+ #include "SMESH_SMDS.hxx"
+ 
+ #include "SMDS_MeshEdge.hxx"
+-#include <vtkUnstructuredGrid.h>
++#include <vtk/vtkUnstructuredGrid.h>
+ #include <vector>
+ 
+ class SMDS_EXPORT SMDS_VtkEdge: public SMDS_MeshEdge
+diff --git a/src/3rdParty/salomesmesh/inc/SMDS_VtkFace.hxx b/src/3rdParty/salomesmesh/inc/SMDS_VtkFace.hxx
+index 235a9c2..5c92fa4 100644
+--- a/src/3rdParty/salomesmesh/inc/SMDS_VtkFace.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMDS_VtkFace.hxx
+@@ -23,7 +23,7 @@
+ #include "SMESH_SMDS.hxx"
+ 
+ #include "SMDS_MeshFace.hxx"
+-#include <vtkUnstructuredGrid.h>
++#include <vtk/vtkUnstructuredGrid.h>
+ #include <vector>
+ 
+ class SMDS_EXPORT SMDS_VtkFace: public SMDS_MeshFace
+diff --git a/src/3rdParty/salomesmesh/inc/SMESH_SMDS.hxx b/src/3rdParty/salomesmesh/inc/SMESH_SMDS.hxx
+index 47a52fe..8f5844f 100644
+--- a/src/3rdParty/salomesmesh/inc/SMESH_SMDS.hxx
++++ b/src/3rdParty/salomesmesh/inc/SMESH_SMDS.hxx
+@@ -27,7 +27,7 @@
+ #ifndef _SMESH_SMDS_HXX_
+ #define _SMESH_SMDS_HXX_
+ 
+-#include <vtkType.h>
++#include <vtk/vtkType.h>
+ 
+ #ifdef WIN32
+  #if defined SMDS_EXPORTS
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_Downward.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_Downward.cpp
+index a41f5c1..3afed50 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_Downward.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_Downward.cpp
+@@ -25,8 +25,8 @@
+ #include "SMDS_Mesh.hxx"
+ #include "utilities.h"
+ 
+-#include <vtkCellType.h>
+-#include <vtkCellLinks.h>
++#include <vtk/vtkCellType.h>
++#include <vtk/vtkCellLinks.h>
+ 
+ #include <map>
+ 
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_Mesh.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_Mesh.cpp
+index a987e05..06238eb 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_Mesh.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_Mesh.cpp
+@@ -47,12 +47,12 @@
+ 
+ #include "utilities.h"
+ 
+-#include <vtkUnstructuredGrid.h>
+-#include <vtkUnstructuredGridWriter.h>
+-#include <vtkUnsignedCharArray.h>
+-#include <vtkCell.h>
+-#include <vtkCellLinks.h>
+-#include <vtkIdList.h>
++#include <vtk/vtkUnstructuredGrid.h>
++#include <vtk/vtkUnstructuredGridWriter.h>
++#include <vtk/vtkUnsignedCharArray.h>
++#include <vtk/vtkCell.h>
++#include <vtk/vtkCellLinks.h>
++#include <vtk/vtkIdList.h>
+ 
+ #include <algorithm>
+ #include <map>
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshElementIDFactory.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshElementIDFactory.cpp
+index 01315b5..defde2f 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshElementIDFactory.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshElementIDFactory.cpp
+@@ -36,7 +36,7 @@
+ #include "utilities.h"
+ 
+ #include "SMDS_UnstructuredGrid.hxx"
+-#include <vtkCellType.h>
++#include <vtk/vtkCellType.h>
+ 
+ #include <climits>
+ 
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNode.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNode.cpp
+index 7b8e7ae..e972a2e 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNode.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNode.cpp
+@@ -30,7 +30,7 @@
+ #include "SMDS_SpacePosition.hxx"
+ #include "SMDS_IteratorOfElements.hxx"
+ #include "SMDS_Mesh.hxx"
+-#include <vtkUnstructuredGrid.h>
++#include <vtk/vtkUnstructuredGrid.h>
+ 
+ #include "utilities.h"
+ #include "Utils_SALOME_Exception.hxx"
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNodeIDFactory.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNodeIDFactory.cpp
+index f50cdca..000b966 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNodeIDFactory.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_MeshNodeIDFactory.cpp
+@@ -31,8 +31,8 @@
+ #include "SMDS_MeshElement.hxx"
+ #include "SMDS_Mesh.hxx"
+ 
+-#include <vtkUnstructuredGrid.h>
+-#include <vtkCellType.h>
++#include <vtk/vtkUnstructuredGrid.h>
++#include <vtk/vtkCellType.h>
+ 
+ using namespace std;
+ 
+diff --git a/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp b/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp
+index 4e9d6dc..68c7440 100644
+--- a/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp
++++ b/src/3rdParty/salomesmesh/src/SMDS/SMDS_UnstructuredGrid.cpp
+@@ -26,13 +26,13 @@
+ #include "utilities.h"
+ #include "chrono.hxx"
+ 
+-#include <vtkCellArray.h>
+-#include <vtkCellData.h>
+-#include <vtkCellLinks.h>
+-#include <vtkDoubleArray.h>
+-#include <vtkIdTypeArray.h>
+-#include <vtkUnsignedCharArray.h>
+-#include <vtkVersionMacros.h>
++#include <vtk/vtkCellArray.h>
++#include <vtk/vtkCellData.h>
++#include <vtk/vtkCellLinks.h>
++#include <vtk/vtkDoubleArray.h>
++#include <vtk/vtkIdTypeArray.h>
++#include <vtk/vtkUnsignedCharArray.h>
++#include <vtk/vtkVersionMacros.h>
+ 
+ #include <list>
+ #include <climits>
+diff --git a/src/Base/Tools.h b/src/Base/Tools.h
+index 7e07dc8..2913173 100644
+--- a/src/Base/Tools.h
++++ b/src/Base/Tools.h
+@@ -34,7 +34,7 @@
+ #include <vector>
+ #include <string>
+ #include <boost_signals2.hpp>
+-#include <QString>
++#include <QtCore/QString>
+ 
+ // ----------------------------------------------------------------------------
+ 
+diff --git a/src/Base/Unit.h b/src/Base/Unit.h
+index 5e957a9..a41ae2c 100644
+--- a/src/Base/Unit.h
++++ b/src/Base/Unit.h
+@@ -25,7 +25,7 @@
+ #define BASE_Unit_H
+ 
+ #include <cstdint>
+-#include <QString>
++#include <QtCore/QString>
+ #include <FCGlobal.h>
+ 
+ namespace Base

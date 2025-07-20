@@ -25,15 +25,16 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	1.0.0
-Release:	12
+Version:	1.0.1
+Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:        https://github.com/FreeCAD/FreeCAD/releases/download/%{version}/freecad_source.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/FreeCAD/FreeCAD/releases/tag/%{version}/%{sname}-%{version}.tar.gz
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
+Source4:	GSL-4.2.0.tar.gz
 
 Patch0:		freecad-0.19.2-zipios++.patch
 Patch1:		freecad-0.14-Version_h.patch
@@ -41,8 +42,11 @@ Patch2:		freecad-0.21.0-GL-linkage.patch
 Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch4:		freecad-1.0.0-unbundled-pycxx.patch
+Patch5:		fix_vtk_include_path.patch
+Patch6:		fix_deprecated_vtk_function.patch
+# Patch5: 	freecad_limits.patch
 # PATCH-FIX-UPSTREAM
-Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
+#Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
@@ -194,7 +198,10 @@ platforms.
 #---------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -n %{sname}-%{version}
+cd %{_builddir}/%{sname}-%{version}/src/3rdParty/GSL
+gtar -xvf  %{_topdir}/GSL-4.2.0.tar.gz --strip=1 
+
 
 # remove 3rd party
 #rm -rf src/3rdParty
@@ -212,6 +219,7 @@ rm -rf src/zipios++
 %endif
 
 %build
+export CMAKE_GENERATOR=Ninja 
 %cmake -Wno-dev \
 	-DBUILD_ENABLE_CXX_STD:STRING="C++17" \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
@@ -228,26 +236,29 @@ rm -rf src/zipios++
 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
 	-DFREECAD_USE_EXTERNAL_ONDSELSOLVER=%{?with_ondselsolver:ON}%{!?with_ondselsolver:OFF} \
 	-DFREECAD_USE_PYBIND11:BOOL=%{?with_pybind11:ON}%{!?with_pybind11:OFF} \
+	-DENABLE_DEVELOPER_TESTS:BOOL=OFF \
+	
 %if %{with smesh}
 	-DFREECAD_USE_EXTERNAL_SMESH:BOOL=%{?with_smesh:ON}%{!?with_smesh:OFF} \
 	-DSMESH_INCLUDE_DIR=%{_includedir}/smesh/SMESH \
 %endif
-	-DOpenGL_GL_PREFERENCE=GLVND \
-	-DPYTHON_EXECUTABLE=%{__python} \
+#	-DOpenGL_GL_PREFERENCE=GLVND \
+#	-DPYTHON_EXECUTABLE=%{_python3} \
 %if %{with pycxx}
-	-DPYCXX_INCLUDE_DIR:PATH=%{_includedir}/python%{pyver} \
-	-DPYCXX_SOURCE_DIR:PATH=%{_datadir}/python%{pyver}/CXX \
+#	-DPYCXX_INCLUDE_DIR:PATH=%{_includedir}/python%{pyver} \
+#	-DPYCXX_SOURCE_DIR:PATH=%{_datadir}/python%{pyver}/CXX \
 %endif
 %if %{with shiboken}
-	-DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide6 \
-	-DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken6 \
-	-DPYSIDE_LIBRARY=%{_libdir}/libpyside6.abi3.so \
+#	-DPYSIDE_INCLUDE_DIR=%{_includedir}/PySide6 \
+#	-DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken6 \
+#	-DPYSIDE_LIBRARY=%{_libdir}/libpyside6.abi3.so \
 %endif
-	-DUSE_BOOST_PYTHON:BOOL=ON \
-	-DBUILD_FEM_NETGEN:BOOL=%{?with_netgen:ON}%{!?with_netgen:OFF} \
-	-DENABLE_DEVELOPER_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
-	-DBUILD_ADDONMGR:BOOL=%{?with_addonmgr:ON}%{!?with_addonmgr:OFF} \
-	-G Ninja
+#	-DUSE_BOOST_PYTHON:BOOL=ON \
+#	-DBUILD_FEM_NETGEN:BOOL=%{?with_netgen:ON}%{!?with_netgen:OFF} \
+#	-DENABLE_DEVELOPER_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
+#	-DBUILD_ADDONMGR:BOOL=%{?with_addonmgr:ON}%{!?with_addonmgr:OFF} \ 
+#	-DCMAKE_VERBOSE_MAKEFILE=ON 
+#	-DCMAKE_VERBOSE_MAKEFILE=ON -Bbuild -H
 
 %ninja_build
 

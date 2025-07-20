@@ -1,0 +1,2642 @@
+From 27f56995880e58b4287edefcf0434b26530691ef Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:50:19 +0200
+Subject: [PATCH 01/21] App: Add `#include <limits>` where used
+
+---
+ src/App/ComplexGeoData.cpp   | 1 +
+ src/App/Link.cpp             | 9 +++++++--
+ src/App/ObjectIdentifier.cpp | 1 +
+ src/App/PropertyUnits.cpp    | 1 +
+ 4 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/App/ComplexGeoData.cpp b/src/App/ComplexGeoData.cpp
+index 4cb6994d6f6d..02c02d1bb6e7 100644
+--- a/src/App/ComplexGeoData.cpp
++++ b/src/App/ComplexGeoData.cpp
+@@ -28,6 +28,7 @@
+ 
+ #ifndef _PreComp_
+ #include <cstdlib>
++#include <limits>
+ #endif
+ 
+ #include <boost/regex.hpp>
+diff --git a/src/App/Link.cpp b/src/App/Link.cpp
+index 9312aa13d210..1645c495e22e 100644
+--- a/src/App/Link.cpp
++++ b/src/App/Link.cpp
+@@ -21,10 +21,15 @@
+  ****************************************************************************/
+ 
+ #include "PreCompiled.h"
+-#include <boost/property_map/property_map.hpp>
+ 
+-#include <boost/range.hpp>
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ #include <boost/algorithm/string/predicate.hpp>
++#include <boost/range.hpp>
++#include <boost/property_map/property_map.hpp>
++
+ #include <Base/Tools.h>
+ #include <Base/Uuid.h>
+ 
+diff --git a/src/App/ObjectIdentifier.cpp b/src/App/ObjectIdentifier.cpp
+index 0c80b13672aa..fde8bff2ffdf 100644
+--- a/src/App/ObjectIdentifier.cpp
++++ b/src/App/ObjectIdentifier.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ #include <cassert>
++#include <limits>
+ #endif
+ 
+ #include <boost/algorithm/string/predicate.hpp>
+diff --git a/src/App/PropertyUnits.cpp b/src/App/PropertyUnits.cpp
+index 153b64bfa286..300c3ca78645 100644
+--- a/src/App/PropertyUnits.cpp
++++ b/src/App/PropertyUnits.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #endif
+ 
+ #include <Base/QuantityPy.h>
+
+From d9af8626273eb20436c54b43242883fcc7e2bc9e Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:50:30 +0200
+Subject: [PATCH 02/21] Base: Add `#include <limits>` where used
+
+---
+ src/Base/MatrixPyImp.cpp   |  4 ++++
+ src/Base/PreCompiled.h     | 21 +++++++++++----------
+ src/Base/Quantity.cpp      |  3 ++-
+ src/Base/QuantityPyImp.cpp |  4 ++++
+ src/Base/Rotation.cpp      |  4 ++++
+ src/Base/Tools2D.cpp       |  1 +
+ src/Base/Tools2D.h         |  1 +
+ src/Base/Vector3D.cpp      |  5 ++++-
+ 8 files changed, 31 insertions(+), 12 deletions(-)
+
+diff --git a/src/Base/MatrixPyImp.cpp b/src/Base/MatrixPyImp.cpp
+index 9aaa9e8d6342..5e93e20e2cb9 100644
+--- a/src/Base/MatrixPyImp.cpp
++++ b/src/Base/MatrixPyImp.cpp
+@@ -23,6 +23,10 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ // inclusion of the generated files (generated out of MatrixPy.xml)
+ #include "RotationPy.h"
+ #include "VectorPy.h"
+diff --git a/src/Base/PreCompiled.h b/src/Base/PreCompiled.h
+index 5a26c2e4f6f5..33b7e46f87a2 100644
+--- a/src/Base/PreCompiled.h
++++ b/src/Base/PreCompiled.h
+@@ -59,21 +59,22 @@
+ #endif
+ 
+ // STL
+-#include <string>
+-#include <string_view>
++#include <algorithm>
++#include <bitset>
++#include <iomanip>
+ #include <list>
++#include <limits>
+ #include <map>
++#include <memory>
++#include <mutex>
+ #include <numbers>
+-#include <unordered_map>
+-#include <vector>
++#include <queue>
+ #include <set>
+ #include <stack>
+-#include <queue>
+-#include <memory>
+-#include <mutex>
+-#include <bitset>
+-#include <algorithm>
+-#include <iomanip>
++#include <string>
++#include <string_view>
++#include <unordered_map>
++#include <vector>
+ 
+ // streams
+ #include <iostream>
+diff --git a/src/Base/Quantity.cpp b/src/Base/Quantity.cpp
+index e566227b17b1..1b2579382443 100644
+--- a/src/Base/Quantity.cpp
++++ b/src/Base/Quantity.cpp
+@@ -22,8 +22,9 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+-#include <cmath>
+ #include <array>
++#include <cmath>
++#include <limits>
+ #include <numbers>
+ #endif
+ 
+diff --git a/src/Base/QuantityPyImp.cpp b/src/Base/QuantityPyImp.cpp
+index 5b999d6aaaf5..36f435adefdb 100644
+--- a/src/Base/QuantityPyImp.cpp
++++ b/src/Base/QuantityPyImp.cpp
+@@ -22,6 +22,10 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ // inclusion of the generated files (generated out of QuantityPy.xml)
+ #include "QuantityPy.h"
+ #include "UnitPy.h"
+diff --git a/src/Base/Rotation.cpp b/src/Base/Rotation.cpp
+index e9e1776e80fe..d35fa1e6722f 100644
+--- a/src/Base/Rotation.cpp
++++ b/src/Base/Rotation.cpp
+@@ -23,6 +23,10 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ #include <boost/algorithm/string/predicate.hpp>
+ #include "Base/Exception.h"
+ 
+diff --git a/src/Base/Tools2D.cpp b/src/Base/Tools2D.cpp
+index 59bc29683043..9a70b0bc3691 100644
+--- a/src/Base/Tools2D.cpp
++++ b/src/Base/Tools2D.cpp
+@@ -25,6 +25,7 @@
+ 
+ #ifndef _PreComp_
+ #include <array>
++#include <limits>
+ #include <set>
+ #endif
+ 
+diff --git a/src/Base/Tools2D.h b/src/Base/Tools2D.h
+index a76fd88bb2fc..b97b61c73a96 100644
+--- a/src/Base/Tools2D.h
++++ b/src/Base/Tools2D.h
+@@ -25,6 +25,7 @@
+ 
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #include <list>
+ #include <vector>
+ 
+diff --git a/src/Base/Vector3D.cpp b/src/Base/Vector3D.cpp
+index 4d6b0496344b..7f9403977de9 100644
+--- a/src/Base/Vector3D.cpp
++++ b/src/Base/Vector3D.cpp
+@@ -23,8 +23,11 @@
+ 
+ #include "PreCompiled.h"
+ 
+-#include <cmath>
++#ifndef _PreComp_
+ #include <limits>
++#endif
++
++#include <cmath>
+ #include <boost/math/special_functions/fpclassify.hpp>
+ 
+ #include "Vector3D.h"
+
+From 17dc7fce0628ffbf113feedbc9c2b249788cd20a Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:50:37 +0200
+Subject: [PATCH 03/21] Gui: Add `#include <limits>` where used
+
+---
+ src/Gui/3Dconnexion/navlib/NavlibPivot.cpp            | 10 ++++++----
+ src/Gui/CallTips.cpp                                  |  1 +
+ src/Gui/Clipping.cpp                                  |  1 +
+ src/Gui/DemoMode.cpp                                  |  1 +
+ src/Gui/Dialogs/DlgParameterImp.cpp                   |  1 +
+ src/Gui/EditableDatumLabel.cpp                        |  1 +
+ src/Gui/InputField.cpp                                |  1 +
+ src/Gui/OverlayManager.cpp                            |  1 +
+ src/Gui/PreCompiled.h                                 |  1 +
+ src/Gui/PreferencePages/DlgSettingsCacheDirectory.cpp |  5 +++--
+ src/Gui/PreferencePages/DlgSettingsDocumentImp.cpp    |  4 ++++
+ src/Gui/QuantitySpinBox.cpp                           |  1 +
+ src/Gui/Selection/SelectionFilter.h                   |  1 +
+ src/Gui/Selection/SoFCSelectionContext.h              |  1 +
+ src/Gui/ShortcutManager.cpp                           |  1 +
+ src/Gui/SoDatumLabel.cpp                              |  1 +
+ src/Gui/SpinBox.cpp                                   |  2 +-
+ src/Gui/VectorListEditor.cpp                          |  4 ++++
+ src/Gui/propertyeditor/PropertyItem.cpp               |  1 +
+ src/Gui/propertyeditor/PropertyModel.cpp              |  1 +
+ 20 files changed, 33 insertions(+), 7 deletions(-)
+
+diff --git a/src/Gui/3Dconnexion/navlib/NavlibPivot.cpp b/src/Gui/3Dconnexion/navlib/NavlibPivot.cpp
+index 74a284860166..c021d21e3a36 100644
+--- a/src/Gui/3Dconnexion/navlib/NavlibPivot.cpp
++++ b/src/Gui/3Dconnexion/navlib/NavlibPivot.cpp
+@@ -22,6 +22,10 @@
+ 
+ #include <PreCompiled.h>
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ #include <QImage>
+ #include <QScreen>
+ #include <QString>
+@@ -48,8 +52,6 @@
+ #include <Gui/View3DInventorViewer.h>
+ #include <Gui/ViewProvider.h>
+ 
+-constexpr float MAX_FLOAT = std::numeric_limits<float>::max();
+-
+ long NavlibInterface::GetSelectionTransform(navlib::matrix_t&) const
+ {
+     return navlib::make_result_code(navlib::navlib_errc::no_data_available);
+@@ -128,7 +130,7 @@ long NavlibInterface::GetHitLookAt(navlib::point_t& position) const
+     SoRayPickAction rayPickAction(inventorViewer->getSoRenderManager()->getViewportRegion());
+     SbMatrix cameraMatrix;
+     SbVec3f closestHitPoint;
+-    float minLength = MAX_FLOAT;
++    float minLength = std::numeric_limits<float>::max();
+ 
+     // Get the camera rotation
+     SoCamera* pCamera = getCamera<SoCamera*>();
+@@ -196,7 +198,7 @@ long NavlibInterface::GetHitLookAt(navlib::point_t& position) const
+         }
+     }
+ 
+-    if (minLength < MAX_FLOAT) {
++    if (minLength < std::numeric_limits<float>::max()) {
+         std::copy(closestHitPoint.getValue(), closestHitPoint.getValue() + 3, &position.x);
+         return 0;
+     }
+diff --git a/src/Gui/CallTips.cpp b/src/Gui/CallTips.cpp
+index e3712f9c22ee..44e259948961 100644
+--- a/src/Gui/CallTips.cpp
++++ b/src/Gui/CallTips.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <QApplication>
+ # include <QKeyEvent>
+ # include <QLabel>
+diff --git a/src/Gui/Clipping.cpp b/src/Gui/Clipping.cpp
+index d2495c37209d..aebf86e8bdc7 100644
+--- a/src/Gui/Clipping.cpp
++++ b/src/Gui/Clipping.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <Inventor/actions/SoGetBoundingBoxAction.h>
+ #include <Inventor/nodes/SoClipPlane.h>
+ #include <Inventor/nodes/SoGroup.h>
+diff --git a/src/Gui/DemoMode.cpp b/src/Gui/DemoMode.cpp
+index d69224d891b0..a4eef9d65c88 100644
+--- a/src/Gui/DemoMode.cpp
++++ b/src/Gui/DemoMode.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <QCursor>
+ #include <QTimer>
+ #include <Inventor/nodes/SoCamera.h>
+diff --git a/src/Gui/Dialogs/DlgParameterImp.cpp b/src/Gui/Dialogs/DlgParameterImp.cpp
+index 8139e994bac0..957d7992efb8 100644
+--- a/src/Gui/Dialogs/DlgParameterImp.cpp
++++ b/src/Gui/Dialogs/DlgParameterImp.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ #include <QByteArray>
+ #include <QContextMenuEvent>
+diff --git a/src/Gui/EditableDatumLabel.cpp b/src/Gui/EditableDatumLabel.cpp
+index 0604bc0a2db9..17068a5db7b0 100644
+--- a/src/Gui/EditableDatumLabel.cpp
++++ b/src/Gui/EditableDatumLabel.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <Inventor/sensors/SoNodeSensor.h>
+ # include <Inventor/nodes/SoAnnotation.h>
+ # include <Inventor/nodes/SoOrthographicCamera.h>
+diff --git a/src/Gui/InputField.cpp b/src/Gui/InputField.cpp
+index ee559b0bc69a..6ebeb16844ce 100644
+--- a/src/Gui/InputField.cpp
++++ b/src/Gui/InputField.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <QContextMenuEvent>
+ # include <QMenu>
+ # include <QPixmapCache>
+diff --git a/src/Gui/OverlayManager.cpp b/src/Gui/OverlayManager.cpp
+index 41cb897bc8c6..5515060f8162 100644
+--- a/src/Gui/OverlayManager.cpp
++++ b/src/Gui/OverlayManager.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <QAction>
+ # include <QApplication>
+ # include <QComboBox>
+diff --git a/src/Gui/PreCompiled.h b/src/Gui/PreCompiled.h
+index c665016cf7db..718190076bd0 100644
+--- a/src/Gui/PreCompiled.h
++++ b/src/Gui/PreCompiled.h
+@@ -65,6 +65,7 @@
+ #include <algorithm>
+ #include <atomic>
+ #include <bitset>
++#include <limits>
+ #include <list>
+ #include <map>
+ #include <numbers>
+diff --git a/src/Gui/PreferencePages/DlgSettingsCacheDirectory.cpp b/src/Gui/PreferencePages/DlgSettingsCacheDirectory.cpp
+index 9e5bd6b5ba89..1afea2d6c1b2 100644
+--- a/src/Gui/PreferencePages/DlgSettingsCacheDirectory.cpp
++++ b/src/Gui/PreferencePages/DlgSettingsCacheDirectory.cpp
+@@ -23,6 +23,9 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <cmath>
++# include <limits>
++# include <vector>
+ # include <QCoreApplication>
+ # include <QDate>
+ # include <QDesktopServices>
+@@ -31,8 +34,6 @@
+ # include <QMessageBox>
+ # include <QSettings>
+ # include <QUrl>
+-# include <cmath>
+-# include <vector>
+ #endif
+ 
+ #include <App/Application.h>
+diff --git a/src/Gui/PreferencePages/DlgSettingsDocumentImp.cpp b/src/Gui/PreferencePages/DlgSettingsDocumentImp.cpp
+index cb352c303fc7..42b76b5d4b6b 100644
+--- a/src/Gui/PreferencePages/DlgSettingsDocumentImp.cpp
++++ b/src/Gui/PreferencePages/DlgSettingsDocumentImp.cpp
+@@ -22,6 +22,10 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ #include <zlib.h>
+ #include <App/License.h>
+ #include <Gui/AutoSaver.h>
+diff --git a/src/Gui/QuantitySpinBox.cpp b/src/Gui/QuantitySpinBox.cpp
+index cc18e8be1186..18657e6ed5bf 100644
+--- a/src/Gui/QuantitySpinBox.cpp
++++ b/src/Gui/QuantitySpinBox.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <QApplication>
+ # include <QDebug>
+ # include <QFocusEvent>
+diff --git a/src/Gui/Selection/SelectionFilter.h b/src/Gui/Selection/SelectionFilter.h
+index 563acd90af19..13981dabbc59 100644
+--- a/src/Gui/Selection/SelectionFilter.h
++++ b/src/Gui/Selection/SelectionFilter.h
+@@ -24,6 +24,7 @@
+ #ifndef GUI_SelectionFilter_H
+ #define GUI_SelectionFilter_H
+ 
++#include <limits>
+ #include <memory>
+ #include <string>
+ #include <CXX/Extensions.hxx>
+diff --git a/src/Gui/Selection/SoFCSelectionContext.h b/src/Gui/Selection/SoFCSelectionContext.h
+index d9cb345bbf7b..7eabce062d0e 100644
+--- a/src/Gui/Selection/SoFCSelectionContext.h
++++ b/src/Gui/Selection/SoFCSelectionContext.h
+@@ -23,6 +23,7 @@
+ #ifndef GUI_SOFCSELECTIONCONTEXT_H
+ #define GUI_SOFCSELECTIONCONTEXT_H
+ 
++#include <limits>
+ #include <map>
+ #include <memory>
+ #include <set>
+diff --git a/src/Gui/ShortcutManager.cpp b/src/Gui/ShortcutManager.cpp
+index 2f49e8fd7d51..0fbf60d3fec1 100644
+--- a/src/Gui/ShortcutManager.cpp
++++ b/src/Gui/ShortcutManager.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <QShortcutEvent>
+ # include <QApplication>
+ #endif
+diff --git a/src/Gui/SoDatumLabel.cpp b/src/Gui/SoDatumLabel.cpp
+index 978a7721a1c5..928284e67f83 100644
+--- a/src/Gui/SoDatumLabel.cpp
++++ b/src/Gui/SoDatumLabel.cpp
+@@ -35,6 +35,7 @@
+ 
+ # include <algorithm>
+ # include <cmath>
++# include <limits>
+ # include <numbers>
+ # include <QFontMetrics>
+ # include <QPainter>
+diff --git a/src/Gui/SpinBox.cpp b/src/Gui/SpinBox.cpp
+index a4fdb99addb0..d25b0a201cf7 100644
+--- a/src/Gui/SpinBox.cpp
++++ b/src/Gui/SpinBox.cpp
+@@ -23,7 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
+-# include <climits>
++# include <limits>
+ # include <QKeyEvent>
+ # include <QLineEdit>
+ # include <QStyle>
+diff --git a/src/Gui/VectorListEditor.cpp b/src/Gui/VectorListEditor.cpp
+index 0e432920d15e..85e69ec6736c 100644
+--- a/src/Gui/VectorListEditor.cpp
++++ b/src/Gui/VectorListEditor.cpp
+@@ -22,6 +22,10 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
+ #include "VectorListEditor.h"
+ #include "ui_VectorListEditor.h"
+ #include "QuantitySpinBox.h"
+diff --git a/src/Gui/propertyeditor/PropertyItem.cpp b/src/Gui/propertyeditor/PropertyItem.cpp
+index 94bbd659f73f..48733f482668 100644
+--- a/src/Gui/propertyeditor/PropertyItem.cpp
++++ b/src/Gui/propertyeditor/PropertyItem.cpp
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <iomanip>
++#include <limits>
+ #include <QApplication>
+ #include <QComboBox>
+ #include <QFontDatabase>
+diff --git a/src/Gui/propertyeditor/PropertyModel.cpp b/src/Gui/propertyeditor/PropertyModel.cpp
+index aa93d2563a27..3babbd74f43f 100644
+--- a/src/Gui/propertyeditor/PropertyModel.cpp
++++ b/src/Gui/propertyeditor/PropertyModel.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <boost/algorithm/string/predicate.hpp>
+ #endif
+ 
+
+From df6a76ba84059e28ac8238a6b9ab1e33ded0567d Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:50:49 +0200
+Subject: [PATCH 04/21] CAM: Add `#include <limits>` where used
+
+---
+ src/Mod/CAM/App/Area.cpp             | 1 +
+ src/Mod/CAM/App/PreCompiled.h        | 1 +
+ src/Mod/CAM/App/Voronoi.h            | 1 +
+ src/Mod/CAM/App/VoronoiEdgePyImp.cpp | 1 +
+ src/Mod/CAM/Gui/ViewProviderPath.cpp | 1 +
+ src/Mod/CAM/libarea/Area.cpp         | 1 +
+ 6 files changed, 6 insertions(+)
+
+diff --git a/src/Mod/CAM/App/Area.cpp b/src/Mod/CAM/App/Area.cpp
+index 82892eef4d34..0e593cd448fc 100644
+--- a/src/Mod/CAM/App/Area.cpp
++++ b/src/Mod/CAM/App/Area.cpp
+@@ -26,6 +26,7 @@
+ #define BOOST_GEOMETRY_DISABLE_DEPRECATED_03_WARNING
+ 
+ #ifndef _PreComp_
++#include <limits>
+ 
+ #include <boost/geometry.hpp>
+ #include <boost/geometry/geometries/register/point.hpp>
+diff --git a/src/Mod/CAM/App/PreCompiled.h b/src/Mod/CAM/App/PreCompiled.h
+index 470c653327ab..476d3f979d5a 100644
+--- a/src/Mod/CAM/App/PreCompiled.h
++++ b/src/Mod/CAM/App/PreCompiled.h
+@@ -45,6 +45,7 @@
+ // standard
+ #include <cinttypes>
+ #include <iomanip>
++#include <limits>
+ #include <map>
+ #include <sstream>
+ #include <string>
+diff --git a/src/Mod/CAM/App/Voronoi.h b/src/Mod/CAM/App/Voronoi.h
+index ff77698bfbbd..b00690850df3 100644
+--- a/src/Mod/CAM/App/Voronoi.h
++++ b/src/Mod/CAM/App/Voronoi.h
+@@ -22,6 +22,7 @@
+ #ifndef PATH_VORONOI_H
+ #define PATH_VORONOI_H
+ 
++#include <limits>
+ #include <map>
+ #include <vector>
+ #include <Base/BaseClass.h>
+diff --git a/src/Mod/CAM/App/VoronoiEdgePyImp.cpp b/src/Mod/CAM/App/VoronoiEdgePyImp.cpp
+index bf4725808326..0a26f6fe5e87 100644
+--- a/src/Mod/CAM/App/VoronoiEdgePyImp.cpp
++++ b/src/Mod/CAM/App/VoronoiEdgePyImp.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <BRepBuilderAPI_MakeEdge.hxx>
+ #include <Geom_Parabola.hxx>
+ #endif
+diff --git a/src/Mod/CAM/Gui/ViewProviderPath.cpp b/src/Mod/CAM/Gui/ViewProviderPath.cpp
+index 44698df05a9d..ce48d19271c1 100644
+--- a/src/Mod/CAM/Gui/ViewProviderPath.cpp
++++ b/src/Mod/CAM/Gui/ViewProviderPath.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <boost/algorithm/string/replace.hpp>
+ 
+ #include <Inventor/SbVec3f.h>
+diff --git a/src/Mod/CAM/libarea/Area.cpp b/src/Mod/CAM/libarea/Area.cpp
+index 770c1504790d..fa76059216c8 100644
+--- a/src/Mod/CAM/libarea/Area.cpp
++++ b/src/Mod/CAM/libarea/Area.cpp
+@@ -6,6 +6,7 @@
+ #include "Area.h"
+ #include "AreaOrderer.h"
+ 
++#include <limits>
+ #include <map>
+ 
+ double CArea::m_accuracy = 0.01;
+
+From 1dc1cc8d1b550b8584460f7b09c3dfe8ee0d3ad0 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:50:57 +0200
+Subject: [PATCH 05/21] Cloud: Add `#include <limits>` where used
+
+---
+ src/Mod/Cloud/App/AppCloud.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/Mod/Cloud/App/AppCloud.cpp b/src/Mod/Cloud/App/AppCloud.cpp
+index 6d26780d4e85..3ec811dc04be 100644
+--- a/src/Mod/Cloud/App/AppCloud.cpp
++++ b/src/Mod/Cloud/App/AppCloud.cpp
+@@ -22,6 +22,11 @@
+ 
+ #include "PreCompiled.h"
+ 
++#ifndef _PreComp_
++#include <limits>
++#endif
++
++
+ #if defined(FC_OS_WIN32)
+ #include <Windows.h>
+ #include <cstdint>
+
+From a6e1b894febdc347257dead527d20bc309461443 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:51:06 +0200
+Subject: [PATCH 06/21] Fem: Add `#include <limits>` where used
+
+---
+ src/Mod/Fem/App/FemConstraint.cpp                  | 1 +
+ src/Mod/Fem/Gui/PreCompiled.h                      | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp       | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintContact.cpp       | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp  | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintForce.cpp         | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintGear.cpp          | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp      | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp      | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintPulley.cpp        | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintRigidBody.cpp     | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintSpring.cpp        | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp   | 1 +
+ src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp     | 1 +
+ src/Mod/Fem/Gui/TaskPostBoxes.cpp                  | 2 +-
+ src/Mod/Fem/Gui/ViewProviderFemPostObject.cpp      | 2 ++
+ 17 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/src/Mod/Fem/App/FemConstraint.cpp b/src/Mod/Fem/App/FemConstraint.cpp
+index 322e82433592..87237513f599 100644
+--- a/src/Mod/Fem/App/FemConstraint.cpp
++++ b/src/Mod/Fem/App/FemConstraint.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <Adaptor3d_IsoCurve.hxx>
+ #include <BRepAdaptor_CompCurve.hxx>
+ #include <BRepAdaptor_Curve.hxx>
+diff --git a/src/Mod/Fem/Gui/PreCompiled.h b/src/Mod/Fem/Gui/PreCompiled.h
+index 41128a91519e..cee733232552 100644
+--- a/src/Mod/Fem/Gui/PreCompiled.h
++++ b/src/Mod/Fem/Gui/PreCompiled.h
+@@ -40,6 +40,7 @@
+ // STL
+ #include <algorithm>
+ #include <bitset>
++#include <limits>
+ #include <list>
+ #include <map>
+ #include <queue>
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp b/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp
+index d054494ca6dd..ab6a5811ca33 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintBearing.cpp
+@@ -28,6 +28,7 @@
+ #include <QAction>
+ #include <QMessageBox>
+ #include <TopoDS.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp b/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp
+index 65c17441279b..65019b15339f 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintContact.cpp
+@@ -29,6 +29,7 @@
+ #include <QAction>
+ #include <QMessageBox>
+ #include <sstream>
++#include <limits>
+ #endif
+ 
+ #include "Mod/Fem/App/FemConstraintContact.h"
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp b/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp
+index b760434e770b..86adc128d336 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintDisplacement.cpp
+@@ -28,6 +28,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp b/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp
+index fb9a3fe912ad..2db9ff25ee17 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintFluidBoundary.cpp
+@@ -29,6 +29,7 @@
+ #include <QMessageBox>
+ #include <TopoDS.hxx>
+ #include <TopoDS_Shape.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp b/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp
+index fb8f7f985512..ef6e5a3119c8 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintForce.cpp
+@@ -27,6 +27,7 @@
+ #include <QAction>
+ #include <QMessageBox>
+ #include <TopoDS.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintGear.cpp b/src/Mod/Fem/Gui/TaskFemConstraintGear.cpp
+index 9e139f899c9d..6b9e1637a73b 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintGear.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintGear.cpp
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ #include <QMessageBox>
+ #include <TopoDS.hxx>
++#include <limits>
+ #endif
+ 
+ #include <App/Document.h>
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp b/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp
+index 0241563cbb11..e9cc6090a9ed 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintHeatflux.cpp
+@@ -28,6 +28,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp b/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp
+index 41406cc1a27c..a253f239b4ae 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintPressure.cpp
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintPulley.cpp b/src/Mod/Fem/Gui/TaskFemConstraintPulley.cpp
+index ebc8ac670e98..143118f68fa4 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintPulley.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintPulley.cpp
+@@ -25,6 +25,7 @@
+ 
+ #ifndef _PreComp_
+ #include <QMessageBox>
++#include <limits>
+ #endif
+ 
+ #include <Gui/Command.h>
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintRigidBody.cpp b/src/Mod/Fem/Gui/TaskFemConstraintRigidBody.cpp
+index c1f5e17ee9fd..d3e8a43cf98e 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintRigidBody.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintRigidBody.cpp
+@@ -25,6 +25,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintSpring.cpp b/src/Mod/Fem/Gui/TaskFemConstraintSpring.cpp
+index e21fb5b29995..413fe39bf9a3 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintSpring.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintSpring.cpp
+@@ -26,6 +26,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp b/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp
+index ff648c41e7dc..5dfe77200b76 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintTemperature.cpp
+@@ -28,6 +28,7 @@
+ #ifndef _PreComp_
+ #include <QAction>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp b/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp
+index 894b27b62e8d..5d32f8fa7dfc 100644
+--- a/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp
++++ b/src/Mod/Fem/Gui/TaskFemConstraintTransform.cpp
+@@ -31,6 +31,7 @@
+ #include <QAction>
+ #include <QMessageBox>
+ #include <TopoDS.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Fem/Gui/TaskPostBoxes.cpp b/src/Mod/Fem/Gui/TaskPostBoxes.cpp
+index dbd9dacbc447..3989857ce5c7 100644
+--- a/src/Mod/Fem/Gui/TaskPostBoxes.cpp
++++ b/src/Mod/Fem/Gui/TaskPostBoxes.cpp
+@@ -29,7 +29,7 @@
+ #include <Inventor/nodes/SoMarkerSet.h>
+ 
+ #include <sstream>
+-
++#include <limits>
+ #include <QApplication>
+ #include <QMessageBox>
+ #include <QMetaMethod>
+diff --git a/src/Mod/Fem/Gui/ViewProviderFemPostObject.cpp b/src/Mod/Fem/Gui/ViewProviderFemPostObject.cpp
+index 234f68dc9fe4..86b13b39c187 100644
+--- a/src/Mod/Fem/Gui/ViewProviderFemPostObject.cpp
++++ b/src/Mod/Fem/Gui/ViewProviderFemPostObject.cpp
+@@ -38,6 +38,8 @@
+ #include <Inventor/nodes/SoSwitch.h>
+ #include <Inventor/nodes/SoTransparencyType.h>
+ #include <functional>
++#include <limits>
++
+ 
+ #include <vtkCellArray.h>
+ #include <vtkCellData.h>
+
+From 1669427449914d08ff0db83eb77b22413adc3ef8 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:51:31 +0200
+Subject: [PATCH 07/21] Import: Add `#include <limits>` where used
+
+---
+ src/Mod/Import/App/Tools.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/Mod/Import/App/Tools.h b/src/Mod/Import/App/Tools.h
+index 56b704e01058..c2620e31fde6 100644
+--- a/src/Mod/Import/App/Tools.h
++++ b/src/Mod/Import/App/Tools.h
+@@ -23,6 +23,8 @@
+ #ifndef IMPORT_TOOLS_H
+ #define IMPORT_TOOLS_H
+ 
++#include <limits>
++
+ #include <Quantity_ColorRGBA.hxx>
+ #include <TopoDS_Shape.hxx>
+ #include <XCAFDoc_ColorTool.hxx>
+
+From 1aeb594c80aff3d7b541c8c285031bf29650b79e Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:51:38 +0200
+Subject: [PATCH 08/21] Inspection: Add `#include <limits>` where used
+
+---
+ src/Mod/Inspection/Gui/ViewProviderInspection.h | 2 ++
+ src/Mod/Inspection/Gui/VisualInspection.cpp     | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/src/Mod/Inspection/Gui/ViewProviderInspection.h b/src/Mod/Inspection/Gui/ViewProviderInspection.h
+index ca3a575502d1..e7adedaf8f40 100644
+--- a/src/Mod/Inspection/Gui/ViewProviderInspection.h
++++ b/src/Mod/Inspection/Gui/ViewProviderInspection.h
+@@ -23,6 +23,8 @@
+ #ifndef INSPECTIOGUI_VIEWPROVIDERINSPECTION_H
+ #define INSPECTIOGUI_VIEWPROVIDERINSPECTION_H
+ 
++#include <limits>
++
+ #include <App/ComplexGeoData.h>
+ #include <Base/Observer.h>
+ #include <Gui/ViewProviderDocumentObject.h>
+diff --git a/src/Mod/Inspection/Gui/VisualInspection.cpp b/src/Mod/Inspection/Gui/VisualInspection.cpp
+index 41706243442c..5be5012921bd 100644
+--- a/src/Mod/Inspection/Gui/VisualInspection.cpp
++++ b/src/Mod/Inspection/Gui/VisualInspection.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #endif
+ 
+ #include <App/Document.h>
+
+From 368f1fc29636d1853d5fc52322c1a912c1ad9836 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:51:52 +0200
+Subject: [PATCH 09/21] Mesh: Add `#include <limits>` where used
+
+---
+ src/Mod/Mesh/App/Core/Algorithm.cpp           | 1 +
+ src/Mod/Mesh/App/Core/Approximation.cpp       | 1 +
+ src/Mod/Mesh/App/Core/Approximation.h         | 1 +
+ src/Mod/Mesh/App/Core/Curvature.cpp           | 1 +
+ src/Mod/Mesh/App/Core/CylinderFit.cpp         | 1 +
+ src/Mod/Mesh/App/Core/Decimation.cpp          | 3 +++
+ src/Mod/Mesh/App/Core/Elements.cpp            | 3 +++
+ src/Mod/Mesh/App/Core/Elements.h              | 1 +
+ src/Mod/Mesh/App/Core/Grid.cpp                | 1 +
+ src/Mod/Mesh/App/Core/Grid.h                  | 1 +
+ src/Mod/Mesh/App/Core/MeshKernel.cpp          | 1 +
+ src/Mod/Mesh/App/Core/Projection.cpp          | 1 +
+ src/Mod/Mesh/App/Core/Segmentation.cpp        | 1 +
+ src/Mod/Mesh/App/Core/Smoothing.h             | 1 +
+ src/Mod/Mesh/App/Core/SphereFit.cpp           | 1 +
+ src/Mod/Mesh/App/Core/Tools.h                 | 1 +
+ src/Mod/Mesh/App/Core/TopoAlgorithm.cpp       | 1 +
+ src/Mod/Mesh/App/Core/Triangulation.cpp       | 1 +
+ src/Mod/Mesh/App/FeatureMeshSegmentByMesh.cpp | 3 +++
+ src/Mod/Mesh/App/FeatureMeshSolid.cpp         | 3 +++
+ src/Mod/Mesh/App/MeshFeaturePyImp.cpp         | 3 +++
+ src/Mod/Mesh/App/MeshPoint.h                  | 1 +
+ src/Mod/Mesh/App/MeshPointPyImp.cpp           | 1 +
+ src/Mod/Mesh/App/PreCompiled.h                | 1 +
+ src/Mod/Mesh/App/WildMagic4/Wm4Math.cpp       | 1 +
+ src/Mod/Mesh/Gui/Command.cpp                  | 1 +
+ src/Mod/Mesh/Gui/MeshEditor.cpp               | 1 +
+ src/Mod/Mesh/Gui/RemoveComponents.cpp         | 1 +
+ src/Mod/Mesh/Gui/Segmentation.cpp             | 1 +
+ src/Mod/Mesh/Gui/SegmentationBestFit.cpp      | 1 +
+ src/Mod/Mesh/Gui/SoFCIndexedFaceSet.cpp       | 1 +
+ src/Mod/Mesh/Gui/SoFCMeshObject.cpp           | 1 +
+ src/Mod/Mesh/Gui/SoPolygon.cpp                | 1 +
+ 33 files changed, 43 insertions(+)
+
+diff --git a/src/Mod/Mesh/App/Core/Algorithm.cpp b/src/Mod/Mesh/App/Core/Algorithm.cpp
+index 3f513925f807..5ceb1d3e8b6a 100644
+--- a/src/Mod/Mesh/App/Core/Algorithm.cpp
++++ b/src/Mod/Mesh/App/Core/Algorithm.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ #include <algorithm>
++#include <limits>
+ #endif
+ 
+ #include <Base/Console.h>
+diff --git a/src/Mod/Mesh/App/Core/Approximation.cpp b/src/Mod/Mesh/App/Core/Approximation.cpp
+index cf7123a9ed0e..f0b8d2c25c80 100644
+--- a/src/Mod/Mesh/App/Core/Approximation.cpp
++++ b/src/Mod/Mesh/App/Core/Approximation.cpp
+@@ -26,6 +26,7 @@
+ #include <algorithm>
+ #include <cstdlib>
+ #include <iterator>
++#include <limits>
+ #endif
+ 
+ #include <Base/BoundBox.h>
+diff --git a/src/Mod/Mesh/App/Core/Approximation.h b/src/Mod/Mesh/App/Core/Approximation.h
+index 32e7211390d0..b7d668859795 100644
+--- a/src/Mod/Mesh/App/Core/Approximation.h
++++ b/src/Mod/Mesh/App/Core/Approximation.h
+@@ -28,6 +28,7 @@
+ #include <Mod/Mesh/MeshGlobal.h>
+ #endif
+ #include <algorithm>
++#include <limits>
+ #include <list>
+ #include <set>
+ #include <vector>
+diff --git a/src/Mod/Mesh/App/Core/Curvature.cpp b/src/Mod/Mesh/App/Core/Curvature.cpp
+index 15b2c8733b65..0cc38a7f1249 100644
+--- a/src/Mod/Mesh/App/Core/Curvature.cpp
++++ b/src/Mod/Mesh/App/Core/Curvature.cpp
+@@ -24,6 +24,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <functional>
++#include <limits>
+ #endif
+ 
+ #include <QFuture>
+diff --git a/src/Mod/Mesh/App/Core/CylinderFit.cpp b/src/Mod/Mesh/App/Core/CylinderFit.cpp
+index cc44aa2d7434..3cec8a71f587 100644
+--- a/src/Mod/Mesh/App/Core/CylinderFit.cpp
++++ b/src/Mod/Mesh/App/Core/CylinderFit.cpp
+@@ -59,6 +59,7 @@
+ #include <algorithm>
+ #include <cstdlib>
+ #include <iterator>
++#include <limits>
+ #endif
+ 
+ #include <Base/Console.h>
+diff --git a/src/Mod/Mesh/App/Core/Decimation.cpp b/src/Mod/Mesh/App/Core/Decimation.cpp
+index da4071379988..4f02f5ac43a2 100644
+--- a/src/Mod/Mesh/App/Core/Decimation.cpp
++++ b/src/Mod/Mesh/App/Core/Decimation.cpp
+@@ -21,6 +21,9 @@
+  ***************************************************************************/
+ 
+ #include "PreCompiled.h"
++#ifndef _PreComp_
++#include <limits>
++#endif
+ 
+ #include "Decimation.h"
+ #include "MeshKernel.h"
+diff --git a/src/Mod/Mesh/App/Core/Elements.cpp b/src/Mod/Mesh/App/Core/Elements.cpp
+index 428358f9ca4f..7fd1d86a9684 100644
+--- a/src/Mod/Mesh/App/Core/Elements.cpp
++++ b/src/Mod/Mesh/App/Core/Elements.cpp
+@@ -21,6 +21,9 @@
+  ***************************************************************************/
+ 
+ #include "PreCompiled.h"
++#ifndef _PreComp_
++#include <limits>
++#endif
+ 
+ #include <Mod/Mesh/App/WildMagic4/Wm4DistSegment3Triangle3.h>
+ #include <Mod/Mesh/App/WildMagic4/Wm4DistVector3Triangle3.h>
+diff --git a/src/Mod/Mesh/App/Core/Elements.h b/src/Mod/Mesh/App/Core/Elements.h
+index 1c2521576f9d..486542ce2a9d 100644
+--- a/src/Mod/Mesh/App/Core/Elements.h
++++ b/src/Mod/Mesh/App/Core/Elements.h
+@@ -25,6 +25,7 @@
+ 
+ #include <cstring>
+ #include <functional>
++#include <limits>
+ #include <vector>
+ 
+ #include <Base/BoundBox.h>
+diff --git a/src/Mod/Mesh/App/Core/Grid.cpp b/src/Mod/Mesh/App/Core/Grid.cpp
+index 083d834f10b2..17ef47eb53b2 100644
+--- a/src/Mod/Mesh/App/Core/Grid.cpp
++++ b/src/Mod/Mesh/App/Core/Grid.cpp
+@@ -25,6 +25,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #endif
+ 
+ #include "Algorithm.h"
+diff --git a/src/Mod/Mesh/App/Core/Grid.h b/src/Mod/Mesh/App/Core/Grid.h
+index e5f9c463609d..63881d0796fa 100644
+--- a/src/Mod/Mesh/App/Core/Grid.h
++++ b/src/Mod/Mesh/App/Core/Grid.h
+@@ -23,6 +23,7 @@
+ #ifndef MESH_GRID_H
+ #define MESH_GRID_H
+ 
++#include <limits>
+ #include <set>
+ 
+ #include <Base/BoundBox.h>
+diff --git a/src/Mod/Mesh/App/Core/MeshKernel.cpp b/src/Mod/Mesh/App/Core/MeshKernel.cpp
+index b2def70220af..9191516af343 100644
+--- a/src/Mod/Mesh/App/Core/MeshKernel.cpp
++++ b/src/Mod/Mesh/App/Core/MeshKernel.cpp
+@@ -25,6 +25,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #include <map>
+ #include <queue>
+ #include <stdexcept>
+diff --git a/src/Mod/Mesh/App/Core/Projection.cpp b/src/Mod/Mesh/App/Core/Projection.cpp
+index 06c676b234c5..030f2b83da15 100644
+--- a/src/Mod/Mesh/App/Core/Projection.cpp
++++ b/src/Mod/Mesh/App/Core/Projection.cpp
+@@ -24,6 +24,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #include <map>
+ #endif
+ 
+diff --git a/src/Mod/Mesh/App/Core/Segmentation.cpp b/src/Mod/Mesh/App/Core/Segmentation.cpp
+index 5fd0dd410f48..9061f17e85b1 100644
+--- a/src/Mod/Mesh/App/Core/Segmentation.cpp
++++ b/src/Mod/Mesh/App/Core/Segmentation.cpp
+@@ -24,6 +24,7 @@
+ #ifndef _PreComp_
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #endif
+ 
+ #include "Algorithm.h"
+diff --git a/src/Mod/Mesh/App/Core/Smoothing.h b/src/Mod/Mesh/App/Core/Smoothing.h
+index 4579f019593b..38518480ed43 100644
+--- a/src/Mod/Mesh/App/Core/Smoothing.h
++++ b/src/Mod/Mesh/App/Core/Smoothing.h
+@@ -23,6 +23,7 @@
+ #ifndef MESH_SMOOTHING_H
+ #define MESH_SMOOTHING_H
+ 
++#include <limits>
+ #include <vector>
+ 
+ #include "Definitions.h"
+diff --git a/src/Mod/Mesh/App/Core/SphereFit.cpp b/src/Mod/Mesh/App/Core/SphereFit.cpp
+index c53812a1b133..91ae25970652 100644
+--- a/src/Mod/Mesh/App/Core/SphereFit.cpp
++++ b/src/Mod/Mesh/App/Core/SphereFit.cpp
+@@ -26,6 +26,7 @@
+ #include <algorithm>
+ #include <cstdlib>
+ #include <iterator>
++#include <limits>
+ #endif
+ 
+ #include "SphereFit.h"
+diff --git a/src/Mod/Mesh/App/Core/Tools.h b/src/Mod/Mesh/App/Core/Tools.h
+index 4c6198753881..8e08609c0c55 100644
+--- a/src/Mod/Mesh/App/Core/Tools.h
++++ b/src/Mod/Mesh/App/Core/Tools.h
+@@ -24,6 +24,7 @@
+ #define MESH_TOOLS_H
+ 
+ #include <functional>
++#include <limits>
+ 
+ #include <Mod/Mesh/App/WildMagic4/Wm4DistVector3Triangle3.h>
+ #include <Mod/Mesh/App/WildMagic4/Wm4Sphere3.h>
+diff --git a/src/Mod/Mesh/App/Core/TopoAlgorithm.cpp b/src/Mod/Mesh/App/Core/TopoAlgorithm.cpp
+index 48d92741de0c..9d7960f847c5 100644
+--- a/src/Mod/Mesh/App/Core/TopoAlgorithm.cpp
++++ b/src/Mod/Mesh/App/Core/TopoAlgorithm.cpp
+@@ -26,6 +26,7 @@
+ #include <algorithm>
+ #include <boost/core/ignore_unused.hpp>
+ #include <cmath>
++#include <limits>
+ #include <queue>
+ #include <utility>
+ #endif
+diff --git a/src/Mod/Mesh/App/Core/Triangulation.cpp b/src/Mod/Mesh/App/Core/Triangulation.cpp
+index 7d6855b573d5..710f64df8f32 100644
+--- a/src/Mod/Mesh/App/Core/Triangulation.cpp
++++ b/src/Mod/Mesh/App/Core/Triangulation.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ #include <cmath>
++#include <limits>
+ #include <queue>
+ #endif
+ 
+diff --git a/src/Mod/Mesh/App/FeatureMeshSegmentByMesh.cpp b/src/Mod/Mesh/App/FeatureMeshSegmentByMesh.cpp
+index 7cdb9060feef..ee8975d2dbce 100644
+--- a/src/Mod/Mesh/App/FeatureMeshSegmentByMesh.cpp
++++ b/src/Mod/Mesh/App/FeatureMeshSegmentByMesh.cpp
+@@ -21,6 +21,9 @@
+  ***************************************************************************/
+ 
+ #include "PreCompiled.h"
++#ifndef _PreComp_
++#include <limits>
++#endif
+ 
+ #include <Base/Converter.h>
+ 
+diff --git a/src/Mod/Mesh/App/FeatureMeshSolid.cpp b/src/Mod/Mesh/App/FeatureMeshSolid.cpp
+index e2d1a53e7607..41262f3669cb 100644
+--- a/src/Mod/Mesh/App/FeatureMeshSolid.cpp
++++ b/src/Mod/Mesh/App/FeatureMeshSolid.cpp
+@@ -21,6 +21,9 @@
+  ***************************************************************************/
+ 
+ #include "PreCompiled.h"
++#ifndef _PreComp_
++#include <limits>
++#endif
+ 
+ #include <App/Document.h>
+ 
+diff --git a/src/Mod/Mesh/App/MeshFeaturePyImp.cpp b/src/Mod/Mesh/App/MeshFeaturePyImp.cpp
+index f3770dac7b8f..74eca9fd43f7 100644
+--- a/src/Mod/Mesh/App/MeshFeaturePyImp.cpp
++++ b/src/Mod/Mesh/App/MeshFeaturePyImp.cpp
+@@ -21,6 +21,9 @@
+  ***************************************************************************/
+ 
+ #include "PreCompiled.h"
++#ifndef _PreComp_
++#include <limits>
++#endif
+ 
+ #include "MeshFeature.h"
+ // inclusion of the generated files (generated out of MeshFeaturePy.xml)
+diff --git a/src/Mod/Mesh/App/MeshPoint.h b/src/Mod/Mesh/App/MeshPoint.h
+index a29270108e4c..b0096d082f5d 100644
+--- a/src/Mod/Mesh/App/MeshPoint.h
++++ b/src/Mod/Mesh/App/MeshPoint.h
+@@ -23,6 +23,7 @@
+ #ifndef MESH_MESHPOINT_H
+ #define MESH_MESHPOINT_H
+ 
++#include <limits>
+ 
+ #include <Base/Vector3D.h>
+ #include <Base/Handle.h>
+diff --git a/src/Mod/Mesh/App/MeshPointPyImp.cpp b/src/Mod/Mesh/App/MeshPointPyImp.cpp
+index a4b62e15690a..1cba0da0d703 100644
+--- a/src/Mod/Mesh/App/MeshPointPyImp.cpp
++++ b/src/Mod/Mesh/App/MeshPointPyImp.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Mesh/App/PreCompiled.h b/src/Mod/Mesh/App/PreCompiled.h
+index 7484b92f2295..5580e172a896 100644
+--- a/src/Mod/Mesh/App/PreCompiled.h
++++ b/src/Mod/Mesh/App/PreCompiled.h
+@@ -50,6 +50,7 @@
+ #include <iomanip>
+ #include <iostream>
+ #include <list>
++#include <limits>
+ #include <map>
+ #include <queue>
+ #include <set>
+diff --git a/src/Mod/Mesh/App/WildMagic4/Wm4Math.cpp b/src/Mod/Mesh/App/WildMagic4/Wm4Math.cpp
+index f497f0851e67..48f0e4b2f02a 100644
+--- a/src/Mod/Mesh/App/WildMagic4/Wm4Math.cpp
++++ b/src/Mod/Mesh/App/WildMagic4/Wm4Math.cpp
+@@ -16,6 +16,7 @@
+ 
+ #include "Wm4FoundationPCH.h"
+ #include "Wm4Math.h"
++#include <limits>
+ 
+ namespace Wm4 {
+ 
+diff --git a/src/Mod/Mesh/Gui/Command.cpp b/src/Mod/Mesh/Gui/Command.cpp
+index 6bfe41ea9093..cfbc9d984281 100644
+--- a/src/Mod/Mesh/Gui/Command.cpp
++++ b/src/Mod/Mesh/Gui/Command.cpp
+@@ -26,6 +26,7 @@
+ #include <windows.h>
+ #endif
+ #include <map>
++#include <limits>
+ 
+ #include <QApplication>
+ #include <QPointer>
+diff --git a/src/Mod/Mesh/Gui/MeshEditor.cpp b/src/Mod/Mesh/Gui/MeshEditor.cpp
+index 9ffa3ce5a386..ef46e4d3784e 100644
+--- a/src/Mod/Mesh/Gui/MeshEditor.cpp
++++ b/src/Mod/Mesh/Gui/MeshEditor.cpp
+@@ -27,6 +27,7 @@
+ #include <QTimer>
+ #include <algorithm>
+ #include <functional>
++#include <limits>
+ 
+ #include <Inventor/SbLine.h>
+ #include <Inventor/SoPickedPoint.h>
+diff --git a/src/Mod/Mesh/Gui/RemoveComponents.cpp b/src/Mod/Mesh/Gui/RemoveComponents.cpp
+index 5e54c225b785..9df41394afbf 100644
+--- a/src/Mod/Mesh/Gui/RemoveComponents.cpp
++++ b/src/Mod/Mesh/Gui/RemoveComponents.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <QPushButton>
+ #endif
+ 
+diff --git a/src/Mod/Mesh/Gui/Segmentation.cpp b/src/Mod/Mesh/Gui/Segmentation.cpp
+index 050e9f5327ee..ff648a83aa1f 100644
+--- a/src/Mod/Mesh/Gui/Segmentation.cpp
++++ b/src/Mod/Mesh/Gui/Segmentation.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/Mesh/Gui/SegmentationBestFit.cpp b/src/Mod/Mesh/Gui/SegmentationBestFit.cpp
+index 2a147ac04b26..3b413e0228ab 100644
+--- a/src/Mod/Mesh/Gui/SegmentationBestFit.cpp
++++ b/src/Mod/Mesh/Gui/SegmentationBestFit.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ 
+ #include <QDialog>
+diff --git a/src/Mod/Mesh/Gui/SoFCIndexedFaceSet.cpp b/src/Mod/Mesh/Gui/SoFCIndexedFaceSet.cpp
+index be7c40a5ea02..997b8f814892 100644
+--- a/src/Mod/Mesh/Gui/SoFCIndexedFaceSet.cpp
++++ b/src/Mod/Mesh/Gui/SoFCIndexedFaceSet.cpp
+@@ -30,6 +30,7 @@
+ 
+ #ifndef _PreComp_
+ #include <algorithm>
++#include <limits>
+ #ifdef FC_OS_MACOSX
+ #include <OpenGL/gl.h>
+ #include <OpenGL/glext.h>
+diff --git a/src/Mod/Mesh/Gui/SoFCMeshObject.cpp b/src/Mod/Mesh/Gui/SoFCMeshObject.cpp
+index 904f6fdf481a..2304b3063340 100644
+--- a/src/Mod/Mesh/Gui/SoFCMeshObject.cpp
++++ b/src/Mod/Mesh/Gui/SoFCMeshObject.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ #include <algorithm>
++#include <limits>
+ #ifdef FC_OS_WIN32
+ #include <windows.h>
+ #endif
+diff --git a/src/Mod/Mesh/Gui/SoPolygon.cpp b/src/Mod/Mesh/Gui/SoPolygon.cpp
+index a5b242c82b4d..bd8f6261369c 100644
+--- a/src/Mod/Mesh/Gui/SoPolygon.cpp
++++ b/src/Mod/Mesh/Gui/SoPolygon.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #ifdef FC_OS_WIN32
+ #include <Windows.h>
+ #endif
+
+From 0ac87c8a270943ce99a3212ab274d8f0f4c1e49f Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:00 +0200
+Subject: [PATCH 10/21] MeshPart: Add `#include <limits>` where used
+
+---
+ src/Mod/MeshPart/App/CurveProjector.cpp | 1 +
+ src/Mod/MeshPart/App/CurveProjector.h   | 2 ++
+ src/Mod/MeshPart/Gui/CrossSections.cpp  | 1 +
+ 3 files changed, 4 insertions(+)
+
+diff --git a/src/Mod/MeshPart/App/CurveProjector.cpp b/src/Mod/MeshPart/App/CurveProjector.cpp
+index db9926b50d73..866d239a10cb 100644
+--- a/src/Mod/MeshPart/App/CurveProjector.cpp
++++ b/src/Mod/MeshPart/App/CurveProjector.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #ifdef FC_OS_LINUX
+ #include <unistd.h>
+ #endif
+diff --git a/src/Mod/MeshPart/App/CurveProjector.h b/src/Mod/MeshPart/App/CurveProjector.h
+index d8fd6386d1ce..0d0a3262e9ce 100644
+--- a/src/Mod/MeshPart/App/CurveProjector.h
++++ b/src/Mod/MeshPart/App/CurveProjector.h
+@@ -23,6 +23,8 @@
+ #ifndef _CurveProjector_h_
+ #define _CurveProjector_h_
+ 
++#include <limits>
++
+ #include <TopoDS_Edge.hxx>
+ 
+ #include <Mod/Mesh/App/Mesh.h>
+diff --git a/src/Mod/MeshPart/Gui/CrossSections.cpp b/src/Mod/MeshPart/Gui/CrossSections.cpp
+index 2ba73eeeacaa..00df2c45a191 100644
+--- a/src/Mod/MeshPart/Gui/CrossSections.cpp
++++ b/src/Mod/MeshPart/Gui/CrossSections.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ 
+ #include <BRepBuilderAPI_MakePolygon.hxx>
+
+From d5447df72d30b82d7dc5692fdee8cad7f43fdef7 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:08 +0200
+Subject: [PATCH 11/21] Part: Add `#include <limits>` where used
+
+---
+ src/Mod/Part/App/Geometry.cpp                  | 1 +
+ src/Mod/Part/App/ShapeMapHasher.h              | 2 ++
+ src/Mod/Part/App/TopoShapeEdgePyImp.cpp        | 1 +
+ src/Mod/Part/App/TopoShapeExpansion.cpp        | 1 +
+ src/Mod/Part/App/TopoShapeMapper.h             | 1 +
+ src/Mod/Part/App/TopoShapePyImp.cpp            | 1 +
+ src/Mod/Part/App/WireJoiner.cpp                | 1 +
+ src/Mod/Part/Gui/CrossSections.cpp             | 1 +
+ src/Mod/Part/Gui/DlgPrimitives.cpp             | 1 +
+ src/Mod/Part/Gui/DlgProjectionOnSurface.cpp    | 1 +
+ src/Mod/Part/Gui/DlgRevolution.cpp             | 1 +
+ src/Mod/Part/Gui/Mirroring.cpp                 | 1 +
+ src/Mod/Part/Gui/PreCompiled.h                 | 1 +
+ src/Mod/Part/Gui/SectionCutting.cpp            | 1 +
+ src/Mod/Part/Gui/SoBrepEdgeSet.cpp             | 1 +
+ src/Mod/Part/Gui/SoBrepFaceSet.cpp             | 1 +
+ src/Mod/Part/Gui/SoBrepPointSet.cpp            | 1 +
+ src/Mod/Part/Gui/SoFCShapeObject.cpp           | 1 +
+ src/Mod/Part/Gui/TaskOffset.cpp                | 1 +
+ src/Mod/Part/Gui/TaskThickness.cpp             | 1 +
+ src/Mod/Part/Gui/ViewProvider2DObject.cpp      | 1 +
+ src/Mod/Part/Gui/ViewProviderGridExtension.cpp | 2 ++
+ 22 files changed, 24 insertions(+)
+
+diff --git a/src/Mod/Part/App/Geometry.cpp b/src/Mod/Part/App/Geometry.cpp
+index bc545995afe6..4245c398848f 100644
+--- a/src/Mod/Part/App/Geometry.cpp
++++ b/src/Mod/Part/App/Geometry.cpp
+@@ -105,6 +105,7 @@
+ # include <boost/random.hpp>
+ # include <cmath>
+ # include <ctime>
++# include <limits>
+ #endif //_PreComp_
+ 
+ #include <Base/Console.h>
+diff --git a/src/Mod/Part/App/ShapeMapHasher.h b/src/Mod/Part/App/ShapeMapHasher.h
+index 24ab2a5b3026..fdd8d07f6f1a 100644
+--- a/src/Mod/Part/App/ShapeMapHasher.h
++++ b/src/Mod/Part/App/ShapeMapHasher.h
+@@ -24,6 +24,8 @@
+ #ifndef PART_SHAPEMAPHASHER_H
+ #define PART_SHAPEMAPHASHER_H
+ 
++#include <limits>
++
+ #include <Standard_Version.hxx>
+ #include <TopoDS_Shape.hxx>
+ #if OCC_VERSION_HEX >= 0x070800
+diff --git a/src/Mod/Part/App/TopoShapeEdgePyImp.cpp b/src/Mod/Part/App/TopoShapeEdgePyImp.cpp
+index b3257c90fd84..f34dc29e38d3 100644
+--- a/src/Mod/Part/App/TopoShapeEdgePyImp.cpp
++++ b/src/Mod/Part/App/TopoShapeEdgePyImp.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRep_Builder.hxx>
+ # include <BRep_Tool.hxx>
+ # include <BRepAdaptor_Curve.hxx>
+diff --git a/src/Mod/Part/App/TopoShapeExpansion.cpp b/src/Mod/Part/App/TopoShapeExpansion.cpp
+index 39fd2323575e..11cdc6e3c744 100644
+--- a/src/Mod/Part/App/TopoShapeExpansion.cpp
++++ b/src/Mod/Part/App/TopoShapeExpansion.cpp
+@@ -26,6 +26,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ #include <cmath>
++#include <limits>
+ 
+ #include <BRepAdaptor_Curve.hxx>
+ #include <BRepAdaptor_CompCurve.hxx>
+diff --git a/src/Mod/Part/App/TopoShapeMapper.h b/src/Mod/Part/App/TopoShapeMapper.h
+index 0febe93d47f0..4fb67c2865f2 100644
+--- a/src/Mod/Part/App/TopoShapeMapper.h
++++ b/src/Mod/Part/App/TopoShapeMapper.h
+@@ -21,6 +21,7 @@
+  *                                                                          *
+  ***************************************************************************/
+ 
++#include <limits>
+ #include <map>
+ #include <unordered_set>
+ #include <vector>
+diff --git a/src/Mod/Part/App/TopoShapePyImp.cpp b/src/Mod/Part/App/TopoShapePyImp.cpp
+index c0b2ca1d2ec5..52e9bf3147b4 100644
+--- a/src/Mod/Part/App/TopoShapePyImp.cpp
++++ b/src/Mod/Part/App/TopoShapePyImp.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <sstream>
+ # include <boost/regex.hpp>
+ 
+diff --git a/src/Mod/Part/App/WireJoiner.cpp b/src/Mod/Part/App/WireJoiner.cpp
+index abe3cf132659..f3688caf0f89 100644
+--- a/src/Mod/Part/App/WireJoiner.cpp
++++ b/src/Mod/Part/App/WireJoiner.cpp
+@@ -26,6 +26,7 @@
+ #include <boost/graph/graph_concepts.hpp>
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRepLib.hxx>
+ # include <BRep_Builder.hxx>
+ # include <BRep_Tool.hxx>
+diff --git a/src/Mod/Part/Gui/CrossSections.cpp b/src/Mod/Part/Gui/CrossSections.cpp
+index ed2f1f8dad47..7f6dfa06eb22 100644
+--- a/src/Mod/Part/Gui/CrossSections.cpp
++++ b/src/Mod/Part/Gui/CrossSections.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <QFuture>
+ # include <QKeyEvent>
+ 
+diff --git a/src/Mod/Part/Gui/DlgPrimitives.cpp b/src/Mod/Part/Gui/DlgPrimitives.cpp
+index ef411ecb9646..f279f8157314 100644
+--- a/src/Mod/Part/Gui/DlgPrimitives.cpp
++++ b/src/Mod/Part/Gui/DlgPrimitives.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <GC_MakeArcOfCircle.hxx>
+ #include <Geom_Circle.hxx>
+ #include <Geom_TrimmedCurve.hxx>
+diff --git a/src/Mod/Part/Gui/DlgProjectionOnSurface.cpp b/src/Mod/Part/Gui/DlgProjectionOnSurface.cpp
+index 01fe09b9d06c..7267f49703db 100644
+--- a/src/Mod/Part/Gui/DlgProjectionOnSurface.cpp
++++ b/src/Mod/Part/Gui/DlgProjectionOnSurface.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <BRep_Tool.hxx>
+ #include <BRepBuilderAPI_MakeEdge.hxx>
+ #include <BRepBuilderAPI_MakeFace.hxx>
+diff --git a/src/Mod/Part/Gui/DlgRevolution.cpp b/src/Mod/Part/Gui/DlgRevolution.cpp
+index 04672dd218aa..500241085187 100644
+--- a/src/Mod/Part/Gui/DlgRevolution.cpp
++++ b/src/Mod/Part/Gui/DlgRevolution.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <QMessageBox>
+ # include <BRep_Tool.hxx>
+ # include <BRepAdaptor_Curve.hxx>
+diff --git a/src/Mod/Part/Gui/Mirroring.cpp b/src/Mod/Part/Gui/Mirroring.cpp
+index 09881413da25..86880d86923d 100644
+--- a/src/Mod/Part/Gui/Mirroring.cpp
++++ b/src/Mod/Part/Gui/Mirroring.cpp
+@@ -25,6 +25,7 @@
+ #ifndef _PreComp_
+ 
+ # include <cmath>
++# include <limits>
+ 
+ # include <gp_Ax2.hxx>
+ # include <gp_Circ.hxx>
+diff --git a/src/Mod/Part/Gui/PreCompiled.h b/src/Mod/Part/Gui/PreCompiled.h
+index 2eabeb2acf27..9663515d0b37 100644
+--- a/src/Mod/Part/Gui/PreCompiled.h
++++ b/src/Mod/Part/Gui/PreCompiled.h
+@@ -49,6 +49,7 @@
+ 
+ // STL
+ #include <algorithm>
++#include <limits>
+ #include <map>
+ #include <sstream>
+ #include <string>
+diff --git a/src/Mod/Part/Gui/SectionCutting.cpp b/src/Mod/Part/Gui/SectionCutting.cpp
+index 0885ffa9ed25..b5febc76eb9d 100644
+--- a/src/Mod/Part/Gui/SectionCutting.cpp
++++ b/src/Mod/Part/Gui/SectionCutting.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ # include <cmath>
++# include <limits>
+ 
+ # include <Inventor/actions/SoGetBoundingBoxAction.h>
+ # include <Inventor/nodes/SoCamera.h>
+diff --git a/src/Mod/Part/Gui/SoBrepEdgeSet.cpp b/src/Mod/Part/Gui/SoBrepEdgeSet.cpp
+index 6d8c5d2bba4e..934ae993433a 100644
+--- a/src/Mod/Part/Gui/SoBrepEdgeSet.cpp
++++ b/src/Mod/Part/Gui/SoBrepEdgeSet.cpp
+@@ -32,6 +32,7 @@
+ #  include <GL/gl.h>
+ # endif
+ # include <algorithm>
++# include <limits>
+ # include <Inventor/SoPickedPoint.h>
+ # include <Inventor/SoPrimitiveVertex.h>
+ # include <Inventor/actions/SoGetBoundingBoxAction.h>
+diff --git a/src/Mod/Part/Gui/SoBrepFaceSet.cpp b/src/Mod/Part/Gui/SoBrepFaceSet.cpp
+index 1f0c9be301f5..e8ada7002908 100644
+--- a/src/Mod/Part/Gui/SoBrepFaceSet.cpp
++++ b/src/Mod/Part/Gui/SoBrepFaceSet.cpp
+@@ -30,6 +30,7 @@
+ 
+ #ifndef _PreComp_
+ # include <algorithm>
++# include <limits>
+ # include <map>
+ # include <Inventor/SoPickedPoint.h>
+ # include <Inventor/SoPrimitiveVertex.h>
+diff --git a/src/Mod/Part/Gui/SoBrepPointSet.cpp b/src/Mod/Part/Gui/SoBrepPointSet.cpp
+index e8cef49446f6..d674011d3f1e 100644
+--- a/src/Mod/Part/Gui/SoBrepPointSet.cpp
++++ b/src/Mod/Part/Gui/SoBrepPointSet.cpp
+@@ -32,6 +32,7 @@
+ #  include <GL/gl.h>
+ # endif
+ # include <algorithm>
++# include <limits>
+ # include <Inventor/actions/SoGetBoundingBoxAction.h>
+ # include <Inventor/actions/SoGLRenderAction.h>
+ # include <Inventor/bundles/SoMaterialBundle.h>
+diff --git a/src/Mod/Part/Gui/SoFCShapeObject.cpp b/src/Mod/Part/Gui/SoFCShapeObject.cpp
+index 1ee21830cefa..c6b1f3195540 100644
+--- a/src/Mod/Part/Gui/SoFCShapeObject.cpp
++++ b/src/Mod/Part/Gui/SoFCShapeObject.cpp
+@@ -32,6 +32,7 @@
+ #  include <GL/gl.h>
+ # endif
+ # include <algorithm>
++# include <limits>
+ # include <Inventor/actions/SoGLRenderAction.h>
+ # include <Inventor/bundles/SoMaterialBundle.h>
+ # include <Inventor/bundles/SoTextureCoordinateBundle.h>
+diff --git a/src/Mod/Part/Gui/TaskOffset.cpp b/src/Mod/Part/Gui/TaskOffset.cpp
+index c8bd77aaf352..13548e85b7a3 100644
+--- a/src/Mod/Part/Gui/TaskOffset.cpp
++++ b/src/Mod/Part/Gui/TaskOffset.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <QMessageBox>
+ #endif
+ 
+diff --git a/src/Mod/Part/Gui/TaskThickness.cpp b/src/Mod/Part/Gui/TaskThickness.cpp
+index cc5e27dafc08..618fe3b923d3 100644
+--- a/src/Mod/Part/Gui/TaskThickness.cpp
++++ b/src/Mod/Part/Gui/TaskThickness.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <QMessageBox>
+ #endif
+ 
+diff --git a/src/Mod/Part/Gui/ViewProvider2DObject.cpp b/src/Mod/Part/Gui/ViewProvider2DObject.cpp
+index b54dab267f8b..c555600f6960 100644
+--- a/src/Mod/Part/Gui/ViewProvider2DObject.cpp
++++ b/src/Mod/Part/Gui/ViewProvider2DObject.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ 
++# include <limits>
+ 
+ # include <Inventor/nodes/SoAnnotation.h>
+ # include <Inventor/nodes/SoBaseColor.h>
+diff --git a/src/Mod/Part/Gui/ViewProviderGridExtension.cpp b/src/Mod/Part/Gui/ViewProviderGridExtension.cpp
+index f624823a2249..986de1715188 100644
+--- a/src/Mod/Part/Gui/ViewProviderGridExtension.cpp
++++ b/src/Mod/Part/Gui/ViewProviderGridExtension.cpp
+@@ -24,6 +24,8 @@
+ 
+ #ifndef _PreComp_
+ 
++# include <limits>
++
+ # include <Inventor/nodes/SoDepthBuffer.h>
+ # include <Inventor/nodes/SoDrawStyle.h>
+ # include <Inventor/nodes/SoLineSet.h>
+
+From 65a0fb0ed4c4d519e8b38e2caaa53a51e2896bc6 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:18 +0200
+Subject: [PATCH 12/21] PartDesign: Add `#include <limits>` where used
+
+---
+ src/Mod/PartDesign/App/FeatureChamfer.cpp          | 4 ++--
+ src/Mod/PartDesign/App/FeatureExtrude.cpp          | 1 +
+ src/Mod/PartDesign/App/FeatureFillet.cpp           | 1 +
+ src/Mod/PartDesign/App/FeatureHelix.cpp            | 1 +
+ src/Mod/PartDesign/App/FeatureHole.cpp             | 1 +
+ src/Mod/PartDesign/App/FeatureLinearPattern.cpp    | 1 +
+ src/Mod/PartDesign/App/FeaturePolarPattern.cpp     | 1 +
+ src/Mod/PartDesign/App/FeaturePrimitive.cpp        | 1 +
+ src/Mod/PartDesign/App/PreCompiled.h               | 3 +++
+ src/Mod/PartDesign/Gui/PreCompiled.h               | 3 +++
+ src/Mod/PartDesign/Gui/TaskPrimitiveParameters.cpp | 1 +
+ src/Mod/PartDesign/Gui/TaskScaledParameters.cpp    | 1 +
+ src/Mod/PartDesign/Gui/ViewProviderDatumCS.cpp     | 1 +
+ 13 files changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/src/Mod/PartDesign/App/FeatureChamfer.cpp b/src/Mod/PartDesign/App/FeatureChamfer.cpp
+index c09aa683d2f2..e154eb24116d 100644
+--- a/src/Mod/PartDesign/App/FeatureChamfer.cpp
++++ b/src/Mod/PartDesign/App/FeatureChamfer.cpp
+@@ -23,6 +23,8 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
++
+ # include <BRepAlgo.hxx>
+ # include <BRepFilletAPI_MakeChamfer.hxx>
+ # include <TopExp.hxx>
+@@ -35,8 +37,6 @@
+ # include <Standard_Version.hxx>
+ #endif
+ 
+-#include <limits>
+-
+ #include <Base/Exception.h>
+ #include <Base/Reader.h>
+ #include <Base/Tools.h>
+diff --git a/src/Mod/PartDesign/App/FeatureExtrude.cpp b/src/Mod/PartDesign/App/FeatureExtrude.cpp
+index fbe45601844e..f1a6f43d7ca9 100644
+--- a/src/Mod/PartDesign/App/FeatureExtrude.cpp
++++ b/src/Mod/PartDesign/App/FeatureExtrude.cpp
+@@ -24,6 +24,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Fuse.h>
+ # include <BRep_Builder.hxx>
+ # include <BRepFeat_MakePrism.hxx>
+diff --git a/src/Mod/PartDesign/App/FeatureFillet.cpp b/src/Mod/PartDesign/App/FeatureFillet.cpp
+index c44653a76fae..35e725033056 100644
+--- a/src/Mod/PartDesign/App/FeatureFillet.cpp
++++ b/src/Mod/PartDesign/App/FeatureFillet.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRepAlgo.hxx>
+ # include <BRepFilletAPI_MakeFillet.hxx>
+ # include <TopoDS.hxx>
+diff --git a/src/Mod/PartDesign/App/FeatureHelix.cpp b/src/Mod/PartDesign/App/FeatureHelix.cpp
+index 7acc3f267b4b..4afb42f67037 100644
+--- a/src/Mod/PartDesign/App/FeatureHelix.cpp
++++ b/src/Mod/PartDesign/App/FeatureHelix.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRepAdaptor_Surface.hxx>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Common.h>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Cut.h>
+diff --git a/src/Mod/PartDesign/App/FeatureHole.cpp b/src/Mod/PartDesign/App/FeatureHole.cpp
+index d3fc78e2f93b..448db0bad928 100644
+--- a/src/Mod/PartDesign/App/FeatureHole.cpp
++++ b/src/Mod/PartDesign/App/FeatureHole.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <gp_Dir.hxx>
+ # include <BRep_Builder.hxx>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Cut.h>
+diff --git a/src/Mod/PartDesign/App/FeatureLinearPattern.cpp b/src/Mod/PartDesign/App/FeatureLinearPattern.cpp
+index 9d01fc33ab43..d03dba820903 100644
+--- a/src/Mod/PartDesign/App/FeatureLinearPattern.cpp
++++ b/src/Mod/PartDesign/App/FeatureLinearPattern.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRepAdaptor_Curve.hxx>
+ # include <BRepAdaptor_Surface.hxx>
+ # include <gp_Dir.hxx>
+diff --git a/src/Mod/PartDesign/App/FeaturePolarPattern.cpp b/src/Mod/PartDesign/App/FeaturePolarPattern.cpp
+index 727214771168..9a5aa64c9167 100644
+--- a/src/Mod/PartDesign/App/FeaturePolarPattern.cpp
++++ b/src/Mod/PartDesign/App/FeaturePolarPattern.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <TopoDS.hxx>
+ # include <TopoDS_Face.hxx>
+ # include <gp_Lin.hxx>
+diff --git a/src/Mod/PartDesign/App/FeaturePrimitive.cpp b/src/Mod/PartDesign/App/FeaturePrimitive.cpp
+index 72e772765a6a..bf8e66402975 100644
+--- a/src/Mod/PartDesign/App/FeaturePrimitive.cpp
++++ b/src/Mod/PartDesign/App/FeaturePrimitive.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++# include <limits>
+ # include <BRepPrim_Cylinder.hxx>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Cut.h>
+ # include <Mod/Part/App/FCBRepAlgoAPI_Fuse.h>
+diff --git a/src/Mod/PartDesign/App/PreCompiled.h b/src/Mod/PartDesign/App/PreCompiled.h
+index e9594d34c693..8fac6ad1b107 100644
+--- a/src/Mod/PartDesign/App/PreCompiled.h
++++ b/src/Mod/PartDesign/App/PreCompiled.h
+@@ -34,6 +34,9 @@
+ 
+ #ifdef _PreComp_
+ 
++// stl
++#include <limits>
++
+ // OpenCasCade
+ #include <Mod/Part/App/OpenCascadeAll.h>
+ 
+diff --git a/src/Mod/PartDesign/Gui/PreCompiled.h b/src/Mod/PartDesign/Gui/PreCompiled.h
+index 20cba24151af..2c3a58002806 100644
+--- a/src/Mod/PartDesign/Gui/PreCompiled.h
++++ b/src/Mod/PartDesign/Gui/PreCompiled.h
+@@ -55,6 +55,9 @@
+ #include <TopoDS.hxx>
+ #include <TopTools_IndexedMapOfShape.hxx>
+ 
++// stl
++#include <limits>
++
+ // Qt
+ # include <Gui/QtAll.h>
+ 
+diff --git a/src/Mod/PartDesign/Gui/TaskPrimitiveParameters.cpp b/src/Mod/PartDesign/Gui/TaskPrimitiveParameters.cpp
+index a6d37a93628d..d7546695f361 100644
+--- a/src/Mod/PartDesign/Gui/TaskPrimitiveParameters.cpp
++++ b/src/Mod/PartDesign/Gui/TaskPrimitiveParameters.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <QMessageBox>
+ #endif
+ 
+diff --git a/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp b/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp
+index ffb399a6ed73..0dfc4d4a5e77 100644
+--- a/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp
++++ b/src/Mod/PartDesign/Gui/TaskScaledParameters.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #endif
+ 
+ #include <App/DocumentObject.h>
+diff --git a/src/Mod/PartDesign/Gui/ViewProviderDatumCS.cpp b/src/Mod/PartDesign/Gui/ViewProviderDatumCS.cpp
+index 6c7f7f77c37e..7e7d3ba87e9d 100644
+--- a/src/Mod/PartDesign/Gui/ViewProviderDatumCS.cpp
++++ b/src/Mod/PartDesign/Gui/ViewProviderDatumCS.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <Inventor/details/SoLineDetail.h>
+ # include <Inventor/nodes/SoCoordinate3.h>
+ # include <Inventor/nodes/SoDrawStyle.h>
+
+From 30ff61f7c0699b50489191bfbb10a7a37db563d4 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:24 +0200
+Subject: [PATCH 13/21] Point: Add `#include <limits>` where used
+
+---
+ src/Mod/Points/App/PointsGrid.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Mod/Points/App/PointsGrid.h b/src/Mod/Points/App/PointsGrid.h
+index 52a6fc248a8b..948bd045fa99 100644
+--- a/src/Mod/Points/App/PointsGrid.h
++++ b/src/Mod/Points/App/PointsGrid.h
+@@ -23,6 +23,7 @@
+ #ifndef POINTS_GRID_H
+ #define POINTS_GRID_H
+ 
++#include <limits>
+ #include <set>
+ 
+ #include <Base/BoundBox.h>
+
+From 5b436f2a83d2a5cfaf30b78dddf9f298215d87b0 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:33 +0200
+Subject: [PATCH 14/21] ReverseEngineering: Add `#include <limits>` where used
+
+---
+ src/Mod/ReverseEngineering/Gui/Command.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Mod/ReverseEngineering/Gui/Command.cpp b/src/Mod/ReverseEngineering/Gui/Command.cpp
+index 2b184c39fa1d..8ac65d98d625 100644
+--- a/src/Mod/ReverseEngineering/Gui/Command.cpp
++++ b/src/Mod/ReverseEngineering/Gui/Command.cpp
+@@ -24,6 +24,7 @@
+ #ifndef _PreComp_
+ #include <QApplication>
+ #include <QMessageBox>
++#include <limits>
+ #include <sstream>
+ 
+ #include <BRepBuilderAPI_MakePolygon.hxx>
+
+From 4b589088f6f8f3a143abd56b7766e0faef04ad58 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:38 +0200
+Subject: [PATCH 15/21] Sketcher: Add `#include <limits>` where used
+
+---
+ src/Mod/Sketcher/App/PreCompiled.h                     | 1 +
+ src/Mod/Sketcher/App/PropertyConstraintList.cpp        | 1 +
+ src/Mod/Sketcher/App/SketchObject.cpp                  | 1 +
+ src/Mod/Sketcher/Gui/CommandConstraints.cpp            | 1 +
+ src/Mod/Sketcher/Gui/DrawSketchHandlerOffset.h         | 2 ++
+ src/Mod/Sketcher/Gui/EditModeConstraintCoinManager.cpp | 1 +
+ src/Mod/Sketcher/Gui/PreCompiled.h                     | 1 +
+ src/Mod/Sketcher/Gui/TaskSketcherConstraints.cpp       | 1 +
+ src/Mod/Sketcher/Gui/TaskSketcherElements.cpp          | 1 +
+ src/Mod/Sketcher/Gui/ViewProviderSketch.cpp            | 2 ++
+ 10 files changed, 12 insertions(+)
+
+diff --git a/src/Mod/Sketcher/App/PreCompiled.h b/src/Mod/Sketcher/App/PreCompiled.h
+index b9d6e3ac3213..5bdacf3b44ee 100644
+--- a/src/Mod/Sketcher/App/PreCompiled.h
++++ b/src/Mod/Sketcher/App/PreCompiled.h
+@@ -35,6 +35,7 @@
+ #include <cassert>
+ #include <cmath>
+ #include <iostream>
++#include <limits>
+ #include <memory>
+ #include <sstream>
+ #include <vector>
+diff --git a/src/Mod/Sketcher/App/PropertyConstraintList.cpp b/src/Mod/Sketcher/App/PropertyConstraintList.cpp
+index 0cc4fca62270..8e00ab094097 100644
+--- a/src/Mod/Sketcher/App/PropertyConstraintList.cpp
++++ b/src/Mod/Sketcher/App/PropertyConstraintList.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ #include <cassert>
++#include <limits>
+ #endif
+ 
+ #include <App/ExpressionParser.h>
+diff --git a/src/Mod/Sketcher/App/SketchObject.cpp b/src/Mod/Sketcher/App/SketchObject.cpp
+index c456d45f1680..77fadd32bd0a 100644
+--- a/src/Mod/Sketcher/App/SketchObject.cpp
++++ b/src/Mod/Sketcher/App/SketchObject.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ #include <cmath>
++#include <limits>
+ #include <vector>
+ 
+ #include <BRepAdaptor_Curve.hxx>
+diff --git a/src/Mod/Sketcher/Gui/CommandConstraints.cpp b/src/Mod/Sketcher/Gui/CommandConstraints.cpp
+index 8ed676bb9316..4ad49813841b 100644
+--- a/src/Mod/Sketcher/Gui/CommandConstraints.cpp
++++ b/src/Mod/Sketcher/Gui/CommandConstraints.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <Precision.hxx>
+ #include <QPainter>
+ #endif
+diff --git a/src/Mod/Sketcher/Gui/DrawSketchHandlerOffset.h b/src/Mod/Sketcher/Gui/DrawSketchHandlerOffset.h
+index 509d34702722..c60285d2dbbb 100644
+--- a/src/Mod/Sketcher/Gui/DrawSketchHandlerOffset.h
++++ b/src/Mod/Sketcher/Gui/DrawSketchHandlerOffset.h
+@@ -24,6 +24,8 @@
+ #ifndef SKETCHERGUI_DrawSketchHandlerOffset_H
+ #define SKETCHERGUI_DrawSketchHandlerOffset_H
+ 
++#include <limits>
++
+ #include <QApplication>
+ 
+ #include <BRep_Tool.hxx>
+diff --git a/src/Mod/Sketcher/Gui/EditModeConstraintCoinManager.cpp b/src/Mod/Sketcher/Gui/EditModeConstraintCoinManager.cpp
+index f69d71d71e6a..398c2534abff 100644
+--- a/src/Mod/Sketcher/Gui/EditModeConstraintCoinManager.cpp
++++ b/src/Mod/Sketcher/Gui/EditModeConstraintCoinManager.cpp
+@@ -24,6 +24,7 @@
+ #ifndef _PreComp_
+ #include <QPainter>
+ #include <QRegularExpression>
++#include <limits>
+ #include <memory>
+ 
+ #include <Inventor/SbImage.h>
+diff --git a/src/Mod/Sketcher/Gui/PreCompiled.h b/src/Mod/Sketcher/Gui/PreCompiled.h
+index d4a2ac5e7c58..0afecab80c5c 100644
+--- a/src/Mod/Sketcher/Gui/PreCompiled.h
++++ b/src/Mod/Sketcher/Gui/PreCompiled.h
+@@ -39,6 +39,7 @@
+ #include <algorithm>
+ #include <bitset>
+ #include <functional>
++#include <limits>
+ #include <map>
+ #include <memory>
+ #include <vector>
+diff --git a/src/Mod/Sketcher/Gui/TaskSketcherConstraints.cpp b/src/Mod/Sketcher/Gui/TaskSketcherConstraints.cpp
+index 397d5017030c..49ac06809158 100644
+--- a/src/Mod/Sketcher/Gui/TaskSketcherConstraints.cpp
++++ b/src/Mod/Sketcher/Gui/TaskSketcherConstraints.cpp
+@@ -33,6 +33,7 @@
+ #include <QWidgetAction>
+ #include <boost/core/ignore_unused.hpp>
+ #include <cmath>
++#include <limits>
+ #endif
+ 
+ #include <App/Application.h>
+diff --git a/src/Mod/Sketcher/Gui/TaskSketcherElements.cpp b/src/Mod/Sketcher/Gui/TaskSketcherElements.cpp
+index 551b9fa90fb9..851826349563 100644
+--- a/src/Mod/Sketcher/Gui/TaskSketcherElements.cpp
++++ b/src/Mod/Sketcher/Gui/TaskSketcherElements.cpp
+@@ -33,6 +33,7 @@
+ #include <QString>
+ #include <QWidgetAction>
+ #include <boost/core/ignore_unused.hpp>
++#include <limits>
+ #endif
+ 
+ #include <App/Application.h>
+diff --git a/src/Mod/Sketcher/Gui/ViewProviderSketch.cpp b/src/Mod/Sketcher/Gui/ViewProviderSketch.cpp
+index 3c27a517dfec..3107c34e11a9 100644
+--- a/src/Mod/Sketcher/Gui/ViewProviderSketch.cpp
++++ b/src/Mod/Sketcher/Gui/ViewProviderSketch.cpp
+@@ -38,6 +38,8 @@
+ #include <QMessageBox>
+ #include <QScreen>
+ #include <QTextStream>
++
++#include <limits>
+ #endif
+ 
+ #include <Base/Console.h>
+
+From 8073075301f59a0b646ea3147ef0fdde4d0d0277 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:48 +0200
+Subject: [PATCH 16/21] Spreadsheet: Add `#include <limits>` where used
+
+---
+ src/Mod/Spreadsheet/Gui/PreCompiled.h      | 1 +
+ src/Mod/Spreadsheet/Gui/SheetTableView.cpp | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/src/Mod/Spreadsheet/Gui/PreCompiled.h b/src/Mod/Spreadsheet/Gui/PreCompiled.h
+index 2166289b3fac..0828f48db347 100644
+--- a/src/Mod/Spreadsheet/Gui/PreCompiled.h
++++ b/src/Mod/Spreadsheet/Gui/PreCompiled.h
+@@ -40,6 +40,7 @@
+ #include <cmath>
+ 
+ // STL
++#include <limits>
+ #include <sstream>
+ 
+ #ifdef FC_OS_WIN32
+diff --git a/src/Mod/Spreadsheet/Gui/SheetTableView.cpp b/src/Mod/Spreadsheet/Gui/SheetTableView.cpp
+index 10013b96b56f..dc8b7623c19f 100644
+--- a/src/Mod/Spreadsheet/Gui/SheetTableView.cpp
++++ b/src/Mod/Spreadsheet/Gui/SheetTableView.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <QAction>
+ #include <QApplication>
+ #include <QClipboard>
+
+From 3462c165d83deb2db382302e7edfbda83d00ca63 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:52:55 +0200
+Subject: [PATCH 17/21] Surface: Add `#include <limits>` where used
+
+---
+ src/Mod/Surface/App/FeatureExtend.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Mod/Surface/App/FeatureExtend.cpp b/src/Mod/Surface/App/FeatureExtend.cpp
+index 518a300d18f1..24c83fcc3446 100644
+--- a/src/Mod/Surface/App/FeatureExtend.cpp
++++ b/src/Mod/Surface/App/FeatureExtend.cpp
+@@ -33,6 +33,7 @@
+ #include <TopoDS.hxx>
+ #include <TopoDS_Face.hxx>
+ #include <gp_Pnt.hxx>
++#include <limits>
+ #endif
+ 
+ #include <Base/Tools.h>
+
+From d0320b494da3269ad8c7de36dd1da57ccf48b323 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:53:03 +0200
+Subject: [PATCH 18/21] TechDraw: Add `#include <limits>` where used
+
+---
+ src/Mod/TechDraw/App/DrawDimHelper.cpp            | 1 +
+ src/Mod/TechDraw/App/DrawGeomHatch.cpp            | 1 +
+ src/Mod/TechDraw/App/DrawProjGroup.cpp            | 1 +
+ src/Mod/TechDraw/App/DrawUtil.cpp                 | 1 +
+ src/Mod/TechDraw/App/DrawUtil.h                   | 1 +
+ src/Mod/TechDraw/App/DrawView.cpp                 | 1 +
+ src/Mod/TechDraw/App/DrawViewBalloon.cpp          | 1 +
+ src/Mod/TechDraw/App/DrawViewDimension.cpp        | 1 +
+ src/Mod/TechDraw/App/DrawViewSection.cpp          | 1 +
+ src/Mod/TechDraw/App/EdgeWalker.cpp               | 1 +
+ src/Mod/TechDraw/App/Geometry.cpp                 | 9 +++++----
+ src/Mod/TechDraw/App/ShapeUtils.cpp               | 1 +
+ src/Mod/TechDraw/Gui/CommandCreateDims.cpp        | 1 +
+ src/Mod/TechDraw/Gui/DimensionValidators.cpp      | 1 +
+ src/Mod/TechDraw/Gui/PreCompiled.h                | 1 +
+ src/Mod/TechDraw/Gui/QGIViewDimension.cpp         | 1 +
+ src/Mod/TechDraw/Gui/TaskDimension.cpp            | 1 +
+ src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp  | 1 +
+ src/Mod/TechDraw/Gui/Widgets/VectorEditWidget.cpp | 3 +--
+ 19 files changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/src/Mod/TechDraw/App/DrawDimHelper.cpp b/src/Mod/TechDraw/App/DrawDimHelper.cpp
+index cb445b9811fd..e691a539fed8 100644
+--- a/src/Mod/TechDraw/App/DrawDimHelper.cpp
++++ b/src/Mod/TechDraw/App/DrawDimHelper.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ # include <cstdlib>
++# include <limits>
+ # include <sstream>
+ 
+ # include <Bnd_Box.hxx>
+diff --git a/src/Mod/TechDraw/App/DrawGeomHatch.cpp b/src/Mod/TechDraw/App/DrawGeomHatch.cpp
+index 72412cf557a5..7529cb38eed2 100644
+--- a/src/Mod/TechDraw/App/DrawGeomHatch.cpp
++++ b/src/Mod/TechDraw/App/DrawGeomHatch.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ # include <iomanip>
++# include <limits>
+ # include <sstream>
+ 
+ #include <Bnd_Box.hxx>
+diff --git a/src/Mod/TechDraw/App/DrawProjGroup.cpp b/src/Mod/TechDraw/App/DrawProjGroup.cpp
+index 2b05d8ab6001..ebf21b07fd40 100644
+--- a/src/Mod/TechDraw/App/DrawProjGroup.cpp
++++ b/src/Mod/TechDraw/App/DrawProjGroup.cpp
+@@ -29,6 +29,7 @@
+ #include <gp_Dir.hxx>
+ #include <gp_Pnt.hxx>
+ #include <gp_Vec.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/TechDraw/App/DrawUtil.cpp b/src/Mod/TechDraw/App/DrawUtil.cpp
+index 5e0dfc7a1c56..b3ca7edba7f2 100644
+--- a/src/Mod/TechDraw/App/DrawUtil.cpp
++++ b/src/Mod/TechDraw/App/DrawUtil.cpp
+@@ -25,6 +25,7 @@
+ #include <cmath>
+ #include <cstdlib>
+ #include <cstring>
++#include <limits>
+ #include <sstream>
+ 
+ #include <boost_regex.hpp>
+diff --git a/src/Mod/TechDraw/App/DrawUtil.h b/src/Mod/TechDraw/App/DrawUtil.h
+index 7490e5862255..95e61017e41b 100644
+--- a/src/Mod/TechDraw/App/DrawUtil.h
++++ b/src/Mod/TechDraw/App/DrawUtil.h
+@@ -23,6 +23,7 @@
+ #ifndef DrawUtil_h_
+ #define DrawUtil_h_
+ 
++#include <limits>
+ #include <string>
+ 
+ #include <QByteArray>
+diff --git a/src/Mod/TechDraw/App/DrawView.cpp b/src/Mod/TechDraw/App/DrawView.cpp
+index 32ed36cec015..708fd2ad6594 100644
+--- a/src/Mod/TechDraw/App/DrawView.cpp
++++ b/src/Mod/TechDraw/App/DrawView.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ # include <cmath>
++# include <limits>
+ # include <sstream>
+ # include <Standard_Failure.hxx>
+ # include <Precision.hxx>
+diff --git a/src/Mod/TechDraw/App/DrawViewBalloon.cpp b/src/Mod/TechDraw/App/DrawViewBalloon.cpp
+index 8ebb50cafab1..e2dda3491b59 100644
+--- a/src/Mod/TechDraw/App/DrawViewBalloon.cpp
++++ b/src/Mod/TechDraw/App/DrawViewBalloon.cpp
+@@ -26,6 +26,7 @@
+ #include <Precision.hxx>
+ #include <cstdlib>
+ #include <cstring>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/TechDraw/App/DrawViewDimension.cpp b/src/Mod/TechDraw/App/DrawViewDimension.cpp
+index a16883c267b3..6d6faa663bc3 100644
+--- a/src/Mod/TechDraw/App/DrawViewDimension.cpp
++++ b/src/Mod/TechDraw/App/DrawViewDimension.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ 
+ #include <QLocale>
+diff --git a/src/Mod/TechDraw/App/DrawViewSection.cpp b/src/Mod/TechDraw/App/DrawViewSection.cpp
+index 0df11b27a545..b629690c5fa0 100644
+--- a/src/Mod/TechDraw/App/DrawViewSection.cpp
++++ b/src/Mod/TechDraw/App/DrawViewSection.cpp
+@@ -71,6 +71,7 @@
+ #include <gp_Dir.hxx>
+ #include <gp_Pln.hxx>
+ #include <gp_Pnt.hxx>
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+diff --git a/src/Mod/TechDraw/App/EdgeWalker.cpp b/src/Mod/TechDraw/App/EdgeWalker.cpp
+index d30f1d96075d..3d3f1f4891d7 100644
+--- a/src/Mod/TechDraw/App/EdgeWalker.cpp
++++ b/src/Mod/TechDraw/App/EdgeWalker.cpp
+@@ -29,6 +29,7 @@
+ 
+ #ifndef _PreComp_
+ # include <cmath>
++# include <limits>
+ # include <sstream>
+ # include <BRep_Tool.hxx>
+ # include <BRepBuilderAPI_MakeWire.hxx>
+diff --git a/src/Mod/TechDraw/App/Geometry.cpp b/src/Mod/TechDraw/App/Geometry.cpp
+index 6011cbea154f..3321e88f47d1 100644
+--- a/src/Mod/TechDraw/App/Geometry.cpp
++++ b/src/Mod/TechDraw/App/Geometry.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++# include <limits>
+ # include <Approx_Curve3d.hxx>
+ # include <BRep_Tool.hxx>
+ # include <BRepAdaptor_Curve.hxx>
+@@ -36,12 +37,12 @@
+ # include <BRepLib.hxx>
+ # include <BRepLProp_CLProps.hxx>
+ # include <BRepTools.hxx>
+-#include <BRepLProp_CurveTool.hxx>
++# include <BRepLProp_CurveTool.hxx>
+ # include <GC_MakeArcOfCircle.hxx>
+ # include <GC_MakeEllipse.hxx>
+-#include <GC_MakeCircle.hxx>
+-#include <Geom_TrimmedCurve.hxx>
+-#include <Geom_Circle.hxx>
++# include <GC_MakeCircle.hxx>
++# include <Geom_TrimmedCurve.hxx>
++# include <Geom_Circle.hxx>
+ 
+ # include <gce_MakeCirc.hxx>
+ # include <GCPnts_AbscissaPoint.hxx>
+diff --git a/src/Mod/TechDraw/App/ShapeUtils.cpp b/src/Mod/TechDraw/App/ShapeUtils.cpp
+index 6e5c070fe587..1a02b267da7d 100644
+--- a/src/Mod/TechDraw/App/ShapeUtils.cpp
++++ b/src/Mod/TechDraw/App/ShapeUtils.cpp
+@@ -27,6 +27,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <BRepAlgo_NormalProjection.hxx>
+ #include <BRepBndLib.hxx>
+ #include <BRepBuilderAPI_Copy.hxx>
+diff --git a/src/Mod/TechDraw/Gui/CommandCreateDims.cpp b/src/Mod/TechDraw/Gui/CommandCreateDims.cpp
+index 5c02639b3be3..983de413a236 100644
+--- a/src/Mod/TechDraw/Gui/CommandCreateDims.cpp
++++ b/src/Mod/TechDraw/Gui/CommandCreateDims.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <string>
+ #include <vector>
+ 
+diff --git a/src/Mod/TechDraw/Gui/DimensionValidators.cpp b/src/Mod/TechDraw/Gui/DimensionValidators.cpp
+index 9f24fdf16243..ab3f776c7bde 100644
+--- a/src/Mod/TechDraw/Gui/DimensionValidators.cpp
++++ b/src/Mod/TechDraw/Gui/DimensionValidators.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <BRepAdaptor_Curve.hxx>
+ #include <BRep_Tool.hxx>
+ #include <TopExp.hxx>
+diff --git a/src/Mod/TechDraw/Gui/PreCompiled.h b/src/Mod/TechDraw/Gui/PreCompiled.h
+index 5f034dad6cd5..544f0447ffaa 100644
+--- a/src/Mod/TechDraw/Gui/PreCompiled.h
++++ b/src/Mod/TechDraw/Gui/PreCompiled.h
+@@ -41,6 +41,7 @@
+ #include <cassert>
+ #include <cmath>
+ #include <iostream>
++#include <limits>
+ #include <sstream>
+ 
+ // STL
+diff --git a/src/Mod/TechDraw/Gui/QGIViewDimension.cpp b/src/Mod/TechDraw/Gui/QGIViewDimension.cpp
+index 27fdc744ed5c..baa1c20c0b79 100644
+--- a/src/Mod/TechDraw/Gui/QGIViewDimension.cpp
++++ b/src/Mod/TechDraw/Gui/QGIViewDimension.cpp
+@@ -24,6 +24,7 @@
+ 
+ #ifndef _PreComp_
+ # include <cmath>
++# include <limits>
+ 
+ # include <QApplication>
+ # include <QGraphicsRectItem>
+diff --git a/src/Mod/TechDraw/Gui/TaskDimension.cpp b/src/Mod/TechDraw/Gui/TaskDimension.cpp
+index f3794c9c9c45..6428a9e0457a 100644
+--- a/src/Mod/TechDraw/Gui/TaskDimension.cpp
++++ b/src/Mod/TechDraw/Gui/TaskDimension.cpp
+@@ -23,6 +23,7 @@
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
+ # include <cmath>
++# include <limits>
+ # include <QMessageBox>
+ #endif // #ifndef _PreComp_
+ 
+diff --git a/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp b/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp
+index 311e885f5dc5..f90ee88df034 100644
+--- a/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp
++++ b/src/Mod/TechDraw/Gui/ViewProviderDrawingView.cpp
+@@ -24,6 +24,7 @@
+ #include "PreCompiled.h"
+ 
+ #ifndef _PreComp_
++#include <limits>
+ #include <boost/signals2.hpp>
+ #include <boost/signals2/connection.hpp>
+ #endif
+diff --git a/src/Mod/TechDraw/Gui/Widgets/VectorEditWidget.cpp b/src/Mod/TechDraw/Gui/Widgets/VectorEditWidget.cpp
+index 7b30cf89de82..3f1086883daa 100644
+--- a/src/Mod/TechDraw/Gui/Widgets/VectorEditWidget.cpp
++++ b/src/Mod/TechDraw/Gui/Widgets/VectorEditWidget.cpp
+@@ -24,6 +24,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <QApplication>
+ #include <QLabel>
+ #include <QObject>
+@@ -40,8 +41,6 @@
+ 
+ #include <Mod/TechDraw/TechDrawGlobal.h>
+ 
+-#include <limits>
+-
+ #include <Base/Console.h>
+ #include <Base/UnitsApi.h>
+ 
+
+From d61dcb2e6d34818186092f6467c5c365e84ce3f3 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:53:10 +0200
+Subject: [PATCH 19/21] Web: Add `#include <limits>` where used
+
+---
+ src/Mod/Web/App/AppWeb.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Mod/Web/App/AppWeb.cpp b/src/Mod/Web/App/AppWeb.cpp
+index 54b2a9ebbce2..b5a298ff7510 100644
+--- a/src/Mod/Web/App/AppWeb.cpp
++++ b/src/Mod/Web/App/AppWeb.cpp
+@@ -22,6 +22,7 @@
+ 
+ #include "PreCompiled.h"
+ #ifndef _PreComp_
++#include <limits>
+ #include <sstream>
+ #endif
+ 
+
+From c97ce5b5e9c42455f10de31f865f5cad78fee09c Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Mon, 31 Mar 2025 23:53:16 +0200
+Subject: [PATCH 20/21] Tools: Add `#include <limits>` where used
+
+---
+ src/Tools/plugins/widget/customwidgets.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Tools/plugins/widget/customwidgets.cpp b/src/Tools/plugins/widget/customwidgets.cpp
+index b5e5dec404c7..9444ae48b4bf 100644
+--- a/src/Tools/plugins/widget/customwidgets.cpp
++++ b/src/Tools/plugins/widget/customwidgets.cpp
+@@ -20,6 +20,7 @@
+  *                                                                         *
+  ***************************************************************************/
+ 
++#include <limits>
+ 
+ #include <QApplication>
+ #include <QColorDialog>
+
+From bad0daf9dc346e9d59c0cf715afc1b67cd9d86d4 Mon Sep 17 00:00:00 2001
+From: Benjamin Nauck <benjamin@nauck.se>
+Date: Tue, 1 Apr 2025 08:02:42 +0200
+Subject: [PATCH 21/21] Refactor mapToInt/mapToUint
+
+---
+ src/Gui/SpinBox.cpp                        | 38 +++++++++++---------
+ src/Tools/plugins/widget/customwidgets.cpp | 40 ++++++++++++----------
+ 2 files changed, 44 insertions(+), 34 deletions(-)
+
+diff --git a/src/Gui/SpinBox.cpp b/src/Gui/SpinBox.cpp
+index d25b0a201cf7..bc26dc7658b3 100644
+--- a/src/Gui/SpinBox.cpp
++++ b/src/Gui/SpinBox.cpp
+@@ -292,34 +292,40 @@ class UIntSpinBoxPrivate
+     UnsignedValidator * mValidator{nullptr};
+ 
+     UIntSpinBoxPrivate() = default;
+-    uint mapToUInt( int v ) const
++    unsigned mapToUInt( int v ) const
+     {
+-        uint ui;
+-        if ( v == std::numeric_limits<int>::min() ) {
++        using int_limits = std::numeric_limits<int>;
++        using uint_limits = std::numeric_limits<unsigned>;
++
++        unsigned ui;
++        if ( v == int_limits::min() ) {
+             ui = 0;
+-        } else if ( v == std::numeric_limits<int>::max() ) {
+-            ui = std::numeric_limits<unsigned>::max();
++        } else if ( v == int_limits::max() ) {
++            ui = uint_limits::max();
+         } else if ( v < 0 ) {
+-            v -= std::numeric_limits<int>::min();
+-            ui = static_cast<uint>(v);
++            v -= int_limits::min();
++            ui = static_cast<unsigned>(v);
+         } else {
+-            ui = static_cast<uint>(v);
+-            ui -= std::numeric_limits<int>::min();
++            ui = static_cast<unsigned>(v);
++            ui -= int_limits::min();
+         } return ui;
+     }
+-    int mapToInt( uint v ) const
++    int mapToInt( unsigned v ) const
+     {
++        using int_limits = std::numeric_limits<int>;
++        using uint_limits = std::numeric_limits<unsigned>;
++
+         int in;
+-        if ( v == std::numeric_limits<unsigned>::max() ) {
+-            in = std::numeric_limits<int>::max();
++        if ( v == uint_limits::max() ) {
++            in = int_limits::max();
+         } else if ( v == 0 ) {
+-            in = std::numeric_limits<int>::min();
+-        } else if ( v > std::numeric_limits<int>::max() ) {
+-            v += std::numeric_limits<int>::min();
++            in = int_limits::min();
++        } else if ( v > int_limits::max() ) {
++            v += int_limits::min();
+             in = static_cast<int>(v);
+         } else {
+             in = v;
+-            in += std::numeric_limits<int>::min();
++            in += int_limits::min();
+         } return in;
+     }
+ };
+diff --git a/src/Tools/plugins/widget/customwidgets.cpp b/src/Tools/plugins/widget/customwidgets.cpp
+index 9444ae48b4bf..79836644b22f 100644
+--- a/src/Tools/plugins/widget/customwidgets.cpp
++++ b/src/Tools/plugins/widget/customwidgets.cpp
+@@ -1520,43 +1520,47 @@ class UIntSpinBoxPrivate
+     UIntSpinBoxPrivate()
+         : mValidator(0)
+     {}
+-    uint mapToUInt(int v) const
++    unsigned mapToUInt(int v) const
+     {
+-        using limits = std::numeric_limits;
+-        uint ui;
+-        if (v == limits<int>::min()) {
++        using int_limits = std::numeric_limits<int>;
++        using uint_limits = std::numeric_limits<unsigned>;
++
++        unsigned ui;
++        if (v == int_limits::min()) {
+             ui = 0;
+         }
+-        else if (v == limits<int>::max()) {
+-            ui = limits<uint>::max();
++        else if (v == int_limits::max()) {
++            ui = uint_limits::max();
+         }
+         else if (v < 0) {
+-            v -= limits<int>::min();
+-            ui = static_cast<uint>(v);
++            v -= int_limits::min();
++            ui = static_cast<unsigned>(v);
+         }
+         else {
+-            ui = static_cast<uint>(v);
+-            ui -= limits<int>::min();
++            ui = static_cast<unsigned>(v);
++            ui -= int_limits::min();
+         }
+         return ui;
+     }
+-    int mapToInt(uint v) const
++    int mapToInt(unsigned v) const
+     {
+-        using limits = std::numeric_limits;
++        using int_limits = std::numeric_limits<int>;
++        using uint_limits = std::numeric_limits<unsigned>;
++
+         int in;
+-        if (v == limits<uint>::max()) {
+-            in = limits<int>::max();
++        if (v == uint_limits::max()) {
++            in = int_limits::max();
+         }
+         else if (v == 0) {
+-            in = limits<int>::min();
++            in = int_limits::min();
+         }
+-        else if (v > limits<int>::max()) {
+-            v += limits<int>::min();
++        else if (v > int_limits::max()) {
++            v += int_limits::min();
+             in = static_cast<int>(v);
+         }
+         else {
+             in = v;
+-            in += limits<int>::min();
++            in += int_limits::min();
+         }
+         return in;
+     }
