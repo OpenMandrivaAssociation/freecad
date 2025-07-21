@@ -200,7 +200,7 @@ platforms.
 %prep
 %autosetup -p1 -n %{sname}-%{version}
 cd %{_builddir}/%{sname}-%{version}/src/3rdParty/GSL
-gtar -xvf  %{_topdir}/GSL-4.2.0.tar.gz --strip=1 
+gtar -xvf  %{_sourcedir}/GSL-4.2.0.tar.gz --strip=1 
 
 
 # remove 3rd party
