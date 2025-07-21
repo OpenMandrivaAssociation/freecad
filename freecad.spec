@@ -50,7 +50,7 @@ Patch6:		fix_deprecated_vtk_function.patch
 
 BuildRequires: 	cmake
 BuildRequires: 	ninja
-#BuildRequires:	dos2unix
+BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	swig
