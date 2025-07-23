@@ -221,7 +221,7 @@ rm -rf src/zipios++
 %build
 export CMAKE_GENERATOR=Ninja 
 %cmake -Wno-dev \
-	-DBUILD_ENABLE_CXX_STD:STRING="C++17" \
+	-DBUILD_ENABLE_CXX_STD:STRING="C++20" \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	-DCMAKE_INSTALL_BINDIR=bin \
 	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
