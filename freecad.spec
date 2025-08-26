@@ -44,7 +44,7 @@ Patch3:		freecad-0.19.2-coin_doc.patch
 Patch4:		freecad-1.0.0-unbundled-pycxx.patch
 Patch5:		fix_vtk_include_path.patch
 Patch6:		fix_deprecated_vtk_function.patch
-Patch5:		boost-1.89.patch
+Patch7:		boost-1.89.patch
 # Patch5: 	freecad_limits.patch
 # PATCH-FIX-UPSTREAM
 #Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
