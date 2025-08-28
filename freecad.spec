@@ -25,7 +25,7 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	1.0.1
+Version:	1.0.2
 Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
@@ -43,7 +43,7 @@ Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch4:		freecad-1.0.0-unbundled-pycxx.patch
 Patch5:		fix_vtk_include_path.patch
-Patch6:		fix_deprecated_vtk_function.patch
+#Patch6:		fix_deprecated_vtk_function.patch
 # Patch5: 	freecad_limits.patch
 # PATCH-FIX-UPSTREAM
 #Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
@@ -221,7 +221,7 @@ rm -rf src/zipios++
 %build
 export CMAKE_GENERATOR=Ninja 
 %cmake -Wno-dev \
-	-DBUILD_ENABLE_CXX_STD:STRING="C++17" \
+	-DBUILD_ENABLE_CXX_STD:STRING="C++20" \
 	-DCMAKE_INSTALL_PREFIX=%{_libdir}/%{name} \
 	-DCMAKE_INSTALL_BINDIR=bin \
 	-DCMAKE_INSTALL_DATADIR=%{_datadir}/%{name} \
