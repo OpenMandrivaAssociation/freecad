@@ -126,8 +126,8 @@ BuildRequires:	pkgconfig(OndselSolver)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python3)
 %if %{with shiboken}
-BuildRequires:	pkgconfig(pyside6)
-BuildRequires:	pkgconfig(shiboken6)
+BuildRequires:	cmake(pyside6)
+BuildRequires:	cmake(shiboken6)
 %endif
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(sqlite3)
