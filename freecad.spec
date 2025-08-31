@@ -140,6 +140,7 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python%{pyver}dist(pivy)
+Buildrequires:	pyside6-devel
 
 %if %{with pycxx}
 BuildRequires:	python%{pyver}dist(cxx)
