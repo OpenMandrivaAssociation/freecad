@@ -1,0 +1,22 @@
+diff --git a/src/Gui/PythonWrapper.cpp b/src/Gui/PythonWrapper.cpp
+index efaa09d..28d29da 100644
+--- a/src/Gui/PythonWrapper.cpp
++++ b/src/Gui/PythonWrapper.cpp
+@@ -80,7 +80,7 @@
+ // compiling together with std::bitset (https://bugreports.qt.io/browse/QTBUG-72073)
+ 
+ // Include shiboken first to get the version
+-#  include <shiboken.h>
++  include <shiboken.h>
+ 
+ // Do not use SHIBOKEN_MICRO_VERSION; it might contain a dot
+ #  define SHIBOKEN_FULL_VERSION QT_VERSION_CHECK(SHIBOKEN_MAJOR_VERSION, SHIBOKEN_MINOR_VERSION, 0)
+@@ -128,7 +128,7 @@
+ #endif // HAVE_SHIBOKEN
+ 
+ #ifdef HAVE_PYSIDE
+-# include <signalmanager.h>
++# include <PySide6/signalmanager.h>
+ #endif // HAVE_PYSIDE
+ 
+ //-----------------------------------------------------------------------------

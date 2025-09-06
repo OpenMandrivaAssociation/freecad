@@ -48,7 +48,7 @@ Patch7:		boost-1.89.patch
 # Patch5: 	freecad_limits.patch
 # PATCH-FIX-UPSTREAM
 #Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
-
+Patch8:		fix_pyside6_include.patch
 BuildRequires: 	cmake
 BuildRequires: 	ninja
 BuildRequires:	desktop-file-utils
