@@ -26,7 +26,7 @@
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
 Version:	1.0.2
-Release:	1
+Release:	2
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -140,7 +140,7 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python%{pyver}dist(pivy)
-Buildrequires:	pyside6-devel
+BuildRequires:	pyside6-devel
 
 %if %{with pycxx}
 BuildRequires:	python%{pyver}dist(cxx)
@@ -160,7 +160,7 @@ Requires:	python%{pyver}dist(matplotlib)
 Requires:	python%{pyver}dist(six)
 %if %{with shiboken}
 Requires:	pyside6
-#Requires:	python%{pyver}dist(shiboken6)
+#Requires:	python%%{pyver}dist(shiboken6)
 %endif
 #Requires:	openscad
 Requires:	qt6-qttools-assistant
