@@ -14,7 +14,7 @@
 %bcond addonmgr		1
 %bcond e57format	1
 %bcond netgen		0
-%bcond ondselsolver	1
+%bcond ondselsolver	0
 %bcond pybind11		1
 %bcond pycxx		1
 %bcond shiboken		1
@@ -25,8 +25,8 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	1.0.1
-Release:	3
+Version:	1.1~rc2^1git8175e0633fd
+Release:	2
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
@@ -36,15 +36,15 @@ Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
 Source4:	GSL-4.2.0.tar.gz
 
-Patch0:		freecad-0.19.2-zipios++.patch
-Patch1:		freecad-0.14-Version_h.patch
-Patch2:		freecad-0.21.0-GL-linkage.patch
-Patch3:		freecad-0.19.2-coin_doc.patch
+#Patch0:		freecad-0.19.2-zipios++.patch
+#Patch1:		freecad-0.14-Version_h.patch
+#Patch2:		freecad-0.21.0-GL-linkage.patch
+#Patch3:		freecad-0.19.2-coin_doc.patch
 # (fedora)
 Patch4:		freecad-1.0.0-unbundled-pycxx.patch
-Patch5:		fix_vtk_include_path.patch
-Patch6:		fix_deprecated_vtk_function.patch
-Patch7:		boost-1.89.patch
+#Patch5:		fix_vtk_include_path.patch
+#Patch6:		fix_deprecated_vtk_function.patch
+#Patch7:		boost-1.89.patch
 # Patch5: 	freecad_limits.patch
 # PATCH-FIX-UPSTREAM
 #Patch50:        https://github.com/Ondsel-Development/OndselSolver/commit/2e3659c4bce3e6885269e0cb3d640261b2a91108.patch#/ondselsolver_fix_gcc_75_filesystem.patch
@@ -192,6 +192,7 @@ platforms.
 %{_libdir}/%{name}/lib/
 %{_libdir}/%{name}/Mod/
 %{_libdir}/%{name}/Ext/
+%{_includedir}/OndselSolver/*.h
 %{_datadir}/%{name}/
 %{py_puresitedir}/%{name}
 %{_mandir}/man1/*.1*
@@ -234,7 +235,8 @@ export CMAKE_GENERATOR=Ninja
 	-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_QT_VERSION=6 \
-	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
+	-DONDSELSOLVER_BUILD_EXE=TRUE \
+ 	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
 	-DFREECAD_USE_EXTERNAL_ONDSELSOLVER=%{?with_ondselsolver:ON}%{!?with_ondselsolver:OFF} \
 	-DFREECAD_USE_PYBIND11:BOOL=%{?with_pybind11:ON}%{!?with_pybind11:OFF} \
 	-DENABLE_DEVELOPER_TESTS:BOOL=OFF \
