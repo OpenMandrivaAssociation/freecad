@@ -120,9 +120,6 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(liblz4)
 BuildRequires: 	pkgconfig(liblzma)
 BuildRequires: 	pkgconfig(libtiff-4)
-%if %{with ondselsolver}
-BuildRequires:	pkgconfig(OndselSolver)
-%endif
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python3)
 %if %{with shiboken}
@@ -140,7 +137,6 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python%{pyver}dist(pivy)
-
 %if %{with pycxx}
 BuildRequires:	python%{pyver}dist(cxx)
 BuildRequires:	python-cxx-devel
@@ -192,7 +188,7 @@ platforms.
 %{_libdir}/%{name}/lib/
 %{_libdir}/%{name}/Mod/
 %{_libdir}/%{name}/Ext/
-%{_includedir}/OndselSolver/*.h
+#%%{_includedir}/OndselSolver/*.h
 %{_datadir}/%{name}/
 %{py_puresitedir}/%{name}
 %{_mandir}/man1/*.1*
@@ -297,6 +293,6 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
 
 # remove unwanted stuff
 #rm -r %{buildroot}%{_libdir}/%{name}/include
-#rm -r %{buildroot}%{_libdir}/%{name}/share/pkgconfig
-#rm -r %{buildroot}%{_includedir}/OndselSolver
+rm -r %{buildroot}%{_libdir}/%{name}/share/pkgconfig
+rm -r %{buildroot}%{_includedir}/OndselSolver
 
