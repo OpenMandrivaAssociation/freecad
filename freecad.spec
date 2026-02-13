@@ -232,6 +232,7 @@ export CMAKE_GENERATOR=Ninja
 	-DRESOURCEDIR=%{_datadir}/freecad \
 	-DFREECAD_QT_VERSION=6 \
 	-DONDSELSOLVER_BUILD_EXE=TRUE \
+	-DONDSELSOLVER_BUILD_EXE=TRUE \
  	-DFREECAD_USE_EXTERNAL_ZIPIOS:BOOL=%{?with_zipios:ON}%{!?with_zipios:OFF} \
 	-DFREECAD_USE_EXTERNAL_ONDSELSOLVER=%{?with_ondselsolver:ON}%{!?with_ondselsolver:OFF} \
 	-DFREECAD_USE_PYBIND11:BOOL=%{?with_pybind11:ON}%{!?with_pybind11:OFF} \
