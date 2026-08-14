@@ -1,2 +1,2 @@
-addFilter("E: invalid-soname.*")
-addFilter("E: incoherent-version-in-name.*")
+# Filters for binary RPMs; unused on the SRPM check so keep this file empty
+# of filters that only apply after files are packaged.
