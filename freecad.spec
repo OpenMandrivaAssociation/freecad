@@ -34,7 +34,6 @@ Source0:        https://github.com/FreeCAD/FreeCAD/releases/tag/%{version}/%{sna
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
-Source4:	GSL-4.2.0.tar.gz
 
 #Patch0:		freecad-0.19.2-zipios++.patch
 #Patch1:		freecad-0.14-Version_h.patch
@@ -55,8 +54,8 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	swig
-BuildRequires:	gnutar
 BuildRequires:	boost-devel
+BuildRequires:	cmake(Microsoft.GSL)
 BuildRequires:	coin-doc
 BuildRequires:	cmake(coin)
 BuildRequires:	cmake(double-conversion)
@@ -197,9 +196,6 @@ platforms.
 
 %prep
 %autosetup -p1 -n %{sname}-%{version}
-cd %{_builddir}/%{sname}-%{version}/src/3rdParty/GSL
-gtar -xvf %{SOURCE4} --strip=1 
-
 
 # remove 3rd party
 #rm -rf src/3rdParty
