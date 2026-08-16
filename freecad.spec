@@ -25,12 +25,12 @@
 
 Summary:	FreeCAD is a general purpose 3D CAD modeler
 Name:		%{name}
-Version:	1.1~rc2^1git8175e0633fd
-Release:	5
+Version:	1.1.3
+Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:        https://github.com/FreeCAD/FreeCAD/releases/tag/%{version}/%{sname}-%{version}.tar.gz
+Source0:	https://github.com/FreeCAD/FreeCAD/archive/refs/tags/%{version}.tar.gz#/%{sname}-%{version}.tar.gz
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
