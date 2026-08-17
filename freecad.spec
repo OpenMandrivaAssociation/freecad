@@ -30,7 +30,9 @@ Release:	1
 License:	GPL and LGPL
 Group: 		Graphics
 Url:		https://freecadweb.org
-Source0:	https://github.com/FreeCAD/FreeCAD/archive/refs/tags/%{version}.tar.gz#/%{sname}-%{version}.tar.gz
+# GitHub tag archives omit submodules (OndselSolver, AddonManager).
+# The official release tarball includes them.
+Source0:	https://github.com/FreeCAD/FreeCAD/releases/download/%{version}/freecad_source_%{version}.tar.gz
 Source1:	freecad.desktop
 Source2: 	freecad.1
 Source3:	%{name}.rpmlintrc
@@ -195,7 +197,8 @@ platforms.
 #---------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{sname}-%{version}
+# official source tarball has no top-level directory
+%autosetup -p1 -c -n %{sname}-%{version}
 
 # remove 3rd party
 #rm -rf src/3rdParty
