@@ -1,4 +1,6 @@
-#define _disable_lto 1
+# LTO + full -j OOMs znver1 (SIGKILL 137 in FreeCADGui).
+%global _lto_cflags %{nil}
+%global _smp_ncpus_max 2
 
 %define sname FreeCAD
 %define name %(echo %sname | tr [:upper:] [:lower:])
